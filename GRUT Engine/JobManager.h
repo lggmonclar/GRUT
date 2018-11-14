@@ -17,7 +17,7 @@ namespace GRUT {
 		SpinLock m_fetchJobSpinLock;
 		SpinLock m_launchThreadsSpinLock;
 		std::vector<std::thread> m_threads;
-		std::vector<std::unique_ptr<Fiber::Data>> m_fibers;
+		std::vector<Fiber::Data> m_fibers;
 		std::queue<Job::Declaration> m_criticalPJobs;
 		std::queue<Job::Declaration> m_highPJobs;
 		std::queue<Job::Declaration> m_normalPJobs;

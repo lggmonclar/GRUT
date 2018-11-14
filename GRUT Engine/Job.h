@@ -36,6 +36,8 @@ namespace GRUT {
 
 				old.m_entryPoint = nullptr;
 				old.m_counter = nullptr;
+
+				return *this;
 			}
 			Declaration(const Declaration&) = delete;
 			Declaration& operator=(Declaration const&) = delete;

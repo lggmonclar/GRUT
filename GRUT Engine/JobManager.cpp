@@ -12,15 +12,15 @@ namespace GRUT {
 			m_threads.push_back(std::thread([=] {
 				m_launchThreadsSpinLock.Acquire();
 				{
-					SetThreadAffinityMask(GetCurrentThread(), 1 << i);
-					std::unique_ptr<Fiber::Data> baseFiberData(std::make_unique<Fiber::Data>());
-					baseFiberData->m_fiberAddr = ConvertThreadToFiber(nullptr);
+					SetThreadAffinityMask(GetCurrentThread(), 1i64 << i);
+					Fiber::Data baseFiberData;
+					baseFiberData.m_fiberAddr = ConvertThreadToFiber(nullptr);
 					m_fibers.push_back(std::move(baseFiberData));
-					Fiber::WaitForJob(*baseFiberData);
+					Fiber::WaitForJob(baseFiberData);
 
 					for (unsigned j = 0; j < FIBER_COUNT_PER_THREAD; ++j) {
-						std::unique_ptr<Fiber::Data> fData(std::make_unique<Fiber::Data>());
-						fData->m_fiberAddr = CreateFiber(0, &Fiber::WaitForJob, *fData);
+						Fiber::Data fData;
+						fData.m_fiberAddr = CreateFiber(0, &Fiber::WaitForJob, fData);
 						m_fibers.push_back(std::move(fData));
 					}
 				}
