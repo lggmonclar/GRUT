@@ -9,7 +9,7 @@ namespace GRUT {
 	const void JobManager::LaunchThreads() {
 		unsigned coresAvailable = std::thread::hardware_concurrency();
 		for (unsigned i = 0; i < coresAvailable; ++i) {
-			m_threads.push_back(std::thread([&, i] {
+			m_threads.push_back(std::thread([=] {
 				m_launchThreadsSpinLock.Acquire();
 				{
 					SetThreadAffinityMask(GetCurrentThread(), 1 << i);

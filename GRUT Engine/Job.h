@@ -17,8 +17,26 @@ namespace GRUT {
 		struct Declaration {
 		public:
 			Declaration() = default;
-			Declaration(Declaration &&old) = default;
-			Declaration& operator=(Declaration const&&) { return *this; };
+			Declaration(Declaration &&old) : 
+				m_entryPoint(old.m_entryPoint), m_param(old.m_param),
+				m_priority(m_priority), m_counter(old.m_counter) 
+			{	
+				if (this != &old) {
+					old.m_entryPoint = nullptr;
+					old.m_counter = nullptr;
+				}
+			}
+			Declaration& operator=(Declaration &&old) { 
+				if (this == &old) return *this;
+
+				m_entryPoint = old.m_entryPoint;
+				m_param = old.m_param;
+				m_priority = old.m_priority;
+				m_counter = old.m_counter;
+
+				old.m_entryPoint = nullptr;
+				old.m_counter = nullptr;
+			}
 			Declaration(const Declaration&) = delete;
 			Declaration& operator=(Declaration const&) = delete;
 
