@@ -6,13 +6,16 @@
 #include <optional>
 #include "Singleton.h"
 #include "Fiber.h"
+#include "SpinLock.h"
 
-#define FIBER_COUNT_PER_THREAD 8
+constexpr unsigned FIBER_COUNT_PER_THREAD = 8;
 
 namespace GRUT {
 	class JobManager {
 		friend class Singleton<JobManager>; 
 	private:
+		SpinLock m_fetchJobSpinLock;
+		SpinLock m_launchThreadsSpinLock;
 		std::vector<std::thread> m_threads;
 		std::vector<std::unique_ptr<Fiber::Data>> m_fibers;
 		std::queue<Job::Declaration> m_criticalPJobs;
@@ -24,7 +27,8 @@ namespace GRUT {
 		~JobManager();
 	public:
 		std::optional<Job::Declaration> FetchJob(Job::Priority p_priority = Job::Priority::LOW);
-		void KickJob(const Job::Declaration& decl);
+		void KickJob(Job::Declaration &&p_jobDecl);
+
 		void KickJobs(int count, const Job::Declaration aDecl[]);
 		void WaitForCounter(Job::Counter* pCounter);
 		void KickJobAndWait(const Job::Declaration& decl);

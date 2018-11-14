@@ -10,7 +10,7 @@ namespace GRUT {
 		Singleton(Singleton const &) = delete;
 		Singleton& operator=(Singleton const &) = delete;
 		static T& Instance() {
-			static T instance;
+			static T instance{};
 			return instance;
 		}
 	};

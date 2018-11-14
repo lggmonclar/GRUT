@@ -36,6 +36,9 @@
     <ClInclude Include="Fiber.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SpinLock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Root.cpp">

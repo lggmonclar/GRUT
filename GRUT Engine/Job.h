@@ -4,7 +4,7 @@
 
 namespace GRUT {
 	namespace Job {
-		typedef void EntryPoint(uintptr_t param);
+		using EntryPoint = void(uintptr_t param);
 
 		enum class Priority {
 			LOW, NORMAL, HIGH, CRITICAL
@@ -15,9 +15,14 @@ namespace GRUT {
 		};
 
 		struct Declaration {
-		private:
 		public:
-			EntryPoint* m_entryPoint = nullptr;
+			Declaration() = default;
+			Declaration(Declaration &&old) = default;
+			Declaration& operator=(Declaration const&&) { return *this; };
+			Declaration(const Declaration&) = delete;
+			Declaration& operator=(Declaration const&) = delete;
+
+			EntryPoint* m_entryPoint;
 			uintptr_t	m_param;
 			Priority	m_priority;
 			Counter*	m_counter;

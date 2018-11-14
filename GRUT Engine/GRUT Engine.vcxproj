@@ -123,6 +123,7 @@
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Root.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="SpinLock.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Fiber.cpp" />

@@ -1,7 +1,6 @@
 #pragma once
 #include <windows.h>
 #include <iostream>
-#include "Singleton.h"
 #include "Job.h"
 
 

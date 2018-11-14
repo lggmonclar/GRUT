@@ -1,4 +1,8 @@
 #include "Root.h"
+#include "Singleton.h"
+#include "MemoryManager.h"
+#include "JobManager.h"
+#include <thread>
 
 namespace GRUT {
 	void test1(uintptr_t params);
@@ -6,22 +10,24 @@ namespace GRUT {
 	void test3(uintptr_t params);
 	void test4(uintptr_t params);
 
+
 	Root::Root() {
 		Singleton<MemoryManager>::Instance();
 		Singleton<JobManager>::Instance();
 
 		Job::Declaration d1;
-		d1.m_entryPoint = test1;
 		Job::Declaration d2;
-		d2.m_entryPoint = test2;
 		Job::Declaration d3;
-		d3.m_entryPoint = test3;
 		Job::Declaration d4;
+
+		d1.m_entryPoint = test1;
+		d2.m_entryPoint = test2;
+		d3.m_entryPoint = test3;
 		d4.m_entryPoint = test4;
-		Singleton<JobManager>::Instance().KickJob(d1);
-		Singleton<JobManager>::Instance().KickJob(d2);
-		Singleton<JobManager>::Instance().KickJob(d3);
-		Singleton<JobManager>::Instance().KickJob(d4);
+		Singleton<JobManager>::Instance().KickJob(std::move(d1));
+		Singleton<JobManager>::Instance().KickJob(std::move(d2));
+		Singleton<JobManager>::Instance().KickJob(std::move(d3));
+		Singleton<JobManager>::Instance().KickJob(std::move(d4));
 	}
 
 	const void Root::RunGameLoop() {
