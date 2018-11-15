@@ -1,6 +1,8 @@
 #pragma once
+#include <iostream>
 #include <thread>
 #include <atomic>
+#include <assert.h>
 
 //Source: Game Engine Architecture 3rd Edition, Pg. 319
 class SpinLock {

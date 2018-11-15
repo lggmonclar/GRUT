@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Singleton.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Root.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -31,9 +28,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="JobManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Fiber.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SpinLock.h">
@@ -53,7 +47,7 @@
     <ClCompile Include="JobManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Fiber.cpp">
+    <ClCompile Include="Job.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

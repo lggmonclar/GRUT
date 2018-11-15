@@ -86,6 +86,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -117,17 +118,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Fiber.h" />
     <ClInclude Include="Job.h" />
     <ClInclude Include="JobManager.h" />
     <ClInclude Include="MemoryManager.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Root.h" />
-    <ClInclude Include="Singleton.h" />
     <ClInclude Include="SpinLock.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Fiber.cpp" />
+    <ClCompile Include="Job.cpp" />
     <ClCompile Include="JobManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MemoryManager.cpp" />

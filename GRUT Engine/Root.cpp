@@ -1,33 +1,44 @@
 #include "Root.h"
-#include "Singleton.h"
 #include "MemoryManager.h"
 #include "JobManager.h"
+#include "Job.h"
 #include <thread>
 
 namespace GRUT {
-	void test1(uintptr_t params);
-	void test2(uintptr_t params);
-	void test3(uintptr_t params);
-	void test4(uintptr_t params);
-
+	int i = 0;
 
 	Root::Root() {
-		Singleton<MemoryManager>::Instance();
-		Singleton<JobManager>::Instance();
+		JobManager::Instance();
 
-		Job::Declaration d1;
-		Job::Declaration d2;
-		Job::Declaration d3;
-		Job::Declaration d4;
+		auto func = [&](int group) {
+			auto j1 = JobManager::Instance().KickJob(Job([=](std::shared_ptr<Job> p) {
+				std::cout << "X" << group << "\n";
+			}, ++i));
+			auto j2 = JobManager::Instance().KickJob(Job([=](std::shared_ptr<Job> p) {
+				p->WaitForJob(j1);
+				std::cout << "Y" << group << "\n";
+			}, ++i));
+			auto j3 = JobManager::Instance().KickJob(Job([=](std::shared_ptr<Job> p) {
+				p->WaitForJob(j2);
+				std::cout << "Z" << group << "\n";
+			}, ++i));
+			auto j4 = JobManager::Instance().KickJob(Job([=](std::shared_ptr<Job> p) {
+				p->WaitForJob(j3);
+				std::cout << "W" << group << "\n";
+			}, ++i));
+			auto j5 = JobManager::Instance().KickJob(Job([=](std::shared_ptr<Job> p) {
+				p->WaitForJobs({ j1, j2, j3, j4 });
+				std::cout << "ALL" << group << "\n";
+			}, ++i));
+		};
 
-		d1.m_entryPoint = test1;
-		d2.m_entryPoint = test2;
-		d3.m_entryPoint = test3;
-		d4.m_entryPoint = test4;
-		Singleton<JobManager>::Instance().KickJob(std::move(d1));
-		Singleton<JobManager>::Instance().KickJob(std::move(d2));
-		Singleton<JobManager>::Instance().KickJob(std::move(d3));
-		Singleton<JobManager>::Instance().KickJob(std::move(d4));
+		//JobManager::Instance().KickJob(Declaration(func, ++i));
+		func(1);
+		func(2);
+		func(3);
+		func(4);
+		func(5);
+
 	}
 
 	const void Root::RunGameLoop() {
@@ -37,18 +48,5 @@ namespace GRUT {
 	}
 
 	Root::~Root() {
-	}
-
-	void test1(uintptr_t params) {
-		std::cout << "TEST1!" << std::endl;
-	}
-	void test2(uintptr_t params) {
-		std::cout << "TWO!" << std::endl;
-	}
-	void test3(uintptr_t params) {
-		std::cout << "3!" << std::endl;
-	}
-	void test4(uintptr_t params) {
-		std::cout << "FAWH!" << std::endl;
 	}
 }

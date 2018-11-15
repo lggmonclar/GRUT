@@ -1,9 +1,7 @@
-#pragma once
-#include "Singleton.h"
+#pragma once]
 
 namespace GRUT {
 	class ResourceManager {
-		friend class Singleton<ResourceManager>;	
 	private:
 	};
 }
