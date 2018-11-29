@@ -189,6 +189,6 @@ namespace GRUT {
 			m_waitList.erase(p_job);
 		}
 
-		YieldFiber(false);
+		YieldFiber();
 	}
 }

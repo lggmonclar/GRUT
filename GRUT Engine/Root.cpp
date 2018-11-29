@@ -33,11 +33,10 @@ namespace GRUT {
 		};
 
 		//JobManager::Instance().KickJob(Declaration(func, ++i));
-		func(1);
-		func(2);
-		func(3);
-		func(4);
-		func(5);
+		for (int j = 0; j < 10000; j++) {
+			func(j);
+			std::this_thread::sleep_for(std::chrono::seconds(1));
+		}
 
 	}
 

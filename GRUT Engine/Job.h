@@ -8,7 +8,7 @@ namespace GRUT {
 		LOW, NORMAL, HIGH, CRITICAL
 	};
 
-	struct Job {
+	class Job {
 		friend class JobManager;
 	private:
 		int														m_id = -1;
