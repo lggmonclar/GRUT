@@ -10,11 +10,11 @@ namespace GRUT {
 		unsigned coresAvailable = std::thread::hardware_concurrency();
 
 		for (unsigned j = 0; j < FIBER_COUNT_PER_THREAD * coresAvailable; ++j) {
-			m_fibers.push_back(CreateFiber(0, &FiberEntryPoint, nullptr));
+			m_fibers.emplace_back(CreateFiber(0, &FiberEntryPoint, nullptr));
 		}
 
 		for (unsigned i = 0; i < coresAvailable; ++i) {
-			m_threads.push_back(std::thread([=] {
+			m_threads.emplace_back(std::thread([=] {
 				SetThreadAffinityMask(GetCurrentThread(), 1i64 << i);
 				m_threadHasSwitchSL[std::this_thread::get_id()] = false;
 				ConvertThreadToFiber(nullptr);
@@ -66,8 +66,7 @@ namespace GRUT {
 		auto nextFiber = m_fibers[0];
 		m_fibers.pop_front();
 		if (p_insertSelfIntoList) {
-			auto currFiber = GetCurrentFiber();
-			m_fibers.push_back(currFiber);
+			m_fibers.emplace_back(GetCurrentFiber());
 		}
 		SwitchToFiber(nextFiber);
 		UnlockFiberSwitchLock();
@@ -121,7 +120,7 @@ namespace GRUT {
 		return ref;
 	}
 
-	void JobManager::PlaceFiberOnWaitList(const std::weak_ptr<Job> &p_jobToWaitOnWeakPtr, Job *p_waiterJob) {
+	void JobManager::PlaceFiberOnWaitList(const std::weak_ptr<Job> &p_jobToWaitOnWeakPtr, Job * const p_waiterJob) {
 		LockFiberSwitchLock();
 
 		auto jobToWaitOn = p_jobToWaitOnWeakPtr.lock();
@@ -134,7 +133,7 @@ namespace GRUT {
 
 		auto search = m_waitList.find(jobToWaitOn.get());
 		if (search != m_waitList.end()) {
-			search->second.push_back(p_waiterJob);
+			search->second.emplace_back(p_waiterJob);
 		}
 		else {
 			m_waitList[jobToWaitOn.get()] = { p_waiterJob };
@@ -143,14 +142,14 @@ namespace GRUT {
 		YieldFiber(false);
 	}
 
-	void JobManager::PlaceFibersOnWaitList(const std::vector<std::weak_ptr<Job>> &p_jobsToWaitOnWeakPtrs, Job *p_waiterJob) {
+	void JobManager::PlaceFibersOnWaitList(const std::vector<std::weak_ptr<Job>> &p_jobsToWaitOnWeakPtrs, Job * const p_waiterJob) {
 		LockFiberSwitchLock();
 
 		std::vector<std::shared_ptr<Job>> availablePtrs;
 		for (auto &weakJobPtr : p_jobsToWaitOnWeakPtrs) {
 			auto jobPtr = weakJobPtr.lock();
 			if (jobPtr && !jobPtr->m_isDone)
-				availablePtrs.push_back(jobPtr);
+				availablePtrs.emplace_back(jobPtr);
 		}
 
 		for (auto &job : availablePtrs) {
@@ -159,7 +158,7 @@ namespace GRUT {
 			p_waiterJob->m_counter++;
 			auto search = m_waitList.find(job.get());
 			if (search != m_waitList.end()) {
-				search->second.push_back(p_waiterJob);
+				search->second.emplace_back(p_waiterJob);
 			}
 			else {
 				m_waitList[job.get()] = { p_waiterJob };
@@ -174,7 +173,7 @@ namespace GRUT {
 		YieldFiber(false);
 	}
 
-	void JobManager::AwakenWaitingFibers(Job *p_job) {
+	void JobManager::AwakenWaitingFibers(Job * const p_job) {
 		LockFiberSwitchLock();
 
 		auto search = m_waitList.find(p_job);
@@ -182,7 +181,7 @@ namespace GRUT {
 			for (auto &job : search->second) {
 				if (--job->m_counter == 0) {
 					if (job->m_associatedFiber != GetCurrentFiber()) {
-						m_fibers.push_back(job->m_associatedFiber);
+						m_fibers.emplace_back(job->m_associatedFiber);
 					}
 				}
 			}

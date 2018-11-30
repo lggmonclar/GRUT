@@ -43,8 +43,8 @@ namespace GRUT {
 		}
 		std::shared_ptr<Job> FetchJob(JobPriority p_priority = JobPriority::LOW);
 		std::weak_ptr<Job> KickJob(Job &&p_jobDecl);
-		void PlaceFiberOnWaitList(const std::weak_ptr<Job> &p_jobToWaitOnWeakPtr, Job *p_waiterJob);
-		void PlaceFibersOnWaitList(const std::vector<std::weak_ptr<Job>> &p_jobsToWaitOnWeakPtrs, Job *p_waiterJob);
-		void AwakenWaitingFibers(Job *p_job);
+		void PlaceFiberOnWaitList(const std::weak_ptr<Job> &p_jobToWaitOnWeakPtr, Job * const p_waiterJob);
+		void PlaceFibersOnWaitList(const std::vector<std::weak_ptr<Job>> &p_jobsToWaitOnWeakPtrs, Job * const p_waiterJob);
+		void AwakenWaitingFibers(Job * const p_job);
 	};
 };
