@@ -4,26 +4,24 @@
 #include "SpinLock.h"
 
 namespace GRUT {
-	template <typename T = void(std::shared_ptr<Job> param)>
-	using EntryPoint = std::function<T>;
-
 	enum class JobPriority {
 		LOW, NORMAL, HIGH, CRITICAL
 	};
 
 	class Job {
+		using EntryPoint = std::function<void(std::shared_ptr<Job> param)>;
 		friend class JobManager;
 	private:
 		int														m_id = -1;
-		EntryPoint<>											m_entryPoint = nullptr;
+		EntryPoint												m_entryPoint = nullptr;
 		uintptr_t												m_param;
 		JobPriority												m_priority;
 		std::atomic<bool>										m_isDone = false;
 		std::atomic<int>										m_counter = 0;
 		void*													m_associatedFiber;
 	public:
-		explicit Job(EntryPoint<> p_entryPoint, int p_id) : m_entryPoint(p_entryPoint), m_id(p_id) {}
-		explicit Job(EntryPoint<> p_entryPoint, uintptr_t p_param, JobPriority p_priority) : m_entryPoint(p_entryPoint), m_param(p_param), m_priority(p_priority) {}
+		explicit Job(EntryPoint p_entryPoint, int p_id) : m_entryPoint(p_entryPoint), m_id(p_id) {}
+		explicit Job(EntryPoint p_entryPoint, uintptr_t p_param, JobPriority p_priority) : m_entryPoint(p_entryPoint), m_param(p_param), m_priority(p_priority) {}
 		~Job() = default;
 		Job(Job &&old) :
 			m_entryPoint(old.m_entryPoint), m_param(old.m_param),
