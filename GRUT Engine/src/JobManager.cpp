@@ -1,5 +1,5 @@
+#include "grutpch.h"
 #include "JobManager.h"
-#include <iostream>
 
 namespace GRUT {
 	/*Private:*/

@@ -1,10 +1,4 @@
 #pragma once
-#include <windows.h>
-#include <thread>
-#include <vector>
-#include <queue>
-#include <optional>
-#include <map>
 #include "Job.h"
 #include "SpinLock.h"
 

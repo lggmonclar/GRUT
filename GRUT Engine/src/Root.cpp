@@ -1,15 +1,20 @@
+#include "grutpch.h"
 #include "Root.h"
 #include "MemoryManager.h"
 #include "JobManager.h"
 #include "Job.h"
-#include <thread>
 
 namespace GRUT {
 	int i = 0;
 
 	Root::Root() {
 		JobManager::Instance();
+	}
 
+	Root::~Root() {
+	}
+
+	const void Root::Run() {
 		auto func = [&](int group) {
 			auto j1 = JobManager::Instance().KickJob(Job([=](std::shared_ptr<Job> p) {
 				std::cout << "X" << group << "\n";
@@ -32,19 +37,9 @@ namespace GRUT {
 			}, ++i));
 		};
 
-		//JobManager::Instance().KickJob(Declaration(func, ++i));
 		for (int j = 0; j < 10000; j++) {
 			func(j);
 			std::this_thread::sleep_for(std::chrono::seconds(1));
 		}
-	}
-
-	const void Root::RunGameLoop() {
-		while (true) {
-
-		}
-	}
-
-	Root::~Root() {
 	}
 }
