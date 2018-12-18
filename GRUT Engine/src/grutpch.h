@@ -1,4 +1,5 @@
 #pragma once
+#pragma message("Compiling precompiled headers.\n")
 #include <iostream>
 
 #include <thread>
@@ -13,4 +14,6 @@
 		#define WIN32_LEAN_AND_MEAN
 	#endif
 	#include <Windows.h>
+	#include <glad/glad.h>
+	#include <GLFW/glfw3.h>
 #endif

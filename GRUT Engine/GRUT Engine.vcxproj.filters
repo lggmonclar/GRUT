@@ -48,6 +48,9 @@
     <ClInclude Include="src\InputManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\windows\MouseEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\windows\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -55,9 +58,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\windows\KeyboardEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\windows\MouseEvent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

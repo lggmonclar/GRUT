@@ -13,7 +13,7 @@ namespace GRUT {
 	public:
 		GRUT_API Root();
 		GRUT_API virtual ~Root();
-		GRUT_API const void Run();
+		GRUT_API void Run();
 		GRUT_API const std::shared_ptr<Window> InitializeWindow();
 	};
 

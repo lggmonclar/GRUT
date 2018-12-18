@@ -19,10 +19,11 @@ namespace GRUT {
 	Root::~Root() {
 	}
 
-	const void Root::Run() {
+	void Root::Run() {
 		while(true) {
+			//Poll inputs in main thread
 			inputManager.PollInputs();
-			//Rendering
+			//Render in worker threads
 			JobManager::Instance().KickJob(Job([=](std::shared_ptr<Job> p) {
 				renderManager.Draw();
 			}));
