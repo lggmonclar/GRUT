@@ -20,6 +20,7 @@ namespace GRUT {
 		std::atomic<int>										m_counter = 0;
 		void*													m_associatedFiber;
 	public:
+		GRUT_API explicit Job(EntryPoint p_entryPoint) : m_entryPoint(p_entryPoint) {}
 		GRUT_API explicit Job(EntryPoint p_entryPoint, int p_id) : m_entryPoint(p_entryPoint), m_id(p_id) {}
 		GRUT_API explicit Job(EntryPoint p_entryPoint, uintptr_t p_param, JobPriority p_priority) : m_entryPoint(p_entryPoint), m_param(p_param), m_priority(p_priority) {}
 		GRUT_API ~Job() = default;

@@ -1,15 +1,16 @@
 #pragma once
+#include "grutpch.h"
 #include "windows/Window.h"
 
 namespace GRUT {
-	class RenderManager {
+	class InputManager {
 	private:
 		std::shared_ptr<Window> m_window;
 	protected:
 	public:
-		RenderManager() = default;
-		~RenderManager() = default;
+		InputManager() = default;
+		~InputManager() = default;
 		void SetWindow(std::shared_ptr<Window> p_window);
-		void Draw();
+		void PollInputs();
 	};
 };

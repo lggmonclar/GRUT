@@ -1,14 +1,20 @@
 #pragma once
-
+#include "grutpch.h"
+#include "Job.h"
 #include "DLLMacros.h"
+#include "RenderManager.h"
+#include "InputManager.h"
 
 namespace GRUT {
-	class GRUT_API Root {
+	class Root {
 	private:
+		RenderManager	renderManager;
+		InputManager	inputManager;
 	public:
-		Root();
-		virtual ~Root();
-		const void Run();
+		GRUT_API Root();
+		GRUT_API virtual ~Root();
+		GRUT_API const void Run();
+		GRUT_API const std::shared_ptr<Window> InitializeWindow();
 	};
 
 	Root* CreateApplication();
