@@ -6,10 +6,15 @@
 using namespace GRUT::Math;
 
 int main() {
-	Matrix4 m4;
-	m4.translate(1.0f, 1.0f, 1.0f);
+	Matrix<4> m4;
+	Matrix<4> m4t{
+		1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 0.0f,
+		1.0f, 1.0f, 1.0f, 1.0f
+	};
 
-	std::cout << m4 << std::endl;
+	std::cout << m4 * m4t << std::endl;
 	getchar();
 	return 0;
 }

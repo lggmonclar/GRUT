@@ -1,99 +1,85 @@
 #pragma once
 #include <math.h>
-#include <initializer_list>
 #include <iostream>
 
 namespace GRUT {
 	namespace Math {
 		template<short N>
-		class BaseVector {
-		protected:
-			BaseVector() = default;
-			BaseVector(const BaseVector &other) {
-				for (short i = 0; i < N; ++i) {
-					(*this)[i] = other[i];
-				}
-			};
+		class Vector {
+		private:
+			float m_vals[N];
 		public:
-			float& operator[] (short index) {
-				return (reinterpret_cast<float*>(this))[index];
-			}
+			Vector() : m_vals{ 0 } {};
+			template <typename ...T> Vector(T... args) : m_vals{ args... } {}
 			float& operator[] (short index) const {
 				return const_cast<float*>(reinterpret_cast<const float*>(this))[index];
 			}
 
-			BaseVector& operator+= (const BaseVector & other) {
+			Vector& operator+= (const Vector & other) {
 				for (short i = 0; i < N; ++i) {
 					(*this)[i] += other[i];
 				}
 				return *this;
 			}
-			template<typename T> T operator+ (const T & other) const {
-				T result(*this);
+			Vector operator+ (const Vector & other) const {
+				Vector result(*this);
 				return result += other;
 			}
 
-			BaseVector& operator-= (const BaseVector & other) {
+			Vector& operator-= (const Vector & other) {
 				for (short i = 0; i < N; ++i) {
 					(*this)[i] -= other[i];
 				}
 				return *this;
 			}
-			template<typename T> T operator- (const T & other) const {
-				T result(*this);
+			Vector operator- (const Vector & other) const {
+				Vector result(*this);
 				return result -= other;
 			}
 
-			BaseVector& operator*= (const BaseVector & other) {
+			Vector& operator*= (const Vector & other) {
 				for (short i = 0; i < N; ++i) {
 					(*this)[i] *= other[i];
 				}
 				return *this;
 			}
-			template<typename T> T operator* (const T & other) const {
-				T result(*this);
+			Vector operator* (const Vector & other) const {
+				Vector result(*this);
 				return result *= other;
 			}
-			BaseVector& operator*= (float & scalar) {
+			Vector& operator*= (float & scalar) {
 				for (short i = 0; i < N; ++i) {
 					(*this)[i] *= scalar;
 				}
 				return *this;
 			}
-			template<typename T> T operator* (float & scalar) const {
-				T result(*this);
+			Vector operator* (float & scalar) const {
+				Vector result(*this);
 				return result *= scalar;
 			}
 
-			BaseVector& operator/= (const BaseVector & other) {
+			Vector& operator/= (const Vector & other) {
 				for (short i = 0; i < N; ++i) {
 					(*this)[i] /= other[i];
 				}
 				return *this;
 			}
-			template<typename T> T operator/ (const T & other) const  {
-				T result(*this);
+			Vector operator/ (const Vector & other) const  {
+				Vector result(*this);
 				return result /= other;
 			}
-			BaseVector& operator/= (float & scalar) {
+			Vector& operator/= (float & scalar) {
 				for (short i = 0; i < N; ++i) {
 					(*this)[i] /= scalar;
 				}
 				return *this;
 			}
-			template<typename T> T operator/ (float & scalar) const  {
-				T result(*this);
+			Vector operator/ (float & scalar) const  {
+				Vector result(*this);
 				return result /= scalar;
 			}
 
-			float dot(BaseVector & other) const {
-				float sum = 0.0f;
-				for (short i = 0; i < N; ++i) {
-					sum += (*this)[i] * other[i];
-				}
-				return sum;
-			}
-			float dot(const BaseVector & other) const {
+			float dot(const Vector & other) const {
 				float sum = 0.0f;
 				for (short i = 0; i < N; ++i) {
 					sum += (*this)[i] * other[i];
@@ -109,19 +95,38 @@ namespace GRUT {
 				return sqrt(membersSquared);
 			}
 
-			BaseVector& normalize() {
+			Vector& normalize() {
 				float mag = magnitude();
 				for (short i = 0; i < N; ++i) {
 					(*this)[i] /= mag;
 				}
 				return *this;
 			}
-			BaseVector normalized() const {
-				BaseVector normalVector(*this);
+			Vector normalized() const {
+				Vector normalVector(*this);
 				return normalVector.normalize();
 			}
 
-			friend std::ostream& operator<<(std::ostream& os, const BaseVector& vec) {
+			
+			template<short M = N> typename std::enable_if< (M == 3), Vector >::type cross(const Vector & other) const {
+				return Vector({
+					y() * other.z() - z() * other.y(),
+					z() * other.x() - x() * other.z(),
+					x() * other.y() - y() * other.x()
+				});
+			}
+
+			float x() { return m_vals[0]; }
+			template<short M = N> typename std::enable_if < (M > 1), float >::type y() const { return m_vals[1]; }
+			template<short M = N> typename std::enable_if < (M > 2), float >::type z() const { return m_vals[2]; }
+			template<short M = N> typename std::enable_if < (M > 3), float >::type w() const { return m_vals[3]; }
+
+			float r() { return m_vals[0]; }
+			template<short M = N> typename std::enable_if < (M > 1), float >::type g() { return m_vals[1]; }
+			template<short M = N> typename std::enable_if < (M > 2), float >::type b() { return m_vals[2]; }
+			template<short M = N> typename std::enable_if < (M > 3), float >::type a() { return m_vals[3]; }
+
+			friend std::ostream& operator<<(std::ostream& os, const Vector& vec) {
 				os << "[";
 				for (short i = 0; i < N; ++i) {
 					os << vec[i];
@@ -131,70 +136,6 @@ namespace GRUT {
 				os << "]";
 				return os;
 			}
-		};
-
-		class Vector2 : public BaseVector<2>{
-		public:
-			union {
-				float vals[2];
-				struct {
-					float x, y;
-				};
-				struct {
-					float r, g;
-				};
-			};
-			Vector2() : vals{} {}
-			Vector2(const BaseVector<2> &copy) : BaseVector<2>(copy) {}
-			Vector2(float x, float y) : vals{ x,y } {}
-			using BaseVector<2>::operator=;
-		};
-		class Vector3 : public BaseVector<3> {
-		public:
-			union {
-				float vals[3];
-				struct {
-					float x, y, z;
-				};
-				struct {
-					float r, g, b;
-				};
-			};
-			Vector3() : vals{} {}
-			Vector3(const BaseVector<3> &copy) : BaseVector<3>(copy) {}
-			Vector3(float x, float y, float z) : vals{ x,y,z } {}
-			using BaseVector<3>::operator=;
-
-			Vector3 cross(Vector3 & other) {
-				return Vector3({
-					y * other.z - z * other.y,
-					z * other.x - x * other.z,
-					x * other.y - y * other.x
-				});
-			}
-			Vector3 cross(const Vector3 & other) const {
-				return Vector3({
-					y * other.z - z * other.y,
-					z * other.x - x * other.z,
-					x * other.y - y * other.x
-				});
-			}
-		};
-		class Vector4 : public BaseVector<4> {
-		public:
-			union {
-				float vals[4];
-				struct {
-					float x, y, z, w;
-				};
-				struct {
-					float r, g, b, a;
-				};
-			};
-			Vector4() : vals{} {}
-			Vector4(const BaseVector<4> &copy) : BaseVector<4>(copy) {}
-			Vector4(float x, float y, float z, float w) : vals{ x,y,z,w } {}
-			using BaseVector<4>::operator=;
 		};
 	}
 }
