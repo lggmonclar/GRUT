@@ -1,5 +1,5 @@
 #include "Game.h"
 
 GRUT::Root* GRUT::CreateApplication() {
-	return new Game();
+  return new Game();
 }

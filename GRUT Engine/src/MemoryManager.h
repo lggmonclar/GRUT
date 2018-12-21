@@ -1,7 +1,7 @@
 #pragma once
 
 namespace GRUT {
-	class MemoryManager {
-	private:
-	};
+  class MemoryManager {
+  private:
+  };
 }

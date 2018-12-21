@@ -1,10 +1,10 @@
 #pragma once
 
 namespace GRUT {
-	class MouseEvent {
-	private:
-	public:
-		MouseEvent() {};
-		~MouseEvent() {};
-	};
+  class MouseEvent {
+  private:
+  public:
+    MouseEvent() {};
+    ~MouseEvent() {};
+  };
 };

@@ -4,11 +4,11 @@
 class Game : public GRUT::Root
 {
 public:
-	Game() {
+  Game() {
 
-	}
+  }
 
-	~Game() {
+  ~Game() {
 
-	}
+  }
 };

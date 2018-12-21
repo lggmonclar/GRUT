@@ -1,10 +1,10 @@
 #pragma once
 
 namespace GRUT {
-	class KeyboardEvent {
-	private:
-	public:
-		KeyboardEvent() {};
-		~KeyboardEvent() {};
-	};
+  class KeyboardEvent {
+  private:
+  public:
+    KeyboardEvent() {};
+    ~KeyboardEvent() {};
+  };
 };
