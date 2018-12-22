@@ -1,6 +1,5 @@
 #pragma once
 #include <math.h>
-#include <initializer_list>
 #include "Vector.h"
 
 namespace GRUT {
@@ -88,7 +87,7 @@ namespace GRUT {
         return transposedThis.transpose();
       }
 
-      Matrix& scale(float scalar) {
+      template<short M = N> typename std::enable_if< (M != 3), Matrix & >::type scale(float scalar) {
         for (short i = 0; i < N - 1; ++i) {
           m_vals[N*i + i] *= scalar;
         }
