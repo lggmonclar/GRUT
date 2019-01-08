@@ -7,6 +7,8 @@ namespace GRUT {
     m_window = p_window;
   }
   void RenderManager::Draw() {
+    if(!m_window || m_window->ShouldClose())
+      return;
     m_window->Draw();
   }
 }

@@ -10,5 +10,6 @@ namespace GRUT {
     virtual void SetKeyboardCallback(std::function<void(KeyboardEvent)>) = 0;
     virtual void SetMouseCallback(std::function<void(MouseEvent)>) = 0;
     virtual void PollEvents() = 0;
+    virtual bool ShouldClose() = 0;
   };
 };

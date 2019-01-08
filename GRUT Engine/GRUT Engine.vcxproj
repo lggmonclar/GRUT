@@ -46,13 +46,13 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <TargetName>GRUT</TargetName>
-    <IncludePath>$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor;$(SolutionDir)GRUT Math;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <TargetName>GRUT</TargetName>
-    <IncludePath>$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor;$(SolutionDir)GRUT Math;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -65,6 +65,8 @@
       <PreprocessorDefinitions>GRUT_BUILD_DLL;GRUT_PLATFORM_WINDOWS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>grutpch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <PostBuildEvent>
       <Command>if not exist "$(SolutionDir)bin\$(Configuration)-$(Platform)\Game\" mkdir "$(SolutionDir)bin\$(Configuration)-$(Platform)\Game\"
@@ -90,6 +92,8 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>grutpch.h</PrecompiledHeaderFile>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -145,6 +149,9 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GRUT Math\GRUT Math.vcxproj">
+      <Project>{0b01ff7f-25b3-4a7d-b143-463c256f7e51}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\vendor\GLAD\GLAD.vcxproj">
       <Project>{226dabcd-5b28-4ab3-ba86-c8eddc91517e}</Project>
     </ProjectReference>

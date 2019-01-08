@@ -10,7 +10,7 @@ namespace GRUT {
   int i = 0;
 
   Root::Root() {
-    auto window = InitializeWindow();
+    window = InitializeWindow();
     renderManager.SetWindow(window);
     inputManager.SetWindow(window);
     JobManager::Instance();
@@ -20,7 +20,7 @@ namespace GRUT {
   }
 
   void Root::Run() {
-    while(true) {
+    while(!window->ShouldClose()) {
       //Poll inputs in main thread
       inputManager.PollInputs();
       //Render in worker threads

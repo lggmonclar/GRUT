@@ -14,5 +14,6 @@ namespace GRUT {
     void SetKeyboardCallback(std::function<void(KeyboardEvent)>) override;
     void SetMouseCallback(std::function<void(MouseEvent)>) override;
     void PollEvents() override;
+    bool ShouldClose() override;
   };
 };

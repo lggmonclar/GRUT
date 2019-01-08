@@ -9,6 +9,8 @@
 #include <queue>
 #include <map>
 
+#include "GRUTMath.h"
+
 #ifdef GRUT_PLATFORM_WINDOWS
   #ifndef WIN32_LEAN_AND_MEAN
     #define WIN32_LEAN_AND_MEAN

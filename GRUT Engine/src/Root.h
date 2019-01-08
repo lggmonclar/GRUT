@@ -8,6 +8,7 @@
 namespace GRUT {
   class Root {
   private:
+    std::shared_ptr<Window> window;
     RenderManager renderManager;
     InputManager  inputManager;
   public:

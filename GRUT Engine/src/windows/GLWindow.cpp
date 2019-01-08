@@ -68,4 +68,8 @@ namespace GRUT {
   void GLWindow::PollEvents() {
     glfwPollEvents();
   }
+
+  bool GLWindow::ShouldClose() {
+    return glfwWindowShouldClose(m_window);
+  }
 }
