@@ -11,6 +11,7 @@ namespace GRUT {
 
   Root::Root() {
     window = InitializeWindow();
+    Logger::Initialize();
     renderManager.SetWindow(window);
     inputManager.SetWindow(window);
     JobManager::Instance();
@@ -25,6 +26,7 @@ namespace GRUT {
       inputManager.PollInputs();
       //Render in worker threads
       JobManager::Instance().KickJob(Job([=](std::shared_ptr<Job> p) {
+        Timer t("Render");
         renderManager.Draw();
       }));
     }

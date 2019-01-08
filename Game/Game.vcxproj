@@ -45,12 +45,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
-    <IncludePath>$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)GRUT Math;$(SolutionDir)vendor;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)GRUT Math;$(SolutionDir)vendor;$(SolutionDir)submodules\spdlog\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
-    <IncludePath>$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)GRUT Math;$(SolutionDir)vendor;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)GRUT Math;$(SolutionDir)vendor;$(SolutionDir)submodules\spdlog\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

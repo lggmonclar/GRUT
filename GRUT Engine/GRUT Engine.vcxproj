@@ -46,13 +46,13 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <TargetName>GRUT</TargetName>
-    <IncludePath>$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor;$(SolutionDir)GRUT Math;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <TargetName>GRUT</TargetName>
-    <IncludePath>$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor;$(SolutionDir)GRUT Math;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -98,6 +98,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>if not exist "$(SolutionDir)bin\$(Configuration)-$(Platform)\Game\" mkdir "$(SolutionDir)bin\$(Configuration)-$(Platform)\Game\"
@@ -119,6 +120,8 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="src\ResourceManager.h" />
     <ClInclude Include="src\Root.h" />
     <ClInclude Include="src\SpinLock.h" />
+    <ClInclude Include="src\util\Logger.h" />
+    <ClInclude Include="src\util\Timer.h" />
     <ClInclude Include="src\windows\GLWindow.h" />
     <ClInclude Include="src\windows\KeyboardEvent.h" />
     <ClInclude Include="src\windows\MouseEvent.h" />
@@ -139,6 +142,14 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClCompile Include="src\MemoryManager.cpp" />
     <ClCompile Include="src\RenderManager.cpp" />
     <ClCompile Include="src\Root.cpp" />
+    <ClCompile Include="src\util\Logger.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </PrecompiledHeaderFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="src\windows\GLWindow.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../grutpch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../grutpch.h</PrecompiledHeaderFile>

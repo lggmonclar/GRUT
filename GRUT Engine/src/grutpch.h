@@ -1,9 +1,12 @@
 #pragma once
 #pragma message("Compiling precompiled headers.\n")
-#include <iostream>
+#include "util/Logger.h"
+#include "util/Timer.h"
 
 #include <thread>
 #include <atomic>
+
+#include <chrono>
 
 #include <vector>
 #include <queue>
