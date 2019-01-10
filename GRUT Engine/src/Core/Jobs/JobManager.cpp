@@ -63,6 +63,11 @@ namespace GRUT {
 
   void JobManager::YieldFiber(const bool p_insertSelfIntoList) {
     LockFiberSwitchLock();
+    while (m_fibers.size() == 0) {
+      UnlockFiberSwitchLock();
+      std::this_thread::yield();
+      LockFiberSwitchLock();
+    }
     auto nextFiber = m_fibers[0];
     m_fibers.pop_front();
     if (p_insertSelfIntoList) {

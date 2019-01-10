@@ -47,12 +47,13 @@ namespace GRUT {
     glfwTerminate();
   }
 
-  void GLWindow::Draw() {
+  void GLWindow::BeginFrame() {
     glfwMakeContextCurrent(m_window);
-
     glClearColor(0.2f, 0.6f, 0.7f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
+  }
 
+  void GLWindow::EndFrame() {
     glfwSwapBuffers(m_window);
     glfwMakeContextCurrent(NULL);
   }

@@ -23,13 +23,12 @@ namespace GRUT {
 
   void Root::Run() {
     while(!window->ShouldClose()) {
+      //std::this_thread::sleep_for(std::chrono::seconds(1));
       //Poll inputs in main thread
       inputManager.PollInputs();
+
       //Render in worker threads
-      JobManager::Instance().KickJob(Job([=](std::shared_ptr<Job> p) {
-        Timer t("Render");
-        renderManager.Draw();
-      }));
+      renderManager.DrawFrame();
     }
   }
   const std::shared_ptr<Window> Root::InitializeWindow() {

@@ -10,7 +10,8 @@ namespace GRUT {
   public:
     GLWindow();
     ~GLWindow();
-    void Draw() override;
+    void BeginFrame() override;
+    void EndFrame() override;
     void SetKeyboardCallback(std::function<void(KeyboardEvent)>) override;
     void SetMouseCallback(std::function<void(MouseEvent)>) override;
     void PollEvents() override;

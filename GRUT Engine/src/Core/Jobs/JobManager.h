@@ -2,7 +2,7 @@
 #include "Job.h"
 #include "Core/Parallelism/SpinLock.h"
 
-constexpr unsigned FIBER_COUNT_PER_THREAD = 8;
+constexpr unsigned FIBER_COUNT_PER_THREAD = 16;
 
 namespace GRUT {
   class JobManager {
