@@ -126,6 +126,11 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="src\Input\KeyboardEvent.h" />
     <ClInclude Include="src\Input\MouseEvent.h" />
     <ClInclude Include="src\graphics\windows\Window.h" />
+    <ClInclude Include="src\Scene\Component.h" />
+    <ClInclude Include="src\Scene\GameObject.h" />
+    <ClInclude Include="src\Scene\Scene.h" />
+    <ClInclude Include="src\Scene\SceneManager.h" />
+    <ClInclude Include="src\Scene\Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\input\InputManager.cpp" />
@@ -158,6 +163,11 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">grutpch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">grutpch.h</PrecompiledHeaderFile>
     </ClCompile>
+    <ClCompile Include="src\Scene\Component.cpp" />
+    <ClCompile Include="src\Scene\GameObject.cpp" />
+    <ClCompile Include="src\Scene\Scene.cpp" />
+    <ClCompile Include="src\Scene\SceneManager.cpp" />
+    <ClCompile Include="src\Scene\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GRUT Math\GRUT Math.vcxproj">

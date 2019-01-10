@@ -12,6 +12,7 @@ namespace GRUT {
   Root::Root() {
     window = InitializeWindow();
     Logger::Initialize();
+    sceneManager.Initialize();
     renderManager.SetWindow(window);
     inputManager.SetWindow(window);
     JobManager::Instance();
