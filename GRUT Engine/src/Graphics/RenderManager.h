@@ -1,5 +1,5 @@
 #pragma once
-#include "windows/Window.h"
+#include "Windows/Window.h"
 
 namespace GRUT {
   class RenderManager {

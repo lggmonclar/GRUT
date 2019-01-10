@@ -1,10 +1,10 @@
 #include "grutpch.h"
 #include "Root.h"
-#include "JobManager.h"
-#include "InputManager.h"
-#include "MemoryManager.h"
-#include "Job.h"
-#include "windows/GLWindow.h"
+#include "Core/Memory/MemoryManager.h"
+#include "Core/Jobs/JobManager.h"
+#include "Core/Jobs/Job.h"
+#include "Input/InputManager.h"
+#include "Graphics/Windows/GLWindow.h"
 
 namespace GRUT {
   int i = 0;

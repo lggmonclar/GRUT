@@ -1,6 +1,6 @@
 #pragma once
-#include "KeyboardEvent.h"
-#include "MouseEvent.h"
+#include "Input/KeyboardEvent.h"
+#include "Input/MouseEvent.h"
 
 namespace GRUT {
   class Window {

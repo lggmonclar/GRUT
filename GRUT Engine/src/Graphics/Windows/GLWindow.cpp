@@ -1,4 +1,4 @@
-#include "../grutpch.h"
+#include "grutpch.h"
 #include "GLWindow.h"
 
 namespace GRUT {

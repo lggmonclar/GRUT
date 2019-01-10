@@ -1,7 +1,7 @@
 #pragma once
 #pragma message("Compiling precompiled headers.\n")
-#include "util/Logger.h"
-#include "util/Timer.h"
+#include "Core/Logging/Logger.h"
+#include "Core/Timing/Timer.h"
 
 #include <thread>
 #include <atomic>

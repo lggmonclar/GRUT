@@ -1,6 +1,5 @@
 #pragma once
 #include "grutpch.h"
-#include "SpinLock.h"
 #include "DLLMacros.h"
 
 namespace GRUT {

@@ -1,6 +1,6 @@
 #pragma once
 #include "Job.h"
-#include "SpinLock.h"
+#include "Core/Parallelism/SpinLock.h"
 
 constexpr unsigned FIBER_COUNT_PER_THREAD = 8;
 

@@ -46,13 +46,13 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <TargetName>GRUT</TargetName>
-    <IncludePath>$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)src;$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <TargetName>GRUT</TargetName>
-    <IncludePath>$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)src;$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -111,24 +111,24 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
   <ItemGroup>
     <ClInclude Include="GRUT.h" />
     <ClInclude Include="src\DLLMacros.h" />
-    <ClInclude Include="src\InputManager.h" />
+    <ClInclude Include="src\input\InputManager.h" />
     <ClInclude Include="src\grutpch.h" />
-    <ClInclude Include="src\Job.h" />
-    <ClInclude Include="src\JobManager.h" />
-    <ClInclude Include="src\MemoryManager.h" />
-    <ClInclude Include="src\RenderManager.h" />
-    <ClInclude Include="src\ResourceManager.h" />
+    <ClInclude Include="src\core\jobs\Job.h" />
+    <ClInclude Include="src\core\jobs\JobManager.h" />
+    <ClInclude Include="src\core\memory\MemoryManager.h" />
+    <ClInclude Include="src\graphics\RenderManager.h" />
+    <ClInclude Include="src\resources\ResourceManager.h" />
     <ClInclude Include="src\Root.h" />
-    <ClInclude Include="src\SpinLock.h" />
-    <ClInclude Include="src\util\Logger.h" />
-    <ClInclude Include="src\util\Timer.h" />
-    <ClInclude Include="src\windows\GLWindow.h" />
-    <ClInclude Include="src\windows\KeyboardEvent.h" />
-    <ClInclude Include="src\windows\MouseEvent.h" />
-    <ClInclude Include="src\windows\Window.h" />
+    <ClInclude Include="src\core\parallelism\SpinLock.h" />
+    <ClInclude Include="src\core\logging\Logger.h" />
+    <ClInclude Include="src\core\time\Timer.h" />
+    <ClInclude Include="src\graphics\windows\GLWindow.h" />
+    <ClInclude Include="src\Input\KeyboardEvent.h" />
+    <ClInclude Include="src\Input\MouseEvent.h" />
+    <ClInclude Include="src\graphics\windows\Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\InputManager.cpp" />
+    <ClCompile Include="src\input\InputManager.cpp" />
     <ClCompile Include="src\grutpch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">grutpch.h</PrecompiledHeaderFile>
@@ -137,12 +137,12 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor</AdditionalIncludeDirectories>
     </ClCompile>
-    <ClCompile Include="src\Job.cpp" />
-    <ClCompile Include="src\JobManager.cpp" />
-    <ClCompile Include="src\MemoryManager.cpp" />
-    <ClCompile Include="src\RenderManager.cpp" />
+    <ClCompile Include="src\core\jobs\Job.cpp" />
+    <ClCompile Include="src\core\jobs\JobManager.cpp" />
+    <ClCompile Include="src\core\memory\MemoryManager.cpp" />
+    <ClCompile Include="src\graphics\RenderManager.cpp" />
     <ClCompile Include="src\Root.cpp" />
-    <ClCompile Include="src\util\Logger.cpp">
+    <ClCompile Include="src\core\logging\Logger.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -150,13 +150,13 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="src\windows\GLWindow.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../grutpch.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../grutpch.h</PrecompiledHeaderFile>
+    <ClCompile Include="src\graphics\windows\GLWindow.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">grutpch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">grutpch.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\windows\Window.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">../grutpch.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">../grutpch.h</PrecompiledHeaderFile>
+    <ClCompile Include="src\graphics\windows\Window.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">grutpch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">grutpch.h</PrecompiledHeaderFile>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

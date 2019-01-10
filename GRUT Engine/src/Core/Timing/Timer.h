@@ -1,7 +1,7 @@
 #pragma once
 
 #include <chrono>
-#include "Logger.h"
+#include "Core/Logging/Logger.h"
 
 namespace GRUT {
   class Timer {

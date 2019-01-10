@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../DLLMacros.h"
+#include "DLLMacros.h"
 #include "spdlog/spdlog.h"
 #include <memory>
 

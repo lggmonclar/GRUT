@@ -1,6 +1,6 @@
 #pragma once
 #include "grutpch.h"
-#include "windows/Window.h"
+#include "Graphics/Windows/Window.h"
 
 namespace GRUT {
   class InputManager {

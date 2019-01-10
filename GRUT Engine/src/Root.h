@@ -1,9 +1,8 @@
 #pragma once
 #include "grutpch.h"
-#include "Job.h"
 #include "DLLMacros.h"
-#include "RenderManager.h"
-#include "InputManager.h"
+#include "Graphics/RenderManager.h"
+#include "Input/InputManager.h"
 
 namespace GRUT {
   class Root {
