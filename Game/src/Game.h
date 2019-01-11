@@ -5,7 +5,7 @@ class Game : public GRUT::Root
 {
 public:
   Game() {
-
+    GRUT::GameObject::Instantiate();
   }
 
   ~Game() {

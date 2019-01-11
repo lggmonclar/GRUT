@@ -5,17 +5,18 @@
 #include "Core/Jobs/Job.h"
 #include "Input/InputManager.h"
 #include "Graphics/Windows/GLWindow.h"
+#include "Scene/SceneManager.h"
 
 namespace GRUT {
   int i = 0;
 
   Root::Root() {
-    window = InitializeWindow();
     Logger::Initialize();
-    sceneManager.Initialize();
-    renderManager.SetWindow(window);
-    inputManager.SetWindow(window);
-    JobManager::Instance();
+    JobManager::Initialize();
+    SceneManager::Initialize();
+    window = InitializeWindow();
+    renderManager.Initialize(window);
+    inputManager.Initialize(window);
   }
 
   Root::~Root() {
@@ -23,7 +24,6 @@ namespace GRUT {
 
   void Root::Run() {
     while(!window->ShouldClose()) {
-      //std::this_thread::sleep_for(std::chrono::seconds(1));
       //Poll inputs in main thread
       inputManager.PollInputs();
 

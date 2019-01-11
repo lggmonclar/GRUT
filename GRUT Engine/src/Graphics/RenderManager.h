@@ -9,7 +9,7 @@ namespace GRUT {
   public:
     RenderManager() = default;
     ~RenderManager() = default;
-    void SetWindow(std::shared_ptr<Window> p_window);
+    void Initialize(std::shared_ptr<Window> p_window);
     void DrawFrame();
   };
 };

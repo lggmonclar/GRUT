@@ -3,8 +3,8 @@
 
 namespace GRUT {
   /*Private:*/
-  JobManager::JobManager() {
-    LaunchThreads();
+  void JobManager::Initialize() {
+    JobManager::Instance().LaunchThreads();
   }
   void JobManager::LaunchThreads() {
     unsigned coresAvailable = std::thread::hardware_concurrency();

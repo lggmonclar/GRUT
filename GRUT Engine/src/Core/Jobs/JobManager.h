@@ -25,8 +25,7 @@ namespace GRUT {
     void LockFiberSwitchLock();
     void UnlockFiberSwitchLock();
     void YieldFiber(const bool p_insertSelfIntoList = true);
-  protected:
-    JobManager();
+    JobManager() = default;
     ~JobManager();
   public:
     JobManager(JobManager const &) = delete;
@@ -35,6 +34,7 @@ namespace GRUT {
       static JobManager instance{};
       return instance;
     }
+    static void Initialize();
     std::shared_ptr<Job> FetchJob(JobPriority p_priority = JobPriority::LOW);
     std::weak_ptr<Job> KickJob(Job &&p_jobDecl);
     void PlaceFiberOnWaitList(const std::weak_ptr<Job> &p_jobToWaitOnWeakPtr, Job * const p_waiterJob);

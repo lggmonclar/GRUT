@@ -4,8 +4,16 @@
 namespace GRUT {
   void SceneManager::Initialize() {
     //TODO: Use custom allocator for the scene
-    m_currentScene = new Scene();
+    SceneManager::Instance().m_currentScene = new Scene();
   }
+
+  GameObject* SceneManager::CreateGameObject() {
+    //TODO: Use custom allocator for the game object
+    auto gameObject = new GameObject();
+    m_currentScene->AddGameObject(gameObject);
+    return gameObject;
+  }
+
   SceneManager::~SceneManager() {
   }
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include "DLLMacros.h"
 #include <string>
 #include <vector>
 #include "Component.h"
@@ -6,6 +7,7 @@
 
 namespace GRUT {
   class GameObject {
+    friend class SceneManager;
   private:
     std::string m_name;
     std::vector<Component*> m_components;
@@ -13,7 +15,7 @@ namespace GRUT {
     GameObject();
   public:
     Transform* m_transform;
-    static GameObject Instantiate();
+    static GRUT_API GameObject* Instantiate();
     ~GameObject();
   };
 }

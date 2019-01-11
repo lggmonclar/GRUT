@@ -10,7 +10,7 @@ namespace GRUT {
   public:
     InputManager() = default;
     ~InputManager() = default;
-    void SetWindow(std::shared_ptr<Window> p_window);
+    void Initialize(std::shared_ptr<Window> p_window);
     void PollInputs();
   };
 };

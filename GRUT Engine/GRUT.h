@@ -1,8 +1,6 @@
 #pragma once
-
 #include "src/Root.h"
-
-#pragma once
+#include "src/Scene/GameObject.h"
 
 #ifdef GRUT_PLATFORM_WINDOWS
 
