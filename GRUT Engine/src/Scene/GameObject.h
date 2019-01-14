@@ -1,21 +1,19 @@
 #pragma once
-#include "DLLMacros.h"
-#include <string>
-#include <vector>
 #include "Component.h"
 #include "Transform.h"
+#include "Core/Memory/ObjectHandle.h"
 
 namespace GRUT {
   class GameObject {
-    friend class SceneManager;
+    friend class FreeListAllocator;
   private:
     std::string m_name;
-    std::vector<Component*> m_components;
-    std::vector<GameObject*> m_children;
-    GameObject();
+    std::vector<ObjectHandle<Component>> m_components;
+    std::vector<ObjectHandle<GameObject>> m_children;
   public:
     Transform* m_transform;
-    static GRUT_API GameObject* Instantiate();
+    static GRUT_API ObjectHandle<GameObject> Instantiate();
+    GRUT_API void Destroy();
     ~GameObject();
   };
 }

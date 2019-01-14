@@ -11,6 +11,7 @@ namespace GRUT {
   int i = 0;
 
   Root::Root() {
+    MemoryManager::Initialize();
     Logger::Initialize();
     JobManager::Initialize();
     SceneManager::Initialize();

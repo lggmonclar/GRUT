@@ -5,7 +5,16 @@ class Game : public GRUT::Root
 {
 public:
   Game() {
-    GRUT::GameObject::Instantiate();
+    InstanceTest();
+  }
+
+  void InstanceTest() {
+    auto a = GRUT::GameObject::Instantiate();
+    auto b = GRUT::GameObject::Instantiate();
+    auto c = GRUT::GameObject::Instantiate();
+    a->Destroy();
+    b->Destroy();
+    c->Destroy();
   }
 
   ~Game() {

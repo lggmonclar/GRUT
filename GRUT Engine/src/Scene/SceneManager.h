@@ -13,6 +13,7 @@ namespace GRUT {
       return instance;
     }
     static void Initialize();
-    GameObject* CreateGameObject();
+    ObjectHandle<GameObject> CreateGameObject();
+    void DestroyGameObject(GameObject* obj);
   };
 }

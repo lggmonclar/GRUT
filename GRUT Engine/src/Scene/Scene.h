@@ -6,10 +6,10 @@ namespace GRUT {
   class Scene {
   private:
     std::string m_name;
-    std::vector<GameObject*> m_rootObjects;
+    std::vector<ObjectHandle<GameObject>> m_rootObjects;
   public:
     Scene();
-    void AddGameObject(GameObject* p_gameObject);
+    void AddGameObject(ObjectHandle<GameObject> p_gameObject);
     ~Scene();
   };
 }

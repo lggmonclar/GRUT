@@ -110,7 +110,10 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="GRUT.h" />
+    <ClInclude Include="src\Core\Memory\FreeListAllocator.h" />
+    <ClInclude Include="src\Core\Memory\ObjectHandle.h" />
     <ClInclude Include="src\DLLMacros.h" />
+    <ClInclude Include="src\Core\GRUTAlias.h" />
     <ClInclude Include="src\input\InputManager.h" />
     <ClInclude Include="src\grutpch.h" />
     <ClInclude Include="src\core\jobs\Job.h" />
@@ -133,6 +136,8 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="src\Scene\Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Core\Memory\FreeListAllocator.cpp" />
+    <ClCompile Include="src\Core\Memory\ObjectHandle.cpp" />
     <ClCompile Include="src\input\InputManager.cpp" />
     <ClCompile Include="src\grutpch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -179,6 +184,9 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ProjectReference Include="..\vendor\GLFW\GLFW.vcxproj">
       <Project>{29320dab-3086-453e-bc72-3664625a1a9a}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,18 +1,20 @@
 #include "grutpch.h"
-#include "GameObject.h"
+#include "DLLMacros.h"
+#include "Component.h"
 #include "SceneManager.h"
+#include "Transform.h"
+#include "Core/Memory/ObjectHandle.h"
+#include "GameObject.h"
 
 namespace GRUT {
-  GameObject::GameObject() {
-    m_transform = new Transform();
-    m_components.push_back(m_transform);
-  }
-  GameObject* GameObject::Instantiate() {
+  ObjectHandle<GameObject> GameObject::Instantiate() {
     GRUT_INFO("INSTANTIATED GAMEOBJECT");
     return SceneManager::Instance().CreateGameObject();
   }
+  void GameObject::Destroy() {
+    GRUT_INFO("DESTROYED GAMEOBJECT");
+    SceneManager::Instance().DestroyGameObject(this);
+  }
   GameObject::~GameObject() {
-    for (auto &c : m_components)
-      delete c;
   }
 }
