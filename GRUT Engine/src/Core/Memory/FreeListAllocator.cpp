@@ -7,33 +7,68 @@ namespace GRUT {
     m_headNode = new (m_memoryHead)Node(p_size);
   }
   void FreeListAllocator::Free(void * p_obj) {
-    Node* nextNode = reinterpret_cast<Node*>(reinterpret_cast<U8*>(p_obj) - sizeof(AllocHeader));
-    nextNode->next = nullptr;
+    m_spinLock.Acquire();
 
-    Node* prevNode = m_headNode;
-    if (nextNode < prevNode) {
-      m_headNode = nextNode;
-      nextNode = prevNode;
+    AllocHeader* occupiedBlock = reinterpret_cast<AllocHeader*>(reinterpret_cast<U8*>(p_obj) - sizeof(AllocHeader));
+    m_handles[occupiedBlock->handleIdx].m_isAvailable = true;
+
+    Node* newNode = reinterpret_cast<Node*>(occupiedBlock);
+    newNode->next = nullptr;
+
+    Node* currPrevNode = m_headNode;
+    if (newNode < currPrevNode) {
+      m_headNode = newNode;
+      newNode = currPrevNode;
     }
-    for (prevNode = m_headNode; (prevNode->next < nextNode && prevNode->next != nullptr); prevNode = prevNode->next);
-    
-    //Coalesce forward
-    if (reinterpret_cast<Node*>(reinterpret_cast<U8*>(nextNode) + nextNode->size) == prevNode->next) {
-      nextNode->size += prevNode->next->size;
-    }
-    else {
-      nextNode->next = prevNode->next;
-    }
-    //Coalesce behind
-    if (reinterpret_cast<Node*>(reinterpret_cast<U8*>(prevNode) + prevNode->size) == nextNode) {
-      prevNode->size += nextNode->size;
-    }
-    else {
-      prevNode->next = nextNode;
-    }
+    for (currPrevNode = m_headNode; (currPrevNode->next < newNode && currPrevNode->next != nullptr); currPrevNode = currPrevNode->next);
+
+    //Try to coalesce the new node with the next free node
+    if (!Coalesce(newNode, currPrevNode->next))
+      newNode->next = currPrevNode->next;
+    //and then the previous node
+    if (!Coalesce(currPrevNode, newNode))
+      currPrevNode->next = newNode;
+
+    m_spinLock.Release();
   }
 
   void FreeListAllocator::Defragment(U8 p_blocksToShift) {
+    m_spinLock.Acquire();
+    U8 blocksShifted = 0;
+
+    Node* node = m_headNode;
+    while (node != nullptr && node->next != nullptr && blocksShifted < p_blocksToShift) {
+      if (!Coalesce(node, node->next)) {
+        //Can be defragmented
+        Node cpy = *node;
+
+        AllocHeader* occupiedBlock = reinterpret_cast<AllocHeader*>(reinterpret_cast<U8*>(node) + node->size);
+        m_handles[occupiedBlock->handleIdx].m_ptr = reinterpret_cast<U8*>(node) + sizeof(AllocHeader);
+        
+        memmove(node, occupiedBlock, occupiedBlock->size);
+
+        if (m_headNode == node) {
+          m_headNode = reinterpret_cast<Node*>(occupiedBlock);
+        }
+        node = reinterpret_cast<Node*>(occupiedBlock);
+        *node = cpy;
+
+        blocksShifted++;
+      }
+      else {
+        node->next = node->next->next;
+        node = node->next;
+      }
+    }
+    m_spinLock.Release();
+  }
+
+  bool FreeListAllocator::Coalesce(Node* p_backNode, Node* p_frontNode) {
+    if (reinterpret_cast<Node*>(reinterpret_cast<U8*>(p_backNode) + p_backNode->size) == p_frontNode) {
+      p_backNode->size += p_frontNode->size;
+      return true;
+    }
+    return false;
   }
 
   FreeListAllocator::~FreeListAllocator() {

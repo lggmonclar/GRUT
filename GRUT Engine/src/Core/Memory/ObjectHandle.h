@@ -1,5 +1,6 @@
 #pragma once
 #include "Core/GRUTAlias.h"
+#include <functional>
 
 namespace GRUT {
   class HandleEntry {
@@ -12,24 +13,22 @@ namespace GRUT {
   template <class T>
   class ObjectHandle {
   private:
-    U32 m_index;
     U32 m_uid;
-    HandleEntry* m_handleArr;
+    std::function<HandleEntry()> m_handleGetter;
   public:
-    ObjectHandle(U32 p_index, HandleEntry* p_handleArr);
+    ObjectHandle(std::function<HandleEntry()> p_handleGetter);
     T* operator->() const;
     T& operator*();
   };
   template<class T>
-  inline ObjectHandle<T>::ObjectHandle(U32 p_index, HandleEntry* p_handleArr) : m_index(p_index), m_handleArr(p_handleArr) {
+  inline ObjectHandle<T>::ObjectHandle(std::function<HandleEntry()> p_handleGetter) : m_handleGetter(p_handleGetter) {}
 
-  }
   template<class T>
   inline T * ObjectHandle<T>::operator->() const {
-    return static_cast<T*>(m_handleArr[m_index].m_ptr);
+    return static_cast<T*>(m_handleGetter().m_ptr);
   }
   template<class T>
   inline T & ObjectHandle<T>::operator*() {
-    return *(static_cast<T*>(m_handleArr[m_index].m_ptr));
+    return *(static_cast<T*>(m_handleGetter().m_ptr));
   }
 }

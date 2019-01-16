@@ -18,6 +18,7 @@ namespace GRUT {
     ObjectHandle<T> AllocOnFreeList();
     template<class T>
     void FreeFromFreeList(T* p_obj);
+    void Defragment(U8 p_blocksToShift);
   };
 
   template<class T>

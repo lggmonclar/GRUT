@@ -1,11 +1,13 @@
 #pragma once
 #include "Core/GRUTAlias.h"
 #include "ObjectHandle.h"
+#include "Core/Parallelism/SpinLock.h"
 
 namespace GRUT { 
   constexpr U16 AVAILABLE_HANDLES = 2048;
   class FreeListAllocator {
   private:
+    SpinLock m_spinLock;
     struct Node {
       Size size;
       Node* next;
@@ -13,6 +15,7 @@ namespace GRUT {
     };    
     struct AllocHeader {
       Size size;
+      U32  handleIdx;
       AllocHeader(const Size size) : size(size) {}
     };
     void* m_memoryHead;
@@ -24,10 +27,12 @@ namespace GRUT {
     ObjectHandle<T> Allocate();
     void Free(void* p_obj);
     void Defragment(U8 p_blocksToShift);
+    bool Coalesce(Node* p_backNode, Node* p_frontNode);
     ~FreeListAllocator();
   };
   template<class T>
   inline ObjectHandle<T> FreeListAllocator::Allocate() {
+    m_spinLock.Acquire();
     Node* prevNode = nullptr;
     Node* firstFitNode = m_headNode;
     Size allocSize = sizeof(T) + sizeof(AllocHeader);
@@ -46,8 +51,8 @@ namespace GRUT {
       m_headNode = shiftedNode;
     }
 
-    firstFitNode->size = sizeof(T) + sizeof(AllocHeader);
-    T* newObj = new (reinterpret_cast<U8*>(firstFitNode) + sizeof(AllocHeader)) T;
+    AllocHeader* objHeader = reinterpret_cast<AllocHeader*>(firstFitNode);
+    T* newObj = new (reinterpret_cast<U8*>(objHeader) + sizeof(AllocHeader)) T;
     
     U32 i = 0;
     for (; i < AVAILABLE_HANDLES; i++) {
@@ -56,7 +61,15 @@ namespace GRUT {
         break;
       }
     }
+    objHeader->size = sizeof(T) + sizeof(AllocHeader);
+    objHeader->handleIdx = i;
 
-    return ObjectHandle<T>(i, m_handles);
+    m_spinLock.Release();
+    return ObjectHandle<T>([&, i]() {
+      m_spinLock.Acquire();
+      HandleEntry entry = m_handles[i];
+      m_spinLock.Release();
+      return entry;
+    });
   }
 }

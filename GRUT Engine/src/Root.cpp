@@ -30,6 +30,9 @@ namespace GRUT {
 
       //Render in worker threads
       renderManager.DrawFrame();
+
+      //Defragment up to n blocks of memory
+      MemoryManager::Instance().Defragment(10);
     }
   }
   const std::shared_ptr<Window> Root::InitializeWindow() {
