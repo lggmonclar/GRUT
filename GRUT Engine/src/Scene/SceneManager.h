@@ -13,6 +13,8 @@ namespace GRUT {
       return instance;
     }
     static void Initialize();
+    void FixedUpdate(float p_deltaTime);
+    void Update(float p_deltaTime);
     ObjectHandle<GameObject> CreateGameObject();
     void DestroyGameObject(GameObject* obj);
   };

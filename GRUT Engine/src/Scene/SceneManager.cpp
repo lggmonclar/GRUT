@@ -10,6 +10,14 @@ namespace GRUT {
     SceneManager::Instance().m_currentScene = new Scene();
   }
 
+  void SceneManager::FixedUpdate(float p_deltaTime) {
+    m_currentScene->FixedUpdate(p_deltaTime);
+  }
+
+  void SceneManager::Update(float p_deltaTime) {
+    m_currentScene->Update(p_deltaTime);
+  }
+
   ObjectHandle<GameObject> SceneManager::CreateGameObject() {
     auto gameObject = MemoryManager::Instance().AllocOnFreeList<GameObject>();
     m_currentScene->AddGameObject(gameObject);

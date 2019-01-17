@@ -11,9 +11,11 @@ namespace GRUT {
     std::vector<ObjectHandle<GameObject>> m_children;
   public:
     std::string m_name;
-    Transform* m_transform;
+    Transform m_transform;
     static GRUT_API ObjectHandle<GameObject> Instantiate();
     GRUT_API void Destroy();
+    GRUT_API void FixedUpdate(float p_deltaTime);
+    GRUT_API void Update(float p_deltaTime);
     ~GameObject();
   };
 }

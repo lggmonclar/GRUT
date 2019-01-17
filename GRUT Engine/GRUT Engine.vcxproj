@@ -112,6 +112,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="GRUT.h" />
     <ClInclude Include="src\Core\Memory\FreeListAllocator.h" />
     <ClInclude Include="src\Core\Memory\ObjectHandle.h" />
+    <ClInclude Include="src\Core\Timing\Clock.h" />
     <ClInclude Include="src\DLLMacros.h" />
     <ClInclude Include="src\Core\GRUTAlias.h" />
     <ClInclude Include="src\input\InputManager.h" />
@@ -138,6 +139,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
   <ItemGroup>
     <ClCompile Include="src\Core\Memory\FreeListAllocator.cpp" />
     <ClCompile Include="src\Core\Memory\ObjectHandle.cpp" />
+    <ClCompile Include="src\Core\Timing\Clock.cpp" />
     <ClCompile Include="src\input\InputManager.cpp" />
     <ClCompile Include="src\grutpch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

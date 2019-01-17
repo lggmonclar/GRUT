@@ -12,7 +12,6 @@ namespace GRUT {
     JobManager::Instance().KickJob(Job([&, m_window = m_window](std::shared_ptr<Job> p) {
       p->WaitForJob(prevFrameJob);
       prevFrameJob = p;
-      //Timer t("Render");
 
       m_window->BeginFrame();
 

@@ -6,5 +6,7 @@ namespace GRUT {
   public:
     Component();
     ~Component();
+    void FixedUpdate(float p_deltaTime) {};
+    void Update(float p_deltaTime) {};
   };
 }

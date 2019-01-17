@@ -15,6 +15,13 @@ namespace GRUT {
     GRUT_INFO("DESTROYED GAMEOBJECT");
     SceneManager::Instance().DestroyGameObject(this);
   }
-  GameObject::~GameObject() {
+  void GameObject::FixedUpdate(float p_deltaTime) {
+    for (auto &c : m_components)
+      c->FixedUpdate(p_deltaTime);
   }
+  void GameObject::Update(float p_deltaTime) {
+    for (auto &c : m_components)
+      c->Update(p_deltaTime);
+  }
+  GameObject::~GameObject() {}
 }
