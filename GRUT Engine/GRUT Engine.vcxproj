@@ -62,7 +62,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
-      <PreprocessorDefinitions>GRUT_BUILD_DLL;GRUT_PLATFORM_WINDOWS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GRUT_DEBUG;GRUT_BUILD_DLL;GRUT_PLATFORM_WINDOWS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>grutpch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>
@@ -87,7 +87,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <PreprocessorDefinitions>GRUT_BUILD_DLL;GRUT_PLATFORM_WINDOWS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GRUT_RELEASE;GRUT_BUILD_DLL;GRUT_PLATFORM_WINDOWS;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>grutpch.h</PrecompiledHeaderFile>
@@ -113,6 +113,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="src\Core\Memory\FreeListAllocator.h" />
     <ClInclude Include="src\Core\Memory\ObjectHandle.h" />
     <ClInclude Include="src\Core\Parallelism\FrameParams.h" />
+    <ClInclude Include="src\Core\Parallelism\UnnecessaryLock.h" />
     <ClInclude Include="src\Core\Timing\Clock.h" />
     <ClInclude Include="src\DLLMacros.h" />
     <ClInclude Include="src\Core\GRUTAlias.h" />

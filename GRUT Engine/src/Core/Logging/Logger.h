@@ -16,8 +16,8 @@ namespace GRUT {
 }
 
 // Log macros
-#define GRUT_DEBUG(...) ::GRUT::Logger::Instance()->debug(__VA_ARGS__)
-#define GRUT_TRACE(...) ::GRUT::Logger::Instance()->trace(__VA_ARGS__)
-#define GRUT_INFO(...)  ::GRUT::Logger::Instance()->info(__VA_ARGS__)
-#define GRUT_WARN(...)  ::GRUT::Logger::Instance()->warn(__VA_ARGS__)
-#define GRUT_ERROR(...) ::GRUT::Logger::Instance()->error(__VA_ARGS__)
+#define LOG_DEBUG(...) ::GRUT::Logger::Instance()->debug(__VA_ARGS__)
+#define LOG_TRACE(...) ::GRUT::Logger::Instance()->trace(__VA_ARGS__)
+#define LOG_INFO(...)  ::GRUT::Logger::Instance()->info(__VA_ARGS__)
+#define LOG_WARN(...)  ::GRUT::Logger::Instance()->warn(__VA_ARGS__)
+#define LOG_ERROR(...) ::GRUT::Logger::Instance()->error(__VA_ARGS__)

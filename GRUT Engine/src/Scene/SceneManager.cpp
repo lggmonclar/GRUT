@@ -19,9 +19,9 @@ namespace GRUT {
   void SceneManager::Update(FrameParams& p_prevFrame, FrameParams& p_currFrame) {
     p_currFrame.updateJob = JobManager::Instance().KickJob(Job([&](std::shared_ptr<Job> p) {
       p->WaitForJob(p_prevFrame.updateJob);
-      GRUT_DEBUG("scene {0}", idx);
+      LOG_DEBUG("scene {0}", idx);
       m_currentScene->Update(p_currFrame.deltaTime);
-      GRUT_DEBUG("scene {0}", idx++);
+      LOG_DEBUG("scene {0}", idx++);
     }));
   }
 

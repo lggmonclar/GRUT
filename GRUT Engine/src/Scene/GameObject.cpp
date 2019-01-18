@@ -8,11 +8,11 @@
 
 namespace GRUT {
   ObjectHandle<GameObject> GameObject::Instantiate() {
-    GRUT_INFO("INSTANTIATED GAMEOBJECT");
+    LOG_INFO("INSTANTIATED GAMEOBJECT");
     return SceneManager::Instance().CreateGameObject();
   }
   void GameObject::Destroy() {
-    GRUT_INFO("DESTROYED GAMEOBJECT");
+    LOG_INFO("DESTROYED GAMEOBJECT");
     SceneManager::Instance().DestroyGameObject(this);
   }
   void GameObject::FixedUpdate(float p_deltaTime) {

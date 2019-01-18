@@ -18,7 +18,7 @@ namespace GRUT {
       p_end = std::chrono::high_resolution_clock::now();
       p_duration = p_end - p_start;
       float ms = p_duration.count() * 1000.0f;
-      GRUT_INFO("{0} took {1}ms", m_name, ms);
+      LOG_INFO("{0} took {1}ms", m_name, ms);
     }
   };
 }

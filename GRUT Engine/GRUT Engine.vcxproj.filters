@@ -96,6 +96,9 @@
     <ClInclude Include="src\Core\Parallelism\FrameParams.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Core\Parallelism\UnnecessaryLock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Root.cpp">

@@ -40,7 +40,7 @@ namespace GRUT {
       inputManager.PollInputs();
 
       //Update Scene
-      //GRUT_DEBUG("lag {0}", lag);
+      //LOG_DEBUG("lag {0}", lag);
       //while (lag >= MS_PER_UPDATE) {
       //SceneManager::Instance().FixedUpdate(MS_PER_UPDATE);
       //  lag -= MS_PER_UPDATE;

@@ -1,13 +1,13 @@
 #pragma once
 #include "Core/GRUTAlias.h"
 #include "ObjectHandle.h"
-#include "Core/Parallelism/SpinLock.h"
+#include "Core/Parallelism/UnnecessaryLock.h"
 
 namespace GRUT { 
   constexpr U16 AVAILABLE_HANDLES = 2048;
   class FreeListAllocator {
   private:
-    SpinLock m_spinLock;
+    UnnecessaryLock m_lock;
     struct Node {
       Size size;
       Node* next;
@@ -32,7 +32,7 @@ namespace GRUT {
   };
   template<class T>
   inline ObjectHandle<T> FreeListAllocator::Allocate() {
-    m_spinLock.Acquire();
+    BEGIN_ASSERT_LOCK_NOT_NECESSARY(m_lock);
     Node* prevNode = nullptr;
     Node* firstFitNode = m_headNode;
     Size allocSize = sizeof(T) + sizeof(AllocHeader);
@@ -64,11 +64,11 @@ namespace GRUT {
     objHeader->size = sizeof(T) + sizeof(AllocHeader);
     objHeader->handleIdx = i;
 
-    m_spinLock.Release();
+    END_ASSERT_LOCK_NOT_NECESSARY(m_lock);
     return ObjectHandle<T>([&, i]() {
-      m_spinLock.Acquire();
+      BEGIN_ASSERT_LOCK_NOT_NECESSARY(m_lock);
       HandleEntry entry = m_handles[i];
-      m_spinLock.Release();
+      END_ASSERT_LOCK_NOT_NECESSARY(m_lock);
       return entry;
     });
   }
