@@ -3,6 +3,7 @@
 #include "FreeListAllocator.h"
 
 namespace GRUT {
+  struct FrameParams;
   class MemoryManager {
   private:
     FreeListAllocator m_freeListAllocator{8_MB};
@@ -18,7 +19,7 @@ namespace GRUT {
     ObjectHandle<T> AllocOnFreeList();
     template<class T>
     void FreeFromFreeList(T* p_obj);
-    void Defragment(U8 p_blocksToShift);
+    void Defragment(FrameParams& p_prevFrame, FrameParams& p_currFrame);
   };
 
   template<class T>

@@ -29,9 +29,9 @@ namespace GRUT {
     }
   }
 
-  double Clock::GetDeltaTime() const { return m_deltaTime; }
-  double Clock::GetElapsedTime() const { return m_elapsedTime; }
-  double Clock::GetElapsedUnscaledTime() const { return m_elapsedUnscaledTime; }
+  float Clock::GetDeltaTime() const { return m_deltaTime; }
+  float Clock::GetElapsedTime() const { return m_elapsedTime; }
+  float Clock::GetElapsedUnscaledTime() const { return m_elapsedUnscaledTime; }
   U64 Clock::GetTimeFrame() const { return m_timeFrame; }
 
   U64 Clock::GetTimestamp() {

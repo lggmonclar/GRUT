@@ -17,7 +17,7 @@ public:
     c->m_name = "obj-c";
     a->Destroy();
     b->Destroy();
-    c->Destroy();
+    //c->Destroy();
   }
 
   ~Game() {

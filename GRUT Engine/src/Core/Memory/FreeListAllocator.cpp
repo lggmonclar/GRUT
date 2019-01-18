@@ -48,9 +48,9 @@ namespace GRUT {
         memmove(node, occupiedBlock, occupiedBlock->size);
 
         if (m_headNode == node) {
-          m_headNode = reinterpret_cast<Node*>(occupiedBlock);
+          m_headNode = reinterpret_cast<Node*>(reinterpret_cast<U8*>(m_headNode) + occupiedBlock->size );
         }
-        node = reinterpret_cast<Node*>(occupiedBlock);
+        node = reinterpret_cast<Node*>(reinterpret_cast<U8*>(node) + occupiedBlock->size );
         *node = cpy;
 
         blocksShifted++;

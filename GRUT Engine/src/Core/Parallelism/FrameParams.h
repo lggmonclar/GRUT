@@ -8,5 +8,6 @@ namespace GRUT {
     float deltaTime;
     std::weak_ptr<Job> updateJob;
     std::weak_ptr<Job> renderJob;
+    std::weak_ptr<Job> memoryJob;
   };
 }

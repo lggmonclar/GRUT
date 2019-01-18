@@ -20,7 +20,6 @@ namespace GRUT {
       m_window->EndFrame();
 
       GRUT_DEBUG("render {0}", idx++);
-      p_currFrame.isDone = true;
     }));
   }
 }

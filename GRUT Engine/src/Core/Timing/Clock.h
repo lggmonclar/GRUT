@@ -11,9 +11,9 @@ namespace GRUT {
 
     TimePoint m_startTime;
     TimePoint m_currentTime;
-    double m_deltaTime;
-    double m_elapsedTime;
-    double m_elapsedUnscaledTime;
+    float m_deltaTime;
+    float m_elapsedTime;
+    float m_elapsedUnscaledTime;
     U64 m_timeFrame;
 
   public:
@@ -26,9 +26,9 @@ namespace GRUT {
     Clock& operator=(Clock&& inClock) = delete;
 
     void UpdateTime();
-    double GetDeltaTime() const;
-    double GetElapsedTime() const;
-    double GetElapsedUnscaledTime() const;
+    float GetDeltaTime() const;
+    float GetElapsedTime() const;
+    float GetElapsedUnscaledTime() const;
 
     U64 GetTimeFrame() const;
 

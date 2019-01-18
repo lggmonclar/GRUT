@@ -51,7 +51,7 @@ namespace GRUT {
       renderManager.DrawFrame(frames[prevIndex], frames[currIndex]);
 
       //Defragment up to n blocks of memory
-      MemoryManager::Instance().Defragment(10);
+      MemoryManager::Instance().Defragment(frames[prevIndex], frames[currIndex]);
       guardIndex = (guardIndex + 1) % 16;
       prevIndex = (prevIndex + 1) % 16;
       currIndex = (currIndex + 1) % 16;
