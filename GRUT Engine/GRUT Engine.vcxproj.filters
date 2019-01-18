@@ -93,6 +93,9 @@
     <ClInclude Include="src\Core\Timing\Clock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Core\Parallelism\FrameParams.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Root.cpp">

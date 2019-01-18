@@ -19,13 +19,13 @@ namespace GRUT {
       TimePoint newTime = HighResClock::now();
       Nanoseconds delta =
         std::chrono::duration_cast<Nanoseconds>(newTime - m_currentTime);
-      Nanoseconds elapse =
+      Nanoseconds elapsed =
         std::chrono::duration_cast<Nanoseconds>(newTime - m_startTime);
 
       m_currentTime = newTime;
       m_deltaTime = delta.count() * 1e-9 * timeScale;
       m_elapsedTime += m_deltaTime;
-      m_elapsedUnscaledTime = elapse.count() * 1e-9;
+      m_elapsedUnscaledTime = elapsed.count() * 1e-9;
     }
   }
 

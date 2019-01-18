@@ -112,6 +112,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="GRUT.h" />
     <ClInclude Include="src\Core\Memory\FreeListAllocator.h" />
     <ClInclude Include="src\Core\Memory\ObjectHandle.h" />
+    <ClInclude Include="src\Core\Parallelism\FrameParams.h" />
     <ClInclude Include="src\Core\Timing\Clock.h" />
     <ClInclude Include="src\DLLMacros.h" />
     <ClInclude Include="src\Core\GRUTAlias.h" />

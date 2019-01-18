@@ -3,15 +3,16 @@
 #include "DLLMacros.h"
 #include "Graphics/RenderManager.h"
 #include "Input/InputManager.h"
+#include "Core/Parallelism/FrameParams.h"
 
 namespace GRUT {
-  constexpr float MS_PER_UPDATE = 16.6f;
   class Root {
   private:
     std::shared_ptr<Window> window;
     RenderManager renderManager;
     InputManager  inputManager;
     const std::shared_ptr<Window> InitializeWindow();
+    FrameParams frames[16];
   public:
     GRUT_API Root();
     GRUT_API virtual ~Root();
