@@ -9,9 +9,10 @@ namespace GRUT {
   private:
     std::vector<ObjectHandle<Component>> m_components;
     std::vector<ObjectHandle<GameObject>> m_children;
+    void UpdateSnapshot(int frame);
   public:
-    std::string m_name;
-    Transform m_transform;
+    std::string name;
+    Transform transform;
     static GRUT_API ObjectHandle<GameObject> Instantiate();
     GRUT_API void Destroy();
     GRUT_API void FixedUpdate(float p_deltaTime);

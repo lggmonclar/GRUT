@@ -186,7 +186,7 @@ namespace GRUT {
       for (auto &job : search->second) {
         if (--job->m_counter == 0) {
           if (job->m_associatedFiber != GetCurrentFiber()) {
-            m_fibers.emplace_back(job->m_associatedFiber);
+            m_fibers.emplace_front(job->m_associatedFiber);
           }
         }
       }

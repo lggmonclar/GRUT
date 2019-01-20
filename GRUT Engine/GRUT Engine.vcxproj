@@ -111,6 +111,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
   <ItemGroup>
     <ClInclude Include="GRUT.h" />
     <ClInclude Include="src\Core\Memory\FreeListAllocator.h" />
+    <ClInclude Include="src\Core\Memory\MultiFramePoolAllocator.h" />
     <ClInclude Include="src\Core\Memory\ObjectHandle.h" />
     <ClInclude Include="src\Core\Parallelism\FrameParams.h" />
     <ClInclude Include="src\Core\Parallelism\UnnecessaryLock.h" />
@@ -140,6 +141,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Memory\FreeListAllocator.cpp" />
+    <ClCompile Include="src\Core\Memory\MultiFramePoolAllocator.cpp" />
     <ClCompile Include="src\Core\Memory\ObjectHandle.cpp" />
     <ClCompile Include="src\Core\Timing\Clock.cpp" />
     <ClCompile Include="src\input\InputManager.cpp" />
