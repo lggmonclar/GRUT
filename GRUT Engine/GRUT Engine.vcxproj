@@ -153,7 +153,6 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor</AdditionalIncludeDirectories>
     </ClCompile>
-    <ClCompile Include="src\core\jobs\Job.cpp" />
     <ClCompile Include="src\core\jobs\JobManager.cpp" />
     <ClCompile Include="src\core\memory\MemoryManager.cpp" />
     <ClCompile Include="src\graphics\RenderManager.cpp" />

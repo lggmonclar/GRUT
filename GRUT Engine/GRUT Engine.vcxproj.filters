@@ -128,9 +128,6 @@
     <ClCompile Include="src\core\memory\MemoryManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\jobs\Job.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\core\jobs\JobManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

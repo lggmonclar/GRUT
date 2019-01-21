@@ -50,8 +50,10 @@ namespace GRUT {
       auto job = JobManager::Instance().FetchJob();
 
       if (job) {
-        job->m_associatedFiber = GetCurrentFiber();
-        job->m_entryPoint(job);
+        auto fiber = GetCurrentFiber();
+        JobManager::Instance().m_fiberJobs[fiber] = job.get();
+        job->m_associatedFiber = fiber;
+        job->m_entryPoint();
         job->m_isDone = true;
         Instance().AwakenWaitingFibers(job.get());
       }
@@ -82,22 +84,22 @@ namespace GRUT {
     std::shared_ptr<Job> job = nullptr;
 
     m_fetchJobSpinLock.Acquire();
-      if (p_priority > JobPriority::HIGH && m_criticalPJobs.size() > 0) {
-        job = m_criticalPJobs.front();
-        m_criticalPJobs.pop();
-      }
-      else if (p_priority > JobPriority::NORMAL && m_highPJobs.size() > 0) {
-        job = m_highPJobs.front();
-        m_highPJobs.pop();
-      }
-      else if (p_priority > JobPriority::LOW && m_normalPJobs.size() > 0) {
-        job = m_normalPJobs.front();
-        m_normalPJobs.pop();
-      }
-      else if (m_lowPJobs.size() > 0) {
-        job = m_lowPJobs.front();
-        m_lowPJobs.pop();
-      }
+    if (p_priority > JobPriority::HIGH && m_criticalPJobs.size() > 0) {
+      job = m_criticalPJobs.front();
+      m_criticalPJobs.pop();
+    }
+    else if (p_priority > JobPriority::NORMAL && m_highPJobs.size() > 0) {
+      job = m_highPJobs.front();
+      m_highPJobs.pop();
+    }
+    else if (p_priority > JobPriority::LOW && m_normalPJobs.size() > 0) {
+      job = m_normalPJobs.front();
+      m_normalPJobs.pop();
+    }
+    else if (m_lowPJobs.size() > 0) {
+      job = m_lowPJobs.front();
+      m_lowPJobs.pop();
+    }
     m_fetchJobSpinLock.Release();
 
     return job;
@@ -125,7 +127,10 @@ namespace GRUT {
     return ref;
   }
 
-  void JobManager::PlaceFiberOnWaitList(const std::weak_ptr<Job> &p_jobToWaitOnWeakPtr, Job * const p_waiterJob) {
+  void JobManager::WaitForJob(const std::weak_ptr<Job> &p_jobToWaitOnWeakPtr) {
+    auto waiterJob = m_fiberJobs[GetCurrentFiber()];
+    if (!waiterJob)
+      return;
     LockFiberSwitchLock();
 
     auto jobToWaitOn = p_jobToWaitOnWeakPtr.lock();
@@ -134,20 +139,23 @@ namespace GRUT {
       return;
     }
 
-    p_waiterJob->m_counter++;
+    waiterJob->m_counter++;
 
     auto search = m_waitList.find(jobToWaitOn.get());
     if (search != m_waitList.end()) {
-      search->second.emplace_back(p_waiterJob);
+      search->second.emplace_back(waiterJob);
     }
     else {
-      m_waitList[jobToWaitOn.get()] = { p_waiterJob };
+      m_waitList[jobToWaitOn.get()] = { waiterJob };
     }
 
     YieldFiber(false);
   }
 
-  void JobManager::PlaceFibersOnWaitList(const std::vector<std::weak_ptr<Job>> &p_jobsToWaitOnWeakPtrs, Job * const p_waiterJob) {
+  void JobManager::WaitForJobs(const std::vector<std::weak_ptr<Job>> &p_jobsToWaitOnWeakPtrs) {
+    auto waiterJob = m_fiberJobs[GetCurrentFiber()];    
+    if (!waiterJob)
+      return;
     LockFiberSwitchLock();
 
     std::vector<std::shared_ptr<Job>> availablePtrs;
@@ -160,17 +168,17 @@ namespace GRUT {
     for (auto &job : availablePtrs) {
       if (job->m_isDone) continue;
 
-      p_waiterJob->m_counter++;
+      waiterJob->m_counter++;
       auto search = m_waitList.find(job.get());
       if (search != m_waitList.end()) {
-        search->second.emplace_back(p_waiterJob);
+        search->second.emplace_back(waiterJob);
       }
       else {
-        m_waitList[job.get()] = { p_waiterJob };
+        m_waitList[job.get()] = { waiterJob };
       }
     }
 
-    if (p_waiterJob->m_counter == 0) {
+    if (waiterJob->m_counter == 0) {
       UnlockFiberSwitchLock();
       return;
     }

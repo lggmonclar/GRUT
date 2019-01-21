@@ -9,8 +9,8 @@ namespace GRUT {
   }
 
   void RenderManager::DrawFrame(FrameParams& p_prevFrame, FrameParams& p_currFrame) {
-    p_currFrame.renderJob = JobManager::Instance().KickJob(Job([&, m_window = m_window](std::shared_ptr<Job> p) {
-      p->WaitForJobs({ p_currFrame.updateJob, p_prevFrame.renderJob });
+    p_currFrame.renderJob = JobManager::Instance().KickJob(Job([&, m_window = m_window]() {
+      JobManager::Instance().WaitForJobs({ p_currFrame.updateJob, p_prevFrame.renderJob });
       LOG_DEBUG("render {0}", idx);
 
       m_window->BeginFrame();

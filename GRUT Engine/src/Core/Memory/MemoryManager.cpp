@@ -11,8 +11,8 @@ namespace GRUT {
     MemoryManager::Instance();
   }
   void MemoryManager::Defragment(FrameParams& p_prevFrame, FrameParams& p_currFrame) {
-    p_currFrame.memoryJob = JobManager::Instance().KickJob(Job([&](std::shared_ptr<Job> p) {
-      p->WaitForJobs({ p_currFrame.renderJob, p_prevFrame.memoryJob });
+    p_currFrame.memoryJob = JobManager::Instance().KickJob(Job([&]() {
+      JobManager::Instance().WaitForJobs({ p_currFrame.renderJob, p_prevFrame.memoryJob });
 
       m_freeListAllocator.Defragment(1);
 

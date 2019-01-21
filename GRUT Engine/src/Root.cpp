@@ -39,6 +39,7 @@ namespace GRUT {
       //Poll inputs in main thread
       inputManager.PollInputs();
 
+
       //Update Scene
       //LOG_DEBUG("lag {0}", lag);
       //while (lag >= MS_PER_UPDATE) {

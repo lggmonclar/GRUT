@@ -6,8 +6,8 @@ namespace GRUT {
     LOW, NORMAL, HIGH, CRITICAL
   };
 
-  class Job {
-    using EntryPoint = std::function<void(std::shared_ptr<Job> param)>;
+  struct Job {
+    using EntryPoint = std::function<void()>;
     friend class JobManager;
   private:
     int                m_id = -1;
@@ -56,8 +56,5 @@ namespace GRUT {
     }
     Job(const Job&) = delete;
     Job& operator=(Job const&) = delete;
-
-    const void WaitForJob(const std::weak_ptr<Job> p_weakJobPtr);
-    const void WaitForJobs(const std::initializer_list<std::weak_ptr<Job>> p_weakJobPtrs);
   };
 }
