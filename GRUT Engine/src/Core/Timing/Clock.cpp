@@ -23,9 +23,9 @@ namespace GRUT {
         std::chrono::duration_cast<Nanoseconds>(newTime - m_startTime);
 
       m_currentTime = newTime;
-      m_deltaTime = delta.count() * 1e-9 * timeScale;
+      m_deltaTime = static_cast<float>(delta.count() * 1e-9 * timeScale);
       m_elapsedTime += m_deltaTime;
-      m_elapsedUnscaledTime = elapsed.count() * 1e-9;
+      m_elapsedUnscaledTime = static_cast<float>(elapsed.count() * 1e-9);
     }
   }
 

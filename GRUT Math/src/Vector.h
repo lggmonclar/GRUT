@@ -14,7 +14,7 @@ namespace GRUT {
       float& operator[] (short index) const {
         return const_cast<float*>(reinterpret_cast<const float*>(this))[index];
       }
-      operator float*() const {
+      operator const float*() const {
         return m_vals;
       }
 

@@ -14,6 +14,7 @@ namespace GRUT {
       return false;
     
     CompileVertexShader(contents.c_str());
+    return true;
   }
   bool Shader::LoadFragmentShader(const char * path) {
     std::string contents;
@@ -26,6 +27,7 @@ namespace GRUT {
       return false;
 
     CompileFragmentShader(contents.c_str());
+    return true;
   }
   std::string Shader::LoadFileContents(const char * path) {
     std::ifstream fileStream;
