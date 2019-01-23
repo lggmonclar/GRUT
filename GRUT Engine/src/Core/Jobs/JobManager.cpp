@@ -105,10 +105,10 @@ namespace GRUT {
     return job;
   }
 
-  std::weak_ptr<Job> JobManager::KickJob(Job &&p_jobDecl) {
+  std::weak_ptr<Job> JobManager::KickJob(Job &&p_jobDecl, JobPriority p_priority) {
     std::shared_ptr<Job> ref = std::make_shared<Job>(std::move(p_jobDecl));
     m_fetchJobSpinLock.Acquire();
-    switch (p_jobDecl.m_priority) {
+    switch (p_priority) {
       case JobPriority::CRITICAL:
         m_criticalPJobs.push(ref);
         break;

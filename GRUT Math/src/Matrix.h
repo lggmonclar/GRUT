@@ -17,6 +17,10 @@ namespace GRUT {
       template <typename ...T>
       Matrix(T... args) : m_vals{ args... } {}
 
+      operator const float*() const {
+        return m_vals;
+      }
+
       Vector<N>& operator[] (short index) const {
         return const_cast<Vector<N>*>(reinterpret_cast<const Vector<N>*>(this))[index];
       }

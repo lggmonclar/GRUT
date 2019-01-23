@@ -38,8 +38,8 @@ namespace GRUT {
       return instance;
     }
     static void Initialize();
-    std::shared_ptr<Job> FetchJob(JobPriority p_priority = JobPriority::LOW);
-    std::weak_ptr<Job> KickJob(Job &&p_jobDecl);
+    std::shared_ptr<Job> FetchJob(JobPriority p_priority = JobPriority::CRITICAL);
+    std::weak_ptr<Job> KickJob(Job &&p_jobDecl, JobPriority p_priority = JobPriority::NORMAL);
     void WaitForJob(const std::weak_ptr<Job> &p_jobToWaitOnWeakPtr);
     void WaitForJobs(const std::vector<std::weak_ptr<Job>> &p_jobsToWaitOnWeakPtrs);
     void AwakenWaitingFibers(Job * const p_job);

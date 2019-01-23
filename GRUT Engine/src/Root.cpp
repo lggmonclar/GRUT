@@ -41,11 +41,6 @@ namespace GRUT {
 
 
       //Update Scene
-      //LOG_DEBUG("lag {0}", lag);
-      //while (lag >= MS_PER_UPDATE) {
-      //SceneManager::Instance().FixedUpdate(MS_PER_UPDATE);
-      //  lag -= MS_PER_UPDATE;
-      //}
       SceneManager::Instance().Update(frames[prevIndex], frames[currIndex]);
 
       //Render in worker threads
@@ -53,6 +48,8 @@ namespace GRUT {
 
       //Defragment up to n blocks of memory
       MemoryManager::Instance().Defragment(frames[prevIndex], frames[currIndex]);
+
+      //Increment relevant frame indices
       guardIndex = (guardIndex + 1) % 16;
       prevIndex = (prevIndex + 1) % 16;
       currIndex = (currIndex + 1) % 16;

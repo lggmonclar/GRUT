@@ -17,12 +17,12 @@ namespace GRUT {
   }
 
   void SceneManager::Update(FrameParams& p_prevFrame, FrameParams& p_currFrame) {
-    p_currFrame.updateJob = JobManager::Instance().KickJob(Job([&]() {
+    p_currFrame.updateJob = JobManager::Instance().KickJob([&]() {
       JobManager::Instance().WaitForJob(p_prevFrame.updateJob);
       LOG_DEBUG("scene {0}", idx);
       m_currentScene->Update(p_currFrame.deltaTime);
       LOG_DEBUG("scene {0}", idx++);
-    }));
+    });
   }
 
   ObjectHandle<GameObject> SceneManager::CreateGameObject() {

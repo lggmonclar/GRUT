@@ -9,7 +9,7 @@ namespace GRUT {
   }
 
   void RenderManager::DrawFrame(FrameParams& p_prevFrame, FrameParams& p_currFrame) {
-    p_currFrame.renderJob = JobManager::Instance().KickJob(Job([&, m_window = m_window]() {
+    p_currFrame.renderJob = JobManager::Instance().KickJob([&, m_window = m_window]() {
       JobManager::Instance().WaitForJobs({ p_currFrame.updateJob, p_prevFrame.renderJob });
       LOG_DEBUG("render {0}", idx);
 
@@ -20,6 +20,6 @@ namespace GRUT {
       m_window->EndFrame();
 
       LOG_DEBUG("render {0}", idx++);
-    }));
+    });
   }
 }

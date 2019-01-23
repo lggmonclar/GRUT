@@ -14,6 +14,9 @@ namespace GRUT {
       float& operator[] (short index) const {
         return const_cast<float*>(reinterpret_cast<const float*>(this))[index];
       }
+      operator float*() const {
+        return m_vals;
+      }
 
       Vector& operator+= (const Vector & other) {
         for (short i = 0; i < N; ++i) {
@@ -116,12 +119,12 @@ namespace GRUT {
         });
       }
 
-      float x() { return m_vals[0]; }
+      float x() const { return m_vals[0]; }
       template<short M = N> typename std::enable_if < (M > 1), float >::type y() const { return m_vals[1]; }
       template<short M = N> typename std::enable_if < (M > 2), float >::type z() const { return m_vals[2]; }
       template<short M = N> typename std::enable_if < (M > 3), float >::type w() const { return m_vals[3]; }
 
-      float r() { return m_vals[0]; }
+      float r() const { return m_vals[0]; }
       template<short M = N> typename std::enable_if < (M > 1), float >::type g() { return m_vals[1]; }
       template<short M = N> typename std::enable_if < (M > 2), float >::type b() { return m_vals[2]; }
       template<short M = N> typename std::enable_if < (M > 3), float >::type a() { return m_vals[3]; }

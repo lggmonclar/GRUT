@@ -9,7 +9,6 @@ namespace GRUT {
   private:
     std::vector<ObjectHandle<Component>> m_components;
     std::vector<ObjectHandle<GameObject>> m_children;
-    void UpdateSnapshot(int frame);
   public:
     std::string name;
     Transform transform;

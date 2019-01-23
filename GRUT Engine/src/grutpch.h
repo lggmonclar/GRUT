@@ -12,6 +12,10 @@
 #include <queue>
 #include <map>
 
+#include <fstream>
+#include <sstream>
+#include <iostream>
+
 #include "GRUTMath.h"
 
 #ifdef GRUT_PLATFORM_WINDOWS

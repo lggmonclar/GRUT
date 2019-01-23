@@ -118,6 +118,8 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="src\Core\Timing\Clock.h" />
     <ClInclude Include="src\DLLMacros.h" />
     <ClInclude Include="src\Core\GRUTAlias.h" />
+    <ClInclude Include="src\Graphics\Shaders\GLShader.h" />
+    <ClInclude Include="src\Graphics\Shaders\Shader.h" />
     <ClInclude Include="src\input\InputManager.h" />
     <ClInclude Include="src\grutpch.h" />
     <ClInclude Include="src\core\jobs\Job.h" />
@@ -144,6 +146,8 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClCompile Include="src\Core\Memory\MultiFramePoolAllocator.cpp" />
     <ClCompile Include="src\Core\Memory\ObjectHandle.cpp" />
     <ClCompile Include="src\Core\Timing\Clock.cpp" />
+    <ClCompile Include="src\Graphics\Shaders\GLShader.cpp" />
+    <ClCompile Include="src\Graphics\Shaders\Shader.cpp" />
     <ClCompile Include="src\input\InputManager.cpp" />
     <ClCompile Include="src\grutpch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
