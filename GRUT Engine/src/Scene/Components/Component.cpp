@@ -2,8 +2,4 @@
 #include "Component.h"
 
 namespace GRUT {
-  Component::Component() {
-  }
-  Component::~Component() {
-  }
 }

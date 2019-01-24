@@ -7,6 +7,7 @@
 #include "Core/Jobs/Job.h"
 #include "Input/InputManager.h"
 #include "Graphics/Windows/GLWindow.h"
+#include "Graphics/RenderManager.h"
 #include "Scene/SceneManager.h"
 
 namespace GRUT {
@@ -16,7 +17,7 @@ namespace GRUT {
     JobManager::Initialize();
     SceneManager::Initialize();
     window = InitializeWindow();
-    renderManager.Initialize(window);
+    RenderManager::Initialize(window);
     inputManager.Initialize(window);
     GetGameClock();
   }
@@ -44,7 +45,7 @@ namespace GRUT {
       SceneManager::Instance().Update(frames[prevIndex], frames[currIndex]);
 
       //Render in worker threads
-      renderManager.DrawFrame(frames[prevIndex], frames[currIndex]);
+      RenderManager::Instance().DrawFrame(frames[prevIndex], frames[currIndex]);
 
       //Defragment up to n blocks of memory
       MemoryManager::Instance().Defragment(frames[prevIndex], frames[currIndex]);

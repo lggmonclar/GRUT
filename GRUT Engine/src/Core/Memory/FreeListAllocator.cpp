@@ -28,6 +28,8 @@ namespace GRUT {
     //and then the previous node
     if (!Coalesce(currPrevNode, newNode))
       currPrevNode->next = newNode;
+    else
+      currPrevNode->next = newNode->next;
 
     END_ASSERT_LOCK_NOT_NECESSARY(m_lock);
   }

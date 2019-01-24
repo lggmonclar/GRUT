@@ -22,13 +22,13 @@ namespace GRUT {
     Node *m_headNode; 
     HandleEntry m_handles[AVAILABLE_HANDLES];
   public:
-    FreeListAllocator(const Size p_size);
+    GRUT_API FreeListAllocator(const Size p_size);
     template<class T>
     ObjectHandle<T> Allocate();
     void Free(void* p_obj);
     void Defragment(U8 p_blocksToShift);
     bool Coalesce(Node* p_backNode, Node* p_frontNode);
-    ~FreeListAllocator();
+    GRUT_API ~FreeListAllocator();
   };
   template<class T>
   inline ObjectHandle<T> FreeListAllocator::Allocate() {

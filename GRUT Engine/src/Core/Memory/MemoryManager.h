@@ -8,7 +8,7 @@ namespace GRUT {
   private:
     FreeListAllocator m_freeListAllocator{8_MB};
     MemoryManager() = default;
-    ~MemoryManager();
+    ~MemoryManager() = default;
   public:
     static MemoryManager& Instance() {
       static MemoryManager instance{};

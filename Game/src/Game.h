@@ -12,12 +12,13 @@ public:
     auto a = GRUT::GameObject::Instantiate();
     auto b = GRUT::GameObject::Instantiate();
     auto c = GRUT::GameObject::Instantiate();
-    a->name = "obj-a";
-    b->name = "obj-b"; 
-    c->name = "obj-c";
+
+    a->AddComponent<GRUT::RenderableComponent>();
+    auto comp = a->GetComponent<GRUT::RenderableComponent>();
+
     a->Destroy();
     b->Destroy();
-    //c->Destroy();
+    c->Destroy();
   }
 
   ~Game() {

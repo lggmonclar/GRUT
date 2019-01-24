@@ -4,9 +4,6 @@
 #include "Core/Jobs/JobManager.h"
 
 namespace GRUT {
-  MemoryManager::~MemoryManager() {
-  }
-
   void MemoryManager::Initialize() {
     MemoryManager::Instance();
   }
