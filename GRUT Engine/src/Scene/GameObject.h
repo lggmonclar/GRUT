@@ -12,6 +12,8 @@ namespace GRUT {
   private:
     std::vector<ObjectHandle<GameObject>> m_children;
     std::map<const char*, ObjectHandle<Component>> m_components;
+    bool m_isAlive = true;
+    ~GameObject() = default;
   public:
     std::string name;
     Transform transform;
@@ -19,7 +21,6 @@ namespace GRUT {
     void Update(float p_deltaTime);
     GRUT_API static ObjectHandle<GameObject> Instantiate();
     GRUT_API void Destroy();
-    ~GameObject();
     template<class C>
     ObjectHandle<C> AddComponent();
     template<class C>

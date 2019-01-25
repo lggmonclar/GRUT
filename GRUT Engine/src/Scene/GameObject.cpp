@@ -12,8 +12,11 @@ namespace GRUT {
     return SceneManager::Instance().CreateGameObject();
   }
   void GameObject::Destroy() {
+    if (!m_isAlive) return;
     LOG_INFO("DESTROYED GAMEOBJECT");
     SceneManager::Instance().DestroyGameObject(this);
+    for (auto &[t, c] : m_components)
+      MemoryManager::Instance().FreeFromFreeList(&(*c));
   }
   void GameObject::FixedUpdate(float p_deltaTime) {
     for (auto &[t, c] : m_components)
@@ -22,10 +25,5 @@ namespace GRUT {
   void GameObject::Update(float p_deltaTime) {
     for (auto &[t, c]: m_components)
       c->Update(p_deltaTime);
-  }
-
-  GameObject::~GameObject() {
-    for (auto & [t, c] : m_components)
-      MemoryManager::Instance().FreeFromFreeList(&(*c));
   }
 }
