@@ -3,7 +3,13 @@
 #include "Core/Jobs/JobManager.h"
 #include "Core/Parallelism/FrameParams.h"
 
+#include "Models/GLModel.h"
+#include "Shaders/GLShader.h"
+#include "Scene/Components/Camera.h"
+#include <math.h>
+
 namespace GRUT {
+
   void RenderManager::Initialize(std::shared_ptr<Window> p_window) {
     RenderManager::Instance().m_window = p_window;
   }

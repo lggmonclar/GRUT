@@ -7,7 +7,7 @@ namespace GRUT {
   class SceneManager {
   private:
     int m_idx = 0;
-    Scene *m_currentScene;
+    ObjectHandle<Scene> m_currentScene;
     SceneManager() = default;
     ~SceneManager();
   public:

@@ -76,6 +76,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="GRUTMath.h" />
+    <ClInclude Include="src\Helpers.h" />
     <ClInclude Include="src\Matrix.h" />
     <ClInclude Include="src\Vector.h" />
   </ItemGroup>

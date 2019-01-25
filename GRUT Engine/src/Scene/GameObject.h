@@ -7,16 +7,20 @@
 #include "Core/Memory/MemoryManager.h"
 
 namespace GRUT {
+  class Scene;
   class GameObject {
     friend class FreeListAllocator;
   private:
+    bool m_isAlive = true;
+    ObjectHandle<GameObject> m_handle;
     std::vector<ObjectHandle<GameObject>> m_children;
     std::map<const char*, ObjectHandle<Component>> m_components;
-    bool m_isAlive = true;
+    GameObject() = default;
     ~GameObject() = default;
   public:
     std::string name;
-    Transform transform;
+    ObjectHandle<Transform> transform;
+    ObjectHandle<Scene> scene;
     void FixedUpdate(float p_deltaTime);
     void Update(float p_deltaTime);
     GRUT_API static ObjectHandle<GameObject> Instantiate();
@@ -30,6 +34,7 @@ namespace GRUT {
   template<class C>
   ObjectHandle<C> GameObject::AddComponent() {
     auto component = MemoryManager::Instance().AllocOnFreeList<C>();
+    component->gameObject = m_handle;
     m_components[typeid(C).name()] = component;
     return component;
   }

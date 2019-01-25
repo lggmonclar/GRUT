@@ -23,15 +23,15 @@ namespace GRUT {
     HandleEntry m_handles[AVAILABLE_HANDLES];
   public:
     GRUT_API FreeListAllocator(const Size p_size);
-    template<class T>
-    ObjectHandle<T> Allocate();
+    template<class T, typename... Args>
+    ObjectHandle<T> Allocate(Args... args);
     void Free(void* p_obj);
     void Defragment(U8 p_blocksToShift);
     bool Coalesce(Node* p_backNode, Node* p_frontNode);
     GRUT_API ~FreeListAllocator();
   };
-  template<class T>
-  inline ObjectHandle<T> FreeListAllocator::Allocate() {
+  template<class T, typename... Args>
+  inline ObjectHandle<T> FreeListAllocator::Allocate(Args... args) {
     BEGIN_ASSERT_LOCK_NOT_NECESSARY(m_lock);
     Node* prevNode = nullptr;
     Node* firstFitNode = m_headNode;
@@ -52,7 +52,7 @@ namespace GRUT {
     }
 
     AllocHeader* objHeader = reinterpret_cast<AllocHeader*>(firstFitNode);
-    T* newObj = new (reinterpret_cast<U8*>(objHeader) + sizeof(AllocHeader)) T;
+    T* newObj = new (reinterpret_cast<U8*>(objHeader) + sizeof(AllocHeader)) T(args...);
     
     U32 i = 0;
     for (; i < AVAILABLE_HANDLES; i++) {

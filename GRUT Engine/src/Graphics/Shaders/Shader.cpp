@@ -5,11 +5,11 @@
 namespace GRUT {
   bool Shader::LoadVertexShader(const char * path) {
     std::string contents;
-    auto jobPtr = JobManager::Instance().KickJob([&]() {
+    //auto jobPtr = JobManager::Instance().KickJob([&]() {
       contents = LoadFileContents(path);
-    });
+    //});
 
-    JobManager::Instance().WaitForJob(jobPtr);
+    //JobManager::Instance().WaitForJob(jobPtr);
     if (contents.empty())
       return false;
     
@@ -18,11 +18,11 @@ namespace GRUT {
   }
   bool Shader::LoadFragmentShader(const char * path) {
     std::string contents;
-    auto jobPtr = JobManager::Instance().KickJob([&]() {
+    //auto jobPtr = JobManager::Instance().KickJob([&]() {
       contents = LoadFileContents(path);
-    });
+    //});
 
-    JobManager::Instance().WaitForJob(jobPtr);
+    //JobManager::Instance().WaitForJob(jobPtr);
     if (contents.empty())
       return false;
 

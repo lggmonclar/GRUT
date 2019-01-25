@@ -2,9 +2,6 @@
 #include "Scene.h"
 
 namespace GRUT {
-  Scene::Scene() {
-
-  }
   void Scene::AddGameObject(ObjectHandle<GameObject> p_gameObject) {
     m_rootObjects.push_back(p_gameObject);
   }
@@ -18,8 +15,8 @@ namespace GRUT {
       obj->Update(p_deltaTime);
     }
   }
-  Scene::~Scene() {
+  //Scene::~Scene() {
     //for (auto &obj : m_rootObjects)
     //  delete obj;
-  }
+  //}
 }

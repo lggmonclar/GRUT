@@ -1,18 +1,26 @@
 #include "grutpch.h"
 #include "GLShader.h"
+#include "Graphics/Windows/GLWindow.h"
+#include "Graphics/RenderManager.h"
 
 namespace GRUT {
   void GLShader::CompileVertexShader(const char * p_vertexCode) {
+    auto window = dynamic_cast<GLWindow*>(RenderManager::Instance().GetWindow().get());
+    window->SetContext();
     m_vShaderProgram = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(m_vShaderProgram, 1, &p_vertexCode, NULL);
     glCompileShader(m_vShaderProgram);
     CheckCompileErrors(m_vShaderProgram, "VERTEX");
+    window->ClearContext();
   }
   void GLShader::CompileFragmentShader(const char * p_fragmentCode) {
+    auto window = dynamic_cast<GLWindow*>(RenderManager::Instance().GetWindow().get());
+    window->SetContext();
     m_fShaderProgram = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(m_fShaderProgram, 1, &p_fragmentCode, NULL);
     glCompileShader(m_fShaderProgram);
     CheckCompileErrors(m_fShaderProgram, "FRAGMENT");
+    window->ClearContext();
   }
   void GLShader::CheckCompileErrors(unsigned int p_shader, std::string p_type) {
     int success;

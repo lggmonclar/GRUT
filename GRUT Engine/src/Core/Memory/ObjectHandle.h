@@ -33,6 +33,7 @@ namespace GRUT {
     ObjectHandle(std::function<HandleEntry()> p_handleGetter);
     T* operator->() const;
     T& operator*();
+    T* operator&() const;
   };
   template<class T>
   inline ObjectHandle<T>::ObjectHandle(std::function<HandleEntry()> p_handleGetter) : m_handleGetter(p_handleGetter) {}
@@ -41,6 +42,13 @@ namespace GRUT {
   inline T* ObjectHandle<T>::operator->() const {
     return static_cast<T*>(m_handleGetter().m_ptr);
   }
+
+
+  template<class T>
+  inline T* ObjectHandle<T>::operator&() const {
+    return static_cast<T*>(m_handleGetter().m_ptr);
+  }
+
   template<class T>
   inline T& ObjectHandle<T>::operator*() {
     return *(static_cast<T*>(m_handleGetter().m_ptr));

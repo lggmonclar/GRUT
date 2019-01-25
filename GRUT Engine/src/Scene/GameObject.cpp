@@ -9,7 +9,10 @@
 namespace GRUT {
   ObjectHandle<GameObject> GameObject::Instantiate() {
     LOG_INFO("INSTANTIATED GAMEOBJECT");
-    return SceneManager::Instance().CreateGameObject();
+    auto obj = SceneManager::Instance().CreateGameObject();
+    obj->m_handle = obj;
+    obj->transform = obj->AddComponent<Transform>();
+    return obj;
   }
   void GameObject::Destroy() {
     if (!m_isAlive) return;

@@ -15,16 +15,16 @@ namespace GRUT {
       return instance;
     }
     static void Initialize();
-    template<class T> 
-    ObjectHandle<T> AllocOnFreeList();
+    template<class T, typename... Args>
+    ObjectHandle<T> AllocOnFreeList(Args... args);
     template<class T>
     void FreeFromFreeList(T* p_obj);
     void Defragment(FrameParams& p_prevFrame, FrameParams& p_currFrame);
   };
 
-  template<class T>
-  inline ObjectHandle<T> MemoryManager::AllocOnFreeList() {
-    return m_freeListAllocator.Allocate<T>();
+  template<class T, typename... Args>
+  inline ObjectHandle<T> MemoryManager::AllocOnFreeList(Args... args) {
+    return m_freeListAllocator.Allocate<T>(args...);
   }
   template<class T>
   inline void MemoryManager::FreeFromFreeList(T* p_obj) {

@@ -5,11 +5,15 @@
 #include "Core/Memory/ObjectHandle.h"
 #include "SceneManager.h"
 #include "Core/Jobs/JobManager.h"
+#include "Components/Camera.h"
 
 namespace GRUT {
   void SceneManager::Initialize() {
-    //TODO: Use custom allocator for the scene
-    SceneManager::Instance().m_currentScene = new Scene();
+    SceneManager::Instance().m_currentScene = MemoryManager::Instance().AllocOnFreeList<Scene>();
+    auto obj = GameObject::Instantiate();
+    obj->name = "Main Camera";
+    auto camera = obj->AddComponent<Camera>();
+    SceneManager::Instance().m_currentScene->mainCamera = camera;
   }
 
   void SceneManager::FixedUpdate(float p_deltaTime) {
@@ -28,6 +32,7 @@ namespace GRUT {
   ObjectHandle<GameObject> SceneManager::CreateGameObject() {
     auto gameObject = MemoryManager::Instance().AllocOnFreeList<GameObject>();
     m_currentScene->AddGameObject(gameObject);
+    gameObject->scene = m_currentScene;
     return gameObject;
   }
 

@@ -12,6 +12,7 @@ namespace GRUT {
     ~RenderManager() = default;
     int m_idx = 0;
   public:
+    inline std::shared_ptr<Window> GetWindow() { return m_window; }
     static RenderManager& Instance() {
       static RenderManager instance{};
       return instance;

@@ -50,12 +50,12 @@ namespace GRUT {
       Matrix& operator*= (const Matrix & other) {
         Matrix<N> result;
         Matrix<N> tOther(other);
-        tOther.transpose();
+        tOther.Transpose();
         for (short i = 0; i < N; ++i) {
           for (short j = 0; j < N; ++j) {
             auto row = (*this)[i];
             auto col = tOther[j];
-            result[i][j] = row.dot(col);
+            result[i][j] = row.Dot(col);
           }
         }
         *this = result;
@@ -76,7 +76,7 @@ namespace GRUT {
         return result *= scalar;
       }
 
-      Matrix& transpose() {
+      Matrix& Transpose() {
         Matrix transposed;
         for (short i = 0; i < N; ++i) {
           for (short j = 0; j < N; ++j) {
@@ -86,25 +86,37 @@ namespace GRUT {
         *this = transposed;
         return *this;
       }
-      Matrix transposed() const {
+      Matrix Transposed() const {
         Matrix transposedThis(*this);
-        return transposedThis.transpose();
+        return transposedThis.Transpose();
       }
 
-      template<short M = N> typename std::enable_if< (M != 3), Matrix & >::type scale(float scalar) {
+      template<short M = N> typename std::enable_if< (M != 3), Matrix & >::type Scale(float scalar) {
         for (short i = 0; i < N - 1; ++i) {
           m_vals[N*i + i] *= scalar;
         }
         return *this;
       }
-      template<short M = N> typename std::enable_if< (M == 3), Matrix & >::type scale(float scalar) {
+      template<short M = N> typename std::enable_if< (M == 3), Matrix & >::type Scale(float scalar) {
         for (short i = 0; i < 3; ++i) {
           m_vals[N*i + i] *= scalar;
         }
         return *this;
+      }      
+      template<short M = N> typename std::enable_if< (M != 3), Matrix & >::type Scale(Vector<N - 1> vec) {
+        for (short i = 0; i < N - 1; ++i) {
+          m_vals[N*i + i] *= vec[i];
+        }
+        return *this;
+      }
+      template<short M = N> typename std::enable_if< (M == 3), Matrix & >::type Scale(Vector<N> vec) {
+        for (short i = 0; i < 3; ++i) {
+          m_vals[N*i + i] *= vec[i];
+        }
+        return *this;
       }
 
-      template<short M = N> typename std::enable_if< (M > 2), Matrix & >::type rotateX(float ang) {
+      template<short M = N> typename std::enable_if< (M > 2), Matrix & >::type RotateX(float ang) {
         float c = cos(ang);
         float s = sin(ang);
         Matrix mat;
@@ -116,7 +128,7 @@ namespace GRUT {
         *this *= mat;
         return *this;
       }
-      template<short M = N> typename std::enable_if< (M > 2), Matrix & >::type rotateY(float ang) {
+      template<short M = N> typename std::enable_if< (M > 2), Matrix & >::type RotateY(float ang) {
         float c = cos(ang);
         float s = sin(ang);
         Matrix mat;
@@ -128,7 +140,7 @@ namespace GRUT {
         *this *= mat;
         return *this;
       }
-      Matrix & rotateZ(float ang) {
+      Matrix & RotateZ(float ang) {
         float c = cos(ang);
         float s = sin(ang);
         Matrix mat;
@@ -141,10 +153,10 @@ namespace GRUT {
         return *this;
       }
 
-      template<short M = N> typename std::enable_if< (M > 2), Matrix & >::type rotateAbout(float deg, const Vector<3>& axis) {
+      template<short M = N> typename std::enable_if< (M > 2), Matrix & >::type RotateAbout(const Vector<3>& axis, float deg) {
         float c = cos(deg);
         float s = sin(deg);
-        Vector<3> v = axis.normalized();
+        Vector<3> v = axis.Normalized();
 
         Matrix mat;
         mat[0][0] = v.x() * v.x() * (1 - c) + c;
@@ -160,12 +172,17 @@ namespace GRUT {
         *this *= mat;
         return *this;
       }
-      Matrix& translate(const Vector<N> & v) {
-        (*this)[N - 1] = v;
+      Matrix& Translate(const Vector<N - 1> & v) {
+        Vector<N> translationVector;
+        for (int i = 0; i < N - 1; i++) {
+          translationVector[i] = v[i];
+        }
+        translationVector[N - 1] = 1.0f;
+        (*this)[N - 1] = translationVector;
         return *this;
       };
 
-      template<short M = N> typename static std::enable_if< (M > 3), Matrix & >::type orthographicProjection(float left, float right, float bottom, float top, float nearPlane, float farPlane) {
+      static Matrix OrthographicProjection(float left, float right, float bottom, float top, float nearPlane, float farPlane) {
         Matrix mat;
         mat[0][0] = 2.0f / (right - left);
         mat[1][1] = 2.0f / (top - bottom);
@@ -176,7 +193,7 @@ namespace GRUT {
 
         return mat;
       }
-      template<short M = N> typename static std::enable_if< (M > 3), Matrix & >::type perspectiveProjection(float fieldOfView, float aspectRatio, float nearPlane, float farPlane) {
+      static Matrix PerspectiveProjection(float fieldOfView, float aspectRatio, float nearPlane, float farPlane) {
         Matrix mat;
         float tanHalfFov = tan(fieldOfView / 2.0f);
 
@@ -188,26 +205,26 @@ namespace GRUT {
 
         return mat;
       }
-      template<short M = N> typename std::enable_if< (M > 3), Matrix & >::type lookAt(const Vector<3> &position, const Vector<3> &target, const Vector<3> &worldUp) {
-        Vector<3> zAxis = (position - target).normalized();
-        Vector<3> xAxis = worldUp.cross(zAxis).normalized();
-        Vector<3> yAxis = zAxis.cross(xAxis);
+      template<short M = N> typename std::enable_if< (M > 3), Matrix & >::type LookAt(const Vector<3> &position, const Vector<3> &target, const Vector<3> &worldUp) {
+        Vector<3> zAxis = (position - target).Normalized();
+        Vector<3> xAxis = worldUp.Cross(zAxis).Normalized();
+        Vector<3> yAxis = zAxis.Cross(xAxis);
 
-        (*this)[0][0] = xAxis.x;
-        (*this)[0][1] = yAxis.x;
-        (*this)[0][2] = zAxis.x;
+        (*this)[0][0] = xAxis.x();
+        (*this)[0][1] = yAxis.x();
+        (*this)[0][2] = zAxis.x();
 
-        (*this)[1][0] = xAxis.y;
-        (*this)[1][1] = yAxis.y;
-        (*this)[1][2] = zAxis.y;
+        (*this)[1][0] = xAxis.y();
+        (*this)[1][1] = yAxis.y();
+        (*this)[1][2] = zAxis.y();
 
-        (*this)[2][0] = xAxis.z;
-        (*this)[2][1] = yAxis.z;
-        (*this)[2][2] = zAxis.z;
+        (*this)[2][0] = xAxis.z();
+        (*this)[2][1] = yAxis.z();
+        (*this)[2][2] = zAxis.z();
 
-        (*this)[3][0] = -(xAxis.dot(position));
-        (*this)[3][1] = -(yAxis.dot(position));
-        (*this)[3][2] = -(zAxis.dot(position));
+        (*this)[3][0] = -(xAxis.Dot(position));
+        (*this)[3][1] = -(yAxis.Dot(position));
+        (*this)[3][2] = -(zAxis.Dot(position));
 
         return *this;
       }

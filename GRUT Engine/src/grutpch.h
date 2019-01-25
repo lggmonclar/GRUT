@@ -19,6 +19,11 @@
 
 #include "GRUTMath.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 #ifdef GRUT_PLATFORM_WINDOWS
   #ifndef WIN32_LEAN_AND_MEAN
     #define WIN32_LEAN_AND_MEAN

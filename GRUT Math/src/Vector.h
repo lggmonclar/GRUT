@@ -82,7 +82,7 @@ namespace GRUT {
         return result /= scalar;
       }
 
-      float dot(const Vector & other) const {
+      float Dot(const Vector & other) const {
         float sum = 0.0f;
         for (short i = 0; i < N; ++i) {
           sum += (*this)[i] * other[i];
@@ -90,7 +90,7 @@ namespace GRUT {
         return sum;
       }
 
-      float magnitude() const {
+      float Magnitude() const {
         float membersSquared = 0.0f;
         for (short i = 0; i < N; ++i) {
           membersSquared += (*this)[i] * (*this)[i];
@@ -98,20 +98,20 @@ namespace GRUT {
         return sqrt(membersSquared);
       }
 
-      Vector& normalize() {
-        float mag = magnitude();
+      Vector& Normalize() {
+        float mag = Magnitude();
         for (short i = 0; i < N; ++i) {
           (*this)[i] /= mag;
         }
         return *this;
       }
-      Vector normalized() const {
+      Vector Normalized() const {
         Vector normalVector(*this);
-        return normalVector.normalize();
+        return normalVector.Normalize();
       }
 
       
-      template<short M = N> typename std::enable_if< (M == 3), Vector >::type cross(const Vector & other) const {
+      template<short M = N> typename std::enable_if< (M == 3), Vector >::type Cross(const Vector & other) const {
         return Vector({
           y() * other.z() - z() * other.y(),
           z() * other.x() - x() * other.z(),

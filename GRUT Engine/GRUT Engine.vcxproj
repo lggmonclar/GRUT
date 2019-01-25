@@ -46,14 +46,14 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <TargetName>GRUT</TargetName>
-    <IncludePath>$(ProjectDir)src;$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(SolutionDir)vendor\assimp\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)src;$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(SolutionDir)vendor\assimp\include;$(SolutionDir)vendor\stb;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)vendor\assimp\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <TargetName>GRUT</TargetName>
-    <IncludePath>$(ProjectDir)src;$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(SolutionDir)vendor\assimp\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)src;$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(SolutionDir)vendor\assimp\include;$(SolutionDir)vendor\stb;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)vendor\assimp\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -78,7 +78,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
       <Message>Copies grut.dll into the Game bin directory</Message>
     </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc140-mt.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -120,6 +120,13 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="src\Core\Timing\Clock.h" />
     <ClInclude Include="src\DLLMacros.h" />
     <ClInclude Include="src\Core\GRUTAlias.h" />
+    <ClInclude Include="src\Graphics\Models\BaseModel.h" />
+    <ClInclude Include="src\Graphics\Models\GLMesh.h" />
+    <ClInclude Include="src\Graphics\Models\GLModel.h" />
+    <ClInclude Include="src\Graphics\Models\GLTexture.h" />
+    <ClInclude Include="src\Graphics\Models\Mesh.h" />
+    <ClInclude Include="src\Graphics\Models\Model.h" />
+    <ClInclude Include="src\Graphics\Models\Texture.h" />
     <ClInclude Include="src\Graphics\Shaders\GLShader.h" />
     <ClInclude Include="src\Graphics\Shaders\Shader.h" />
     <ClInclude Include="src\input\InputManager.h" />
@@ -137,6 +144,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="src\Input\KeyboardEvent.h" />
     <ClInclude Include="src\Input\MouseEvent.h" />
     <ClInclude Include="src\graphics\windows\Window.h" />
+    <ClInclude Include="src\Scene\Components\Camera.h" />
     <ClInclude Include="src\Scene\Components\Component.h" />
     <ClInclude Include="src\Scene\GameObject.h" />
     <ClInclude Include="src\Scene\Scene.h" />
@@ -146,8 +154,9 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
   <ItemGroup>
     <ClCompile Include="src\Core\Memory\FreeListAllocator.cpp" />
     <ClCompile Include="src\Core\Memory\MultiFramePoolAllocator.cpp" />
-    <ClCompile Include="src\Core\Memory\ObjectHandle.cpp" />
     <ClCompile Include="src\Core\Timing\Clock.cpp" />
+    <ClCompile Include="src\Graphics\Models\GLMesh.cpp" />
+    <ClCompile Include="src\Graphics\Models\GLTexture.cpp" />
     <ClCompile Include="src\Graphics\Shaders\GLShader.cpp" />
     <ClCompile Include="src\Graphics\Shaders\Shader.cpp" />
     <ClCompile Include="src\input\InputManager.cpp" />
@@ -175,11 +184,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">grutpch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">grutpch.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\graphics\windows\Window.cpp">
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">grutpch.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">grutpch.h</PrecompiledHeaderFile>
-    </ClCompile>
-    <ClCompile Include="src\Scene\Components\Component.cpp" />
+    <ClCompile Include="src\Scene\Components\Camera.cpp" />
     <ClCompile Include="src\Scene\Components\RenderableComponent.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>

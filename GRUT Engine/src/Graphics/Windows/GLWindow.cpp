@@ -4,8 +4,8 @@
 namespace GRUT {
   GLWindow::GLWindow() {
     glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     m_window = glfwCreateWindow(800, 600, "GRUT Engine", NULL, NULL);
@@ -45,6 +45,18 @@ namespace GRUT {
 
   GLWindow::~GLWindow() {
     glfwTerminate();
+  }
+
+  void GLWindow::SetContext() {
+    BEGIN_ASSERT_LOCK_NOT_NECESSARY(m_lock);
+    glfwMakeContextCurrent(m_window);
+    END_ASSERT_LOCK_NOT_NECESSARY(m_lock);
+  }
+
+  void GLWindow::ClearContext() {
+    BEGIN_ASSERT_LOCK_NOT_NECESSARY(m_lock);
+    glfwMakeContextCurrent(NULL);
+    END_ASSERT_LOCK_NOT_NECESSARY(m_lock);
   }
 
   void GLWindow::BeginFrame() {
