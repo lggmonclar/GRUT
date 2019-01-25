@@ -5,7 +5,6 @@
 namespace GRUT {
   class HandleEntry {
   public:
-    U32 m_uid;
     void* m_ptr;
     bool m_isAvailable{ true };
   };
@@ -14,7 +13,6 @@ namespace GRUT {
   class ObjectHandle {
   private:
   public:
-    U32 m_uid;
     std::function<HandleEntry()> m_handleGetter;
 
     //Covariance copy constructor
@@ -22,7 +20,6 @@ namespace GRUT {
     ObjectHandle(const ObjectHandle<Derived>& derived,
       std::enable_if_t<std::is_base_of_v<T, Derived>>* = nullptr) {
       m_handleGetter = derived.m_handleGetter;
-      m_uid = derived.m_uid;
     }
 
     //Contravariance copy constructor
@@ -30,7 +27,6 @@ namespace GRUT {
     ObjectHandle(const ObjectHandle<Base>& base,
       std::enable_if_t<std::is_base_of_v<Base, T>>* = nullptr) {
       m_handleGetter = base.m_handleGetter;
-      m_uid = base.m_uid;
     }
 
     ObjectHandle() = default;

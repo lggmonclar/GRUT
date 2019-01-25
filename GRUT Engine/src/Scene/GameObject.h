@@ -11,7 +11,7 @@ namespace GRUT {
     friend class FreeListAllocator;
   private:
     std::vector<ObjectHandle<GameObject>> m_children;
-    std::map<U16, ObjectHandle<Component>> m_components;
+    std::map<const char*, ObjectHandle<Component>> m_components;
   public:
     std::string name;
     Transform transform;
@@ -21,18 +21,19 @@ namespace GRUT {
     GRUT_API void Destroy();
     ~GameObject();
     template<class C>
-    void AddComponent();
+    ObjectHandle<C> AddComponent();
     template<class C>
     ObjectHandle<C> GetComponent();
   };
 
   template<class C>
-  void GameObject::AddComponent() {
-    auto comp = MemoryManager::Instance().AllocOnFreeList<C>();
-    m_components[GetType<C>()] = comp;
+  ObjectHandle<C> GameObject::AddComponent() {
+    auto component = MemoryManager::Instance().AllocOnFreeList<C>();
+    m_components[typeid(C).name()] = component;
+    return component;
   }
   template<class C>
   ObjectHandle<C> GameObject::GetComponent() {
-    return m_components[GetType<C>()];
+    return m_components[typeid(C).name()];
   }
 }

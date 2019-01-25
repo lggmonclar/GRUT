@@ -57,7 +57,7 @@ namespace GRUT {
     U32 i = 0;
     for (; i < AVAILABLE_HANDLES; i++) {
       if (m_handles[i].m_isAvailable) {
-        m_handles[i] = { 0, static_cast<void*>(newObj), false };
+        m_handles[i] = { static_cast<void*>(newObj), false };
         break;
       }
     }
