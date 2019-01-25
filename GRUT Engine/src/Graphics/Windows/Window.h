@@ -1,4 +1,5 @@
 #pragma once
+#include <functional>
 #include "Input/KeyboardEvent.h"
 #include "Input/MouseEvent.h"
 

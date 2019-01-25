@@ -1,5 +1,6 @@
 #pragma once
-#include "grutpch.h"
+#include <functional>
+#include <atomic>
 
 namespace GRUT {
   enum class JobPriority {

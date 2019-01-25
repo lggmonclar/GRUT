@@ -1,5 +1,5 @@
 #pragma once
-#include "grutpch.h"
+#include <memory>
 #include "Graphics/Windows/Window.h"
 
 namespace GRUT {

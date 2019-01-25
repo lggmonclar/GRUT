@@ -46,13 +46,15 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <TargetName>GRUT</TargetName>
-    <IncludePath>$(ProjectDir)src;$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)src;$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(SolutionDir)vendor\assimp\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)vendor\assimp\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <TargetName>GRUT</TargetName>
-    <IncludePath>$(ProjectDir)src;$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)src;$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)vendor;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(SolutionDir)vendor\assimp\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)vendor\assimp\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
