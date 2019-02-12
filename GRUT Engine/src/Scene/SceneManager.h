@@ -5,13 +5,14 @@ namespace GRUT {
   struct FrameParams;
 
   class SceneManager {
+    friend class Scene;
   private:
     int m_idx = 0;
     ObjectHandle<Scene> m_currentScene;
     SceneManager() = default;
     ~SceneManager();
   public:
-    static SceneManager& Instance() {
+    GRUT_API static SceneManager& Instance() {
       static SceneManager instance{};
       return instance;
     }

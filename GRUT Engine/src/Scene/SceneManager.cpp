@@ -12,8 +12,8 @@ namespace GRUT {
     SceneManager::Instance().m_currentScene = MemoryManager::Instance().AllocOnFreeList<Scene>();
     auto obj = GameObject::Instantiate();
     obj->name = "Main Camera";
-    auto camera = obj->AddComponent<Camera>();
-    SceneManager::Instance().m_currentScene->mainCamera = camera;
+    obj->AddComponent<Camera>();
+    SceneManager::Instance().m_currentScene->mainCamera = obj;
   }
 
   void SceneManager::FixedUpdate(float p_deltaTime) {

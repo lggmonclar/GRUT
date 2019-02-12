@@ -16,8 +16,9 @@ namespace GRUT {
   void RenderableComponent::Render() {
     LOG_INFO("Called render on renderable component");
     auto model = gameObject->transform->modelMatrix;
-    auto view = gameObject->scene->mainCamera->GetViewMatrix();
-    auto projection = gameObject->scene->mainCamera->GetProjectionMatrix();
+    auto cameraComponent = gameObject->scene->mainCamera->GetComponent<Camera>();
+    auto view = cameraComponent->GetViewMatrix();
+    auto projection = cameraComponent->GetProjectionMatrix();
     if (true) { //TODO: Implement different conditions for different graphics APIs based on configuration files
       auto shader = dynamic_cast<GLShader*>(&m_shader);
       shader->Use();

@@ -12,7 +12,8 @@ namespace GRUT {
     Scene() = default;
     ~Scene() = default;
   public:
-    ObjectHandle<Camera> mainCamera;
+    GRUT_API static ObjectHandle<Scene> GetCurrent();
+    ObjectHandle<GameObject> mainCamera;
     void AddGameObject(ObjectHandle<GameObject> p_gameObject);
     void FixedUpdate(float p_deltaTime);
     void Update(FrameParams& p_prevFrame, FrameParams& p_currFrame);
