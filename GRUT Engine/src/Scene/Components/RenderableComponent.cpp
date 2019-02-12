@@ -19,9 +19,15 @@ namespace GRUT {
     auto view = gameObject->scene->mainCamera->GetViewMatrix();
     auto projection = gameObject->scene->mainCamera->GetProjectionMatrix();
     if (true) { //TODO: Implement different conditions for different graphics APIs based on configuration files
-      m_shader->SetMat4("mvp", model * view * projection);
+      auto shader = dynamic_cast<GLShader*>(&m_shader);
+      shader->Use();
+      while (!m_shaderAssignmentsCallbacks.empty()) {
+        m_shaderAssignmentsCallbacks.front()();
+        m_shaderAssignmentsCallbacks.pop();
+      }
+      shader->SetMat4("mvp", model * view * projection);
 
-      static_cast<GLModel*>(&m_model)->Draw(dynamic_cast<GLShader*>(&m_shader));
+      static_cast<GLModel*>(&m_model)->Draw(shader);
     }
   }
   void RenderableComponent::SetModel(const char * p_path) {
@@ -53,4 +59,64 @@ namespace GRUT {
     return m_shader;
   }
   
+  void RenderableComponent::SetShaderBool(const std::string & name, bool value) {
+    m_shaderAssignmentsCallbacks.push([=, &m_shader = m_shader] {
+      m_shader->SetBool(name, value);
+    });
+  }
+  void RenderableComponent::SetShaderInt(const std::string & name, int value) {
+    m_shaderAssignmentsCallbacks.push([=, &m_shader = m_shader] {
+      m_shader->SetInt(name, value);
+    });
+  }
+  void RenderableComponent::SetShaderFloat(const std::string & name, float value) {
+    m_shaderAssignmentsCallbacks.push([=, &m_shader = m_shader] {
+      m_shader->SetFloat(name, value);
+    });
+  }
+  void RenderableComponent::SetShaderVec2(const std::string & name, const Math::Vector<2>& v2) {
+    m_shaderAssignmentsCallbacks.push([=, &m_shader = m_shader] {
+      m_shader->SetVec2(name, v2);
+    });
+  }
+  void RenderableComponent::SetShaderVec2(const std::string & name, float x, float y) {
+    m_shaderAssignmentsCallbacks.push([=, &m_shader = m_shader] {
+      m_shader->SetVec2(name, x, y);
+    });
+  }
+  void RenderableComponent::SetShaderVec3(const std::string & name, const Math::Vector<3>& v3) {
+    m_shaderAssignmentsCallbacks.push([=, &m_shader = m_shader] {
+      m_shader->SetVec3(name, v3);
+    });
+  }
+  void RenderableComponent::SetShaderVec3(const std::string & name, float x, float y, float z) {
+    m_shaderAssignmentsCallbacks.push([=, &m_shader = m_shader] {
+      m_shader->SetVec3(name, x, y, z);
+    });
+  }
+  void RenderableComponent::SetShaderVec4(const std::string & name, const Math::Vector<4>& v4) {
+    m_shaderAssignmentsCallbacks.push([=, &m_shader = m_shader] {
+      m_shader->SetVec4(name, v4);
+    });
+  }
+  void RenderableComponent::SetShaderVec4(const std::string & name, float x, float y, float z, float w) {
+    m_shaderAssignmentsCallbacks.push([=, &m_shader = m_shader] {
+      m_shader->SetVec4(name, x, y, z, w);
+    });
+  }
+  void RenderableComponent::SetShaderMat2(const std::string & name, const Math::Matrix<2>& m2) {
+    m_shaderAssignmentsCallbacks.push([=, &m_shader = m_shader] {
+      m_shader->SetMat2(name, m2);
+    });
+  }
+  void RenderableComponent::SetShaderMat3(const std::string & name, const Math::Matrix<3>& m3) {
+    m_shaderAssignmentsCallbacks.push([=, &m_shader = m_shader] {
+      m_shader->SetMat3(name, m3);
+    });
+  }
+  void RenderableComponent::SetShaderMat4(const std::string & name, const Math::Matrix<4>& m4) {
+    m_shaderAssignmentsCallbacks.push([=, &m_shader = m_shader] {
+      m_shader->SetMat4(name, m4);
+    });
+  }
 }

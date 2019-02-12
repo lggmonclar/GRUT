@@ -11,7 +11,7 @@ namespace GRUT {
     ~Component() = default;
   public:
     ObjectHandle<GameObject> gameObject;
-    void FixedUpdate(float p_deltaTime) {};
-    void Update(float p_deltaTime) {};
+    GRUT_API virtual void FixedUpdate(float p_deltaTime) {};
+    GRUT_API virtual void Update(float p_deltaTime) {};
   };
 }

@@ -45,6 +45,6 @@ namespace GRUT {
     Math::Matrix<4>& GetViewMatrix();
     Math::Matrix<4>& GetProjectionMatrix();
 
-    void Update(float p_deltaTime);
+    void Update(float p_deltaTime) override;
   };
 }

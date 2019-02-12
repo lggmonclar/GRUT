@@ -8,11 +8,11 @@ namespace GRUT {
   private:
   public:
     Matrix<4> modelMatrix;
-    Vector<3> GetPosition();
-    void Translate(const Vector<3>& p_vec);
-    void Rotate(const Vector<3>& p_rotations);
-    void RotateAbout(const Vector<3>& p_axis, const float p_val);
-    void LookAt(const Vector<3>& p_target);
-    void SetScale(const Vector<3>& p_scale);
+    GRUT_API Vector<3> GetPosition();
+    GRUT_API void Translate(const Vector<3>& p_vec);
+    GRUT_API void Rotate(const Vector<3>& p_rotations);
+    GRUT_API void RotateAbout(const Vector<3>& p_axis, const float p_val);
+    GRUT_API void LookAt(const Vector<3>& p_target);
+    GRUT_API void SetScale(const Vector<3>& p_scale);
   };
 }
