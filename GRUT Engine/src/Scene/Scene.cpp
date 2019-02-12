@@ -1,5 +1,7 @@
 #include "grutpch.h"
 #include "Scene.h"
+#include "Core/Jobs/JobManager.h"
+#include "Core/Parallelism/FrameParams.h"
 
 namespace GRUT {
   void Scene::AddGameObject(ObjectHandle<GameObject> p_gameObject) {
@@ -10,9 +12,12 @@ namespace GRUT {
       obj->FixedUpdate(p_deltaTime);
     }
   }
-  void Scene::Update(float p_deltaTime) {
+  void Scene::Update(FrameParams& p_prevFrame, FrameParams& p_currFrame) {
     for (auto &obj : m_rootObjects) {
-      obj->Update(p_deltaTime);
+      JobManager::Instance().KickJob([&]() {
+        JobManager::Instance().WaitForJob(p_prevFrame.updateJob);
+        obj->Update(p_currFrame.deltaTime);
+      });
     }
   }
   //Scene::~Scene() {

@@ -15,6 +15,6 @@ namespace GRUT {
     ObjectHandle<Camera> mainCamera;
     void AddGameObject(ObjectHandle<GameObject> p_gameObject);
     void FixedUpdate(float p_deltaTime);
-    void Update(float p_deltaTime);
+    void Update(FrameParams& p_prevFrame, FrameParams& p_currFrame);
   };
 }

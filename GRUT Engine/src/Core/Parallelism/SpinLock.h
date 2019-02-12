@@ -1,4 +1,5 @@
 #pragma once
+#include <thread>
 
 //Source: Game Engine Architecture 3rd Edition, Pg. 319
 class SpinLock {

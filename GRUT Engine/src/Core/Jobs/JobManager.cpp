@@ -109,19 +109,19 @@ namespace GRUT {
     std::shared_ptr<Job> ref = std::make_shared<Job>(std::move(p_jobDecl));
     m_fetchJobSpinLock.Acquire();
     switch (p_priority) {
-      case JobPriority::CRITICAL:
-        m_criticalPJobs.push(ref);
-        break;
-      case JobPriority::HIGH:
-        m_highPJobs.push(ref);
-        break;
-      case JobPriority::NORMAL:
-        m_normalPJobs.push(ref);
-        break;
-      case JobPriority::LOW:
-      default:
-        m_lowPJobs.push(ref);
-        break;
+    case JobPriority::CRITICAL:
+      m_criticalPJobs.push(ref);
+      break;
+    case JobPriority::HIGH:
+      m_highPJobs.push(ref);
+      break;
+    case JobPriority::NORMAL:
+      m_normalPJobs.push(ref);
+      break;
+    case JobPriority::LOW:
+    default:
+      m_lowPJobs.push(ref);
+      break;
     }
     m_fetchJobSpinLock.Release();
     return ref;
@@ -129,8 +129,11 @@ namespace GRUT {
 
   void JobManager::WaitForJob(const std::weak_ptr<Job> &p_jobToWaitOnWeakPtr) {
     auto waiterJob = m_fiberJobs[GetCurrentFiber()];
-    if (!waiterJob)
+    if (!waiterJob) {
+      auto jobToWaitOn = p_jobToWaitOnWeakPtr.lock();
+      while (jobToWaitOn && !jobToWaitOn->m_isDone);
       return;
+    }
     LockFiberSwitchLock();
 
     auto jobToWaitOn = p_jobToWaitOnWeakPtr.lock();
@@ -152,10 +155,28 @@ namespace GRUT {
     YieldFiber(false);
   }
 
+  void JobManager::ClearDoneJobs(std::vector<std::weak_ptr<Job>> &p_jobList) {
+    auto it = p_jobList.begin();
+    for (; it != p_jobList.end(); ) {
+      auto job = it->lock();
+      if (!job || job->m_isDone) {
+        it = p_jobList.erase(it);
+      }
+      else {
+        ++it;
+      }
+    }
+  }
+
   void JobManager::WaitForJobs(const std::vector<std::weak_ptr<Job>> &p_jobsToWaitOnWeakPtrs) {
-    auto waiterJob = m_fiberJobs[GetCurrentFiber()];    
-    if (!waiterJob)
+    auto waiterJob = m_fiberJobs[GetCurrentFiber()];
+    if (!waiterJob) {
+      for (auto &weakJobPtr : p_jobsToWaitOnWeakPtrs) {
+        auto jobPtr = weakJobPtr.lock();
+        while (jobPtr && !jobPtr->m_isDone);
+      }
       return;
+    }
     LockFiberSwitchLock();
 
     std::vector<std::shared_ptr<Job>> availablePtrs;

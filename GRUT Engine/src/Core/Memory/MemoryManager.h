@@ -1,16 +1,19 @@
 #pragma once
 #include "Core/GRUTAlias.h"
 #include "FreeListAllocator.h"
+#include "Core/Jobs/JobManager.h"
 
 namespace GRUT {
   struct FrameParams;
   class MemoryManager {
   private:
     FreeListAllocator m_freeListAllocator{8_MB};
+    SpinLock m_spinLock;
+    std::vector<std::weak_ptr<Job>> m_freeListAllocatorJobList;
     MemoryManager() = default;
     ~MemoryManager() = default;
   public:
-    static MemoryManager& Instance() {
+    GRUT_API static MemoryManager& Instance() {
       static MemoryManager instance{};
       return instance;
     }

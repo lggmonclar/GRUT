@@ -7,7 +7,7 @@ namespace GRUT {
     m_headNode = new (m_memoryHead)Node(p_size);
   }
   void FreeListAllocator::Free(void * p_obj) {
-    BEGIN_ASSERT_LOCK_NOT_NECESSARY(m_lock);
+    m_lock.Acquire();
 
     AllocHeader* occupiedBlock = reinterpret_cast<AllocHeader*>(reinterpret_cast<U8*>(p_obj) - sizeof(AllocHeader));
     m_handles[occupiedBlock->handleIdx].m_isAvailable = true;
@@ -31,11 +31,11 @@ namespace GRUT {
     else
       currPrevNode->next = newNode->next;
 
-    END_ASSERT_LOCK_NOT_NECESSARY(m_lock);
+    m_lock.Release();
   }
 
   void FreeListAllocator::Defragment(U8 p_blocksToShift) {
-    BEGIN_ASSERT_LOCK_NOT_NECESSARY(m_lock);
+    m_lock.Acquire();
     U8 blocksShifted = 0;
 
     Node* node = m_headNode;
@@ -62,7 +62,7 @@ namespace GRUT {
         node = node->next;
       }
     }
-    END_ASSERT_LOCK_NOT_NECESSARY(m_lock);
+    m_lock.Release();
   }
 
   bool FreeListAllocator::Coalesce(Node* p_backNode, Node* p_frontNode) {
