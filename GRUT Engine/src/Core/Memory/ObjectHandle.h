@@ -11,10 +11,10 @@ namespace GRUT {
 
   template <class T>
   class ObjectHandle {
+    template<typename> friend class ObjectHandle;
   private:
-  public:
     std::function<HandleEntry()> m_handleGetter;
-
+  public:
     //Covariance copy constructor
     template <typename Derived>
     ObjectHandle(const ObjectHandle<Derived>& derived,
