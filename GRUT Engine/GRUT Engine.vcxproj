@@ -129,6 +129,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="src\Graphics\Models\Texture.h" />
     <ClInclude Include="src\Graphics\Shaders\GLShader.h" />
     <ClInclude Include="src\Graphics\Shaders\Shader.h" />
+    <ClInclude Include="src\Input\Input.h" />
     <ClInclude Include="src\input\InputManager.h" />
     <ClInclude Include="src\grutpch.h" />
     <ClInclude Include="src\core\jobs\Job.h" />
@@ -141,8 +142,6 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="src\core\logging\Logger.h" />
     <ClInclude Include="src\core\time\Timer.h" />
     <ClInclude Include="src\graphics\windows\GLWindow.h" />
-    <ClInclude Include="src\Input\KeyboardEvent.h" />
-    <ClInclude Include="src\Input\MouseEvent.h" />
     <ClInclude Include="src\graphics\windows\Window.h" />
     <ClInclude Include="src\Scene\Components\Camera.h" />
     <ClInclude Include="src\Scene\Components\Component.h" />
@@ -159,6 +158,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClCompile Include="src\Graphics\Models\GLTexture.cpp" />
     <ClCompile Include="src\Graphics\Shaders\GLShader.cpp" />
     <ClCompile Include="src\Graphics\Shaders\Shader.cpp" />
+    <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\input\InputManager.cpp" />
     <ClCompile Include="src\grutpch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

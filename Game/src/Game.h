@@ -16,7 +16,8 @@ public:
     comp->SetShader("C:/Users/Lug/source/repos/GRUT Engine/GRUT Engine/test/shaders/diffuse_color.vert", "C:/Users/Lug/source/repos/GRUT Engine/GRUT Engine/test/shaders/diffuse_color.frag");
     comp->SetShaderVec3("color", Vector<3>(1.0f, 0.0f, 0.0f));
 
-    auto scene = GRUT::Scene::GetCurrent();
+    cubeA->AddComponent<Test>();
+    //auto scene = GRUT::Scene::GetCurrent();
     //scene->mainCamera->
   }
 

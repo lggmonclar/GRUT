@@ -18,7 +18,7 @@ namespace GRUT {
     SceneManager::Initialize();
     window = InitializeWindow();
     RenderManager::Initialize(window);
-    inputManager.Initialize(window);
+    InputManager::Initialize(window);
     GetGameClock();
   }
 
@@ -38,16 +38,16 @@ namespace GRUT {
       frames[currIndex].deltaTime = GetGameClock().GetDeltaTime();
 
       //Poll inputs in main thread
-      inputManager.PollInputs();
+      InputManager::Instance().PollInputs();
 
 
-      //Update Scene
+      //Update Scene in worker threads
       SceneManager::Instance().Update(frames[prevIndex], frames[currIndex]);
 
       //Render in worker threads
       RenderManager::Instance().DrawFrame(frames[prevIndex], frames[currIndex]);
 
-      //Defragment up to n blocks of memory
+      //Defragment up to n blocks of memory in worker threads
       MemoryManager::Instance().Defragment(frames[prevIndex], frames[currIndex]);
 
       //Increment relevant frame indices

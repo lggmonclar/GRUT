@@ -7,8 +7,6 @@ namespace GRUT {
   private:
     UnnecessaryLock m_lock;
     GLFWwindow* m_window;
-    std::function<void(KeyboardEvent)> m_keyboardCallback = nullptr;
-    std::function<void(MouseEvent)> m_mouseCallback = nullptr;
   public:
     GLWindow();
     ~GLWindow();
@@ -16,8 +14,6 @@ namespace GRUT {
     void ClearContext();
     void BeginFrame() override;
     void EndFrame() override;
-    void SetKeyboardCallback(std::function<void(KeyboardEvent)>) override;
-    void SetMouseCallback(std::function<void(MouseEvent)>) override;
     void PollEvents() override;
     bool ShouldClose() override;
   };

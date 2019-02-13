@@ -7,7 +7,6 @@ namespace GRUT {
   class Root {
   private:
     std::shared_ptr<Window> window;
-    InputManager  inputManager;
     const std::shared_ptr<Window> InitializeWindow();
     FrameParams frames[16];
   public:

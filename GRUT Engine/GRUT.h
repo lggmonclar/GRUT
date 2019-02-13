@@ -5,6 +5,7 @@
 #include "src/Scene/Components/Component.h"
 #include "src/Scene/Components/RenderableComponent.h"
 #include "src/Scene/Components/Camera.h"
+#include "src/Input/Input.h"
 
 #ifdef GRUT_PLATFORM_WINDOWS
 

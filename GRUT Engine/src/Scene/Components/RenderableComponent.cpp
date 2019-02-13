@@ -14,7 +14,6 @@ namespace GRUT {
     RenderManager::Instance().RemoveRenderCallback(m_callbackId);
   }
   void RenderableComponent::Render() {
-    LOG_INFO("Called render on renderable component");
     auto model = gameObject->transform->modelMatrix;
     auto cameraComponent = gameObject->scene->mainCamera->GetComponent<Camera>();
     auto view = cameraComponent->GetViewMatrix();
