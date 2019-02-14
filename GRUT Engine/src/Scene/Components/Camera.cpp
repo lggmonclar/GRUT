@@ -13,6 +13,7 @@ namespace GRUT {
   }
   Camera::Camera(Math::Vector<3> pUp, float pYaw, float pPitch) : worldUp(pUp), m_yaw(pYaw), m_pitch(pPitch), front(Math::Vector<3>(0.0f, 0.0f, -1.0f)) {
     UpdateCameraVectors();
+    UpdateProjectionMatrix();
   }
 
   Camera::Camera(float upX, float upY, float upZ, float pYaw, float pPitch) :

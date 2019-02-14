@@ -1,6 +1,7 @@
 #pragma once
 #include <GRUT.h>
 #include "Components/Test.h"
+#include "Components/CameraController.h"
 
 class Game : public GRUT::Root
 {
@@ -17,8 +18,9 @@ public:
     comp->SetShaderVec3("color", Vector<3>(1.0f, 0.0f, 0.0f));
 
     cubeA->AddComponent<Test>();
-    //auto scene = GRUT::Scene::GetCurrent();
-    //scene->mainCamera->
+    
+    auto scene = GRUT::Scene::GetCurrent();
+    scene->mainCamera->AddComponent<CameraController>();
   }
 
   ~Game() {

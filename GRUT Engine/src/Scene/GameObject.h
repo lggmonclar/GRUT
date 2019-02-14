@@ -14,7 +14,7 @@ namespace GRUT {
     bool m_isAlive = true;
     ObjectHandle<GameObject> m_handle;
     std::vector<ObjectHandle<GameObject>> m_children;
-    std::map<const char*, ObjectHandle<Component>> m_components;
+    std::map<std::string, ObjectHandle<Component>> m_components;
     GameObject() = default;
     ~GameObject() = default;
   public:

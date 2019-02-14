@@ -9,8 +9,8 @@ namespace GRUT {
     private:
       float m_vals[N];
     public:
-      Vector() : m_vals{ 0 } {};
-      template <typename ...T> Vector(T... args) : m_vals{ args... } {}
+      explicit Vector() : m_vals{ 0 } {};
+      template <typename ...T> explicit Vector(T... args) : m_vals{ args... } {}
       float& operator[] (short index) const {
         return const_cast<float*>(reinterpret_cast<const float*>(this))[index];
       }
@@ -39,6 +39,10 @@ namespace GRUT {
         Vector result(*this);
         return result -= other;
       }
+      Vector operator- () const {
+        Vector result(*this);
+        return result *= -1.0f;
+      }
 
       Vector& operator*= (const Vector & other) {
         for (short i = 0; i < N; ++i) {
@@ -50,13 +54,13 @@ namespace GRUT {
         Vector result(*this);
         return result *= other;
       }
-      Vector& operator*= (float & scalar) {
+      Vector& operator*= (const float & scalar) {
         for (short i = 0; i < N; ++i) {
           (*this)[i] *= scalar;
         }
         return *this;
       }
-      Vector operator* (float & scalar) const {
+      Vector operator* (const float & scalar) const {
         Vector result(*this);
         return result *= scalar;
       }
@@ -71,13 +75,13 @@ namespace GRUT {
         Vector result(*this);
         return result /= other;
       }
-      Vector& operator/= (float & scalar) {
+      Vector& operator/= (const float & scalar) {
         for (short i = 0; i < N; ++i) {
           (*this)[i] /= scalar;
         }
         return *this;
       }
-      Vector operator/ (float & scalar) const  {
+      Vector operator/ (const float & scalar) const  {
         Vector result(*this);
         return result /= scalar;
       }
@@ -112,11 +116,11 @@ namespace GRUT {
 
       
       template<short M = N> typename std::enable_if< (M == 3), Vector >::type Cross(const Vector & other) const {
-        return Vector({
+        return Vector(
           y() * other.z() - z() * other.y(),
           z() * other.x() - x() * other.z(),
           x() * other.y() - y() * other.x()
-        });
+        );
       }
 
       float x() const { return m_vals[0]; }

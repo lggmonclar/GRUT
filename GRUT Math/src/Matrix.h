@@ -177,8 +177,7 @@ namespace GRUT {
         for (int i = 0; i < N - 1; i++) {
           translationVector[i] = v[i];
         }
-        translationVector[N - 1] = 1.0f;
-        (*this)[N - 1] = translationVector;
+        (*this)[N - 1] += translationVector;
         return *this;
       };
 
