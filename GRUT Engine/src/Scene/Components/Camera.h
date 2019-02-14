@@ -32,18 +32,18 @@ namespace GRUT {
     Camera(Math::Vector<3> pUp = Math::Vector<3>(0.0f, 1.0f, 0.0f), float pYaw = -90.0f, float pPitch = 0.0f);
     Camera(float upX, float upY, float upZ, float pYaw, float pPitch);
 
-    void SetOrtographic(bool p_val);  
-    void SetOrthoLeft(float p_val);
-    void SetOrthoRight(float p_val);
-    void SetOrthoTop(float p_val);
-    void SetOrthoBottom(float p_val);
-    void SetNearPlane(float p_val);
-    void SetFarPlane(float p_val);
-    void SetFieldOfView(float p_val);
-    void SetYaw(float y);
-    void SetPitch(float p);
-    Math::Matrix<4>& GetViewMatrix();
-    Math::Matrix<4>& GetProjectionMatrix();
+    GRUT_API void SetOrtographic(bool p_val);  
+    GRUT_API void SetOrthoLeft(float p_val);
+    GRUT_API void SetOrthoRight(float p_val);
+    GRUT_API void SetOrthoTop(float p_val);
+    GRUT_API void SetOrthoBottom(float p_val);
+    GRUT_API void SetNearPlane(float p_val);
+    GRUT_API void SetFarPlane(float p_val);
+    GRUT_API void SetFieldOfView(float p_val);
+    GRUT_API void SetYaw(float y);
+    GRUT_API void SetPitch(float p);
+    GRUT_API Math::Matrix<4>& GetViewMatrix();
+    GRUT_API Math::Matrix<4>& GetProjectionMatrix();
 
     void Update(float p_deltaTime) override;
   };

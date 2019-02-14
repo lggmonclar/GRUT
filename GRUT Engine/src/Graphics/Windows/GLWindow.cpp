@@ -23,6 +23,8 @@ namespace GRUT {
 
     glfwMakeContextCurrent(m_window);
 
+    //Set default OS cursor to be disabled
+    glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     //Set callback functions
     glfwSetWindowUserPointer(m_window, this);
     glfwSetFramebufferSizeCallback(m_window, [](GLFWwindow* window, int width, int height) {
@@ -35,6 +37,10 @@ namespace GRUT {
     glfwSetMouseButtonCallback(m_window, [](GLFWwindow* window, int button, int action, int mods) {
       auto glWindow = (GLWindow*)glfwGetWindowUserPointer(window);
       InputManager::Instance().ProcessMouseEvent(TranslateMouseButton(button), TranslateAction(action));
+    });
+    glfwSetCursorPosCallback(m_window, [](GLFWwindow* window, double xPos, double yPos) {
+      auto glWindow = (GLWindow*)glfwGetWindowUserPointer(window);
+      InputManager::Instance().ProcessMouseMovement(xPos, yPos);
     });
 
     //Load GLAD
