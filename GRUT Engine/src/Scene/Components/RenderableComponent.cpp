@@ -3,21 +3,18 @@
 #include "Graphics/RenderManager.h"
 #include "Graphics/Models/GLModel.h"
 #include "Scene/Scene.h"
-#include "Scene/GameObject.h"
+#include "Scene/GameObjects/GameObject.h"
 #include "Camera.h"
 
 namespace GRUT {
   RenderableComponent::RenderableComponent() : Component() {
-    m_callbackId = RenderManager::Instance().RegisterRenderCallback([&] { Render(); });
+    m_renderCallbackId = RenderManager::Instance().RegisterRenderCallback([&] { Render(); });
   }
   RenderableComponent::~RenderableComponent() {
-    RenderManager::Instance().RemoveRenderCallback(m_callbackId);
+    RenderManager::Instance().RemoveRenderCallback(m_renderCallbackId);
   }
   void RenderableComponent::Render() {
     auto model = gameObject->transform->modelMatrix;
-    auto cameraComponent = gameObject->scene->mainCamera->GetComponent<Camera>();
-    auto view = cameraComponent->GetViewMatrix();
-    auto projection = cameraComponent->GetProjectionMatrix();
     if (true) { //TODO: Implement different conditions for different graphics APIs based on configuration files
       auto shader = dynamic_cast<GLShader*>(&m_shader);
       shader->Use();
@@ -25,11 +22,12 @@ namespace GRUT {
         m_shaderAssignmentsCallbacks.front()();
         m_shaderAssignmentsCallbacks.pop();
       }
-      shader->SetMat4("mvp", model * view * projection);
+      shader->SetMat4("model", model);
 
       static_cast<GLModel*>(&m_model)->Draw(shader);
     }
   }
+
   void RenderableComponent::SetModel(const char * p_path) {
     if (true) { //TODO: Implement different conditions for different graphics APIs based on configuration files
       auto model = MemoryManager::Instance().AllocOnFreeList<GLModel>();
@@ -37,26 +35,14 @@ namespace GRUT {
       m_model = model;
     }
   }
-  void RenderableComponent::SetShader(const char * p_vertexPath, const char * p_fragmentPath) {
-    if (true) { //TODO: Implement different conditions for different graphics APIs based on configuration files
-      auto shader = MemoryManager::Instance().AllocOnFreeList<GLShader>();
-      shader->LoadFragmentShader(p_fragmentPath);
-      shader->LoadVertexShader(p_vertexPath);
-      m_shader = shader;
-    }
-  }
-  void RenderableComponent::SetShader(ObjectHandle<Shader> p_shader) {
-    m_shader = p_shader;
+  void RenderableComponent::SetShaderType(ShaderTypes p_type) {
+    m_shader = RenderManager::Instance().GetShader(p_type);
   }
   void RenderableComponent::SetModel(ObjectHandle<BaseModel> p_modelHandle) {
     m_model = p_modelHandle;
   }
   ObjectHandle<BaseModel> RenderableComponent::GetModel() {
     return m_model;
-  }
-
-  ObjectHandle<Shader> RenderableComponent::GetShader() {
-    return m_shader;
   }
   
   void RenderableComponent::SetShaderBool(const std::string & name, bool value) {
@@ -118,5 +104,9 @@ namespace GRUT {
     m_shaderAssignmentsCallbacks.push([=, &m_shader = m_shader] {
       m_shader->SetMat4(name, m4);
     });
+  }
+
+  void RenderableComponent::Update(float p_deltaTime) {
+    auto transform = gameObject->transform;
   }
 }

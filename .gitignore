@@ -262,3 +262,5 @@ __pycache__/
 
 bin/*
 bin-int/*
+
+!GRUT ENGINE/prefabs/**/*.obj

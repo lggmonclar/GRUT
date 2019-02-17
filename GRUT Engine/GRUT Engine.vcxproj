@@ -112,6 +112,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="GRUT.h" />
+    <ClInclude Include="src\Core\Debugging\Line.h" />
     <ClInclude Include="src\Core\Memory\FreeListAllocator.h" />
     <ClInclude Include="src\Core\Memory\MultiFramePoolAllocator.h" />
     <ClInclude Include="src\Core\Memory\ObjectHandle.h" />
@@ -129,6 +130,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="src\Graphics\Models\Texture.h" />
     <ClInclude Include="src\Graphics\Shaders\GLShader.h" />
     <ClInclude Include="src\Graphics\Shaders\Shader.h" />
+    <ClInclude Include="src\Graphics\Shaders\ShaderTypes.h" />
     <ClInclude Include="src\Input\Input.h" />
     <ClInclude Include="src\input\InputManager.h" />
     <ClInclude Include="src\grutpch.h" />
@@ -139,13 +141,14 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="src\resources\ResourceManager.h" />
     <ClInclude Include="src\Root.h" />
     <ClInclude Include="src\core\parallelism\SpinLock.h" />
-    <ClInclude Include="src\core\logging\Logger.h" />
+    <ClInclude Include="src\Core\Debugging\Logger.h" />
     <ClInclude Include="src\core\time\Timer.h" />
     <ClInclude Include="src\graphics\windows\GLWindow.h" />
     <ClInclude Include="src\graphics\windows\Window.h" />
     <ClInclude Include="src\Scene\Components\Camera.h" />
     <ClInclude Include="src\Scene\Components\Component.h" />
-    <ClInclude Include="src\Scene\GameObject.h" />
+    <ClInclude Include="src\Scene\Components\Light.h" />
+    <ClInclude Include="src\Scene\GameObjects\GameObject.h" />
     <ClInclude Include="src\Scene\Scene.h" />
     <ClInclude Include="src\Scene\SceneManager.h" />
     <ClInclude Include="src\Scene\Components\Transform.h" />
@@ -172,7 +175,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClCompile Include="src\core\memory\MemoryManager.cpp" />
     <ClCompile Include="src\graphics\RenderManager.cpp" />
     <ClCompile Include="src\Root.cpp" />
-    <ClCompile Include="src\core\logging\Logger.cpp">
+    <ClCompile Include="src\Core\Debugging\Logger.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -185,6 +188,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">grutpch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="src\Scene\Components\Camera.cpp" />
+    <ClCompile Include="src\Scene\Components\Light.cpp" />
     <ClCompile Include="src\Scene\Components\RenderableComponent.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
@@ -193,7 +197,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClInclude>
-    <ClCompile Include="src\Scene\GameObject.cpp" />
+    <ClCompile Include="src\Scene\GameObjects\GameObject.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
     <ClCompile Include="src\Scene\SceneManager.cpp" />
     <ClCompile Include="src\Scene\Components\Transform.cpp" />

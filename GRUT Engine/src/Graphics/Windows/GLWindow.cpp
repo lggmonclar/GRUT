@@ -10,7 +10,7 @@ namespace GRUT {
 
   GLWindow::GLWindow() {
     glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
@@ -31,15 +31,12 @@ namespace GRUT {
       glViewport(0, 0, width, height);
     });
     glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
-      auto glWindow = (GLWindow*)glfwGetWindowUserPointer(window);
       InputManager::Instance().ProcessKeyboardEvent(TranslateKey(key), TranslateAction(action));
     });
     glfwSetMouseButtonCallback(m_window, [](GLFWwindow* window, int button, int action, int mods) {
-      auto glWindow = (GLWindow*)glfwGetWindowUserPointer(window);
       InputManager::Instance().ProcessMouseEvent(TranslateMouseButton(button), TranslateAction(action));
     });
     glfwSetCursorPosCallback(m_window, [](GLFWwindow* window, double xPos, double yPos) {
-      auto glWindow = (GLWindow*)glfwGetWindowUserPointer(window);
       InputManager::Instance().ProcessMouseMovement(xPos, yPos);
     });
 
@@ -48,6 +45,14 @@ namespace GRUT {
       std::cout << "Failed to initialize GLAD" << std::endl;
       exit(-1);
     }
+
+    //Set culling/winding order
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    glFrontFace(GL_CCW);
+
+    //Enable depth testing
+    glEnable(GL_DEPTH_TEST);
 
     //Set current context to NULL as the window context will be used by another thread after initialization
     glfwMakeContextCurrent(NULL);
@@ -72,7 +77,7 @@ namespace GRUT {
   void GLWindow::BeginFrame() {
     glfwMakeContextCurrent(m_window);
     glClearColor(0.2f, 0.6f, 0.7f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   }
 
   void GLWindow::EndFrame() {

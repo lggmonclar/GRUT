@@ -55,6 +55,9 @@ namespace GRUT {
       prevIndex = (prevIndex + 1) % 16;
       currIndex = (currIndex + 1) % 16;
     }
+
+    //Gather worker threads and exit
+    JobManager::Instance().Destroy();
   }
   const std::shared_ptr<Window> Root::InitializeWindow() {
     return std::shared_ptr<Window>(new GLWindow());

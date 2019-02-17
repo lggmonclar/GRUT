@@ -22,7 +22,9 @@ namespace GRUT {
       }));
     }
   }
-  JobManager::~JobManager() {
+
+  void JobManager::Destroy() {
+    m_isExiting = true;
     m_threadsSpinLock.Acquire();
     for (auto &t : m_threads) {
       t.join();
@@ -45,7 +47,7 @@ namespace GRUT {
   }
 
   void __stdcall JobManager::FiberEntryPoint(void *p_lpParameter) {
-    while (true) {
+    while (!Instance().m_isExiting) {
       Instance().UnlockFiberSwitchLock();
       auto job = JobManager::Instance().FetchJob();
 

@@ -7,7 +7,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include "Graphics/Shaders/GLShader.h"
-#include "Core/Logging/Logger.h"
+#include "Core/Debugging/Logger.h"
 
 namespace GRUT {  
   template <class MeshType, class TextureType, class ShaderType>

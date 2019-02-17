@@ -153,6 +153,58 @@ namespace GRUT {
         return *this;
       }
 
+      template <short M = N> typename std::enable_if< (M > 3), Vector<3> >::type GetRotation() {
+        float x, y, z;
+
+        float sp = -(*this)[2][1];
+        if (sp <= -1.0f) {
+          x = -1.560796f; //-pi/2
+        }
+        else if (sp >= 1.0f) {
+          x = 1.570796f;
+        }
+        else {
+          x = asin(sp);
+        }
+
+        //Check for Gimbal lock case, giving a slight tolerance for numerical imprecision
+        if (fabs(sp) > 0.9999f) {
+
+          //We are looking straight up or down.
+          //Slam Z to zero and just set Y
+          z = 0.0f;
+          y = atan2(-(*this)[0][2], (*this)[0][0]);
+        }
+        else {
+          //Compute Y from m13 and m33
+          y = atan2((*this)[2][0], (*this)[2][2]);
+
+          //Compute Z from m21 and m22
+          z = atan2((*this)[0][1], (*this)[1][1]);
+        }
+
+        return Vector<3>(x, y, z);
+      }
+
+      template <short M = N> typename std::enable_if< (M > 3), Matrix & >::type SetRotation(const Vector<3>& p_rotation) {
+        auto x = p_rotation.x();
+        auto y = p_rotation.y();
+        auto z = p_rotation.z();
+        (*this)[0][0] = cos(y) * cos(z) - sin(y) * sin(x) * sin(z);
+        (*this)[0][1] = -sin(z) * cos(x);
+        (*this)[0][2] = sin(y) * cos(z) + cos(y) * sin(x) * sin(z);
+
+        (*this)[1][0] = cos(y) * sin(z) + sin(y) * sin(x) * cos(z);
+        (*this)[1][1] = cos(z) * cos(x);
+        (*this)[1][2] = sin(z) * sin(y) - cos(y) * sin(x) * cos(z);
+
+        (*this)[2][0] = -sin(y) * cos(x);
+        (*this)[2][1] = sin(x);
+        (*this)[2][2] = cos(y) * cos(x);
+        
+        return *this;
+      }
+
       template<short M = N> typename std::enable_if< (M > 2), Matrix & >::type RotateAbout(const Vector<3>& axis, float deg) {
         float c = cos(deg);
         float s = sin(deg);
@@ -204,28 +256,29 @@ namespace GRUT {
 
         return mat;
       }
-      template<short M = N> typename std::enable_if< (M > 3), Matrix & >::type LookAt(const Vector<3> &position, const Vector<3> &target, const Vector<3> &worldUp) {
+      template<short M = N> static typename std::enable_if< (M > 3), Matrix >::type LookAt(const Vector<3> &position, const Vector<3> &target, const Vector<3> &worldUp) {
+        Matrix mat;
         Vector<3> zAxis = (position - target).Normalized();
         Vector<3> xAxis = worldUp.Cross(zAxis).Normalized();
         Vector<3> yAxis = zAxis.Cross(xAxis);
 
-        (*this)[0][0] = xAxis.x();
-        (*this)[0][1] = yAxis.x();
-        (*this)[0][2] = zAxis.x();
+        mat[0][0] = xAxis.x();
+        mat[0][1] = yAxis.x();
+        mat[0][2] = zAxis.x();
 
-        (*this)[1][0] = xAxis.y();
-        (*this)[1][1] = yAxis.y();
-        (*this)[1][2] = zAxis.y();
+        mat[1][0] = xAxis.y();
+        mat[1][1] = yAxis.y();
+        mat[1][2] = zAxis.y();
 
-        (*this)[2][0] = xAxis.z();
-        (*this)[2][1] = yAxis.z();
-        (*this)[2][2] = zAxis.z();
+        mat[2][0] = xAxis.z();
+        mat[2][1] = yAxis.z();
+        mat[2][2] = zAxis.z();
 
-        (*this)[3][0] = -(xAxis.Dot(position));
-        (*this)[3][1] = -(yAxis.Dot(position));
-        (*this)[3][2] = -(zAxis.Dot(position));
+        mat[3][0] = -(xAxis.Dot(position));
+        mat[3][1] = -(yAxis.Dot(position));
+        mat[3][2] = -(zAxis.Dot(position));
 
-        return *this;
+        return mat;
       }
 
       friend std::ostream& operator<<(std::ostream& os, const Matrix& mat) {

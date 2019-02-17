@@ -1,8 +1,8 @@
 #pragma once
 #include "DLLMacros.h"
 #include <map>
-#include "Components/Component.h"
-#include "Components/Transform.h"
+#include "Scene/Components/Component.h"
+#include "Scene/Components/Transform.h"
 #include "Core/Memory/ObjectHandle.h"
 #include "Core/Memory/MemoryManager.h"
 
@@ -35,6 +35,7 @@ namespace GRUT {
   ObjectHandle<C> GameObject::AddComponent() {
     auto component = MemoryManager::Instance().AllocOnFreeList<C>();
     component->gameObject = m_handle;
+    component->SetHandle<C>(component);
     m_components[typeid(C).name()] = component;
     return component;
   }

@@ -3,6 +3,7 @@
 #include "Core/Jobs/JobManager.h"
 #include "Scene/SceneManager.h"
 #include "Core/Parallelism/FrameParams.h"
+#include "Components/Light.h"
 
 namespace GRUT {
   ObjectHandle<Scene> Scene::GetCurrent() {
@@ -23,6 +24,9 @@ namespace GRUT {
         obj->Update(p_currFrame.deltaTime);
       });
     }
+  }
+  void Scene::UpdateLightSourceList(ObjectHandle<Light> p_handle, LightType p_type) {
+    
   }
   //Scene::~Scene() {
     //for (auto &obj : m_rootObjects)

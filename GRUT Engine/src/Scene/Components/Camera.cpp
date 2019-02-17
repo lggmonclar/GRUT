@@ -1,25 +1,13 @@
 #include "grutpch.h"
 #include "Camera.h"
+#include "Graphics/RenderManager.h"
+#include "Graphics/Shaders/GLShader.h"
+#include "Core/Debugging/Line.h"
 
 namespace GRUT {
-  void Camera::UpdateCameraVectors() {
-    Math::Vector<3> newFront;
-    newFront[0] = static_cast<float>(cos(Math::deg2rad(m_yaw)) * cos(Math::deg2rad(m_pitch)));
-    newFront[1] = static_cast<float>(sin(Math::deg2rad(m_pitch)));
-    newFront[2] = static_cast<float>(sin(Math::deg2rad(m_yaw)) * cos(Math::deg2rad(m_pitch)));
-    front = newFront.Normalized();
-    right = front.Cross(worldUp).Normalized();
-    up = right.Cross(front).Normalized();
-  }
-  Camera::Camera(Math::Vector<3> pUp, float pYaw, float pPitch) : worldUp(pUp), m_yaw(pYaw), m_pitch(pPitch), front(Math::Vector<3>(0.0f, 0.0f, -1.0f)) {
-    UpdateCameraVectors();
+  Camera::Camera() {
+    m_isDirty = true;
     UpdateProjectionMatrix();
-  }
-
-  Camera::Camera(float upX, float upY, float upZ, float pYaw, float pPitch) :
-    worldUp(Math::Vector<3>(upX, upY, upZ)), m_yaw(pYaw), m_pitch(pPitch),
-    front(Math::Vector<3>(0.0f, 0.0f, -1.0f)) {
-    UpdateCameraVectors();
   }
 
   void Camera::UpdateProjectionMatrix() {
@@ -33,55 +21,64 @@ namespace GRUT {
   }
 
   void Camera::SetOrtographic(bool p_val) {
-    m_isOrthographic = true;
-    m_isDirty = true;
+    if (m_isOrthographic != p_val) {
+      m_isOrthographic = p_val;
+      m_isDirty = true;
+    }
   }
 
   void Camera::SetOrthoLeft(float p_val) {
-    m_orthoLeft = p_val;
-    m_isDirty = true;
+    if (m_orthoLeft != p_val) {
+      m_orthoLeft = p_val;
+      m_isDirty = true;
+    }
   }
   void Camera::SetOrthoRight(float p_val) {
-    m_orthoRight = p_val;
-    m_isDirty = true;
+    if (m_orthoRight != p_val) {
+      m_orthoRight = p_val;
+      m_isDirty = true;
+    }
   }
   void Camera::SetOrthoTop(float p_val) {
-    m_orthoTop = p_val;
-    m_isDirty = true;
+    if (m_orthoTop != p_val) {
+      m_orthoTop = p_val;
+      m_isDirty = true;
+    }
   }
   void Camera::SetOrthoBottom(float p_val) {
-    m_orthoBottom = p_val;
-    m_isDirty = true;
+    if (m_orthoBottom != p_val) {
+      m_orthoBottom = p_val;
+      m_isDirty = true;
+    }
   }
 
   void Camera::SetNearPlane(float p_val) {
-    m_nearPlane = p_val;
-    m_isDirty = true;
+    if (m_nearPlane != p_val) {
+      m_nearPlane = p_val;
+      m_isDirty = true;
+    }
   }
 
   void Camera::SetFarPlane(float p_val) {
-    m_farPlane = p_val;
-    m_isDirty = true;
+    if (m_farPlane != p_val) {
+      m_farPlane = p_val;
+      m_isDirty = true;
+    }
   }
 
   void Camera::SetFieldOfView(float p_val) {
-    m_fov = p_val;
-    m_isDirty = true;
+    if (m_fov != p_val) {
+      m_fov = p_val;
+      m_isDirty = true;
+    }
   }
 
-  void Camera::SetYaw(float y) {
-    m_yaw = y;
-    m_isDirty = true;
-  }
-
-  void Camera::SetPitch(float p) {
-    m_pitch = p;
-    m_isDirty = true;
-  }
-
-  Math::Matrix<4>& Camera::GetViewMatrix() {
-    auto pos = gameObject->transform->GetPosition();
-    return view.LookAt(pos, pos + front, up);
+  Math::Matrix<4> Camera::GetViewMatrix() {
+    auto transform = gameObject->transform;
+    auto front = transform->GetFrontVector();
+    auto pos = transform->GetPosition() + front;
+    auto up = transform->GetUpVector();
+    return Matrix<4>::LookAt(pos, pos + front, up);
   }
 
   Math::Matrix<4>& Camera::GetProjectionMatrix() {
@@ -89,9 +86,17 @@ namespace GRUT {
   }
 
   void Camera::Update(float p_deltaTime) {
-    if (m_isDirty) {
+    if (gameObject->transform->isDirty || m_isDirty) {
       UpdateProjectionMatrix();
-      UpdateCameraVectors();
+      if (true) { //TODO:: Use other APIs as well (currently using only opengl)
+        RenderManager::Instance().RegisterRenderCallback([&] {
+          GLShader::UpdateViewProjectionBuffer(GetViewMatrix(), GetProjectionMatrix());
+          GLShader::UpdateViewPosBuffer(gameObject->transform->GetPosition());
+        }, CallbackTime::PRE_RENDER, true);
+      }
+      m_isDirty = false;
     }
+
+    auto transform = gameObject->transform;
   }
 }

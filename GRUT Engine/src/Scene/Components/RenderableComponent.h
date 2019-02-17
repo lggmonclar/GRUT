@@ -5,12 +5,14 @@
 #include <functional>
 #include "Graphics/Shaders/Shader.h"
 #include "Graphics/Models/Model.h"
+#include "Graphics/Shaders/ShaderTypes.h"
 #include "DLLMacros.h"
 
 namespace GRUT {
+  struct RenderCallback;
   class RenderableComponent : public Component {
   private:
-    std::list<std::function<void()>>::iterator m_callbackId;
+    std::list<RenderCallback>::iterator m_renderCallbackId;
     std::queue<std::function<void()>> m_shaderAssignmentsCallbacks;
     ObjectHandle<Shader>       m_shader;
     ObjectHandle<BaseModel>    m_model;
@@ -18,10 +20,8 @@ namespace GRUT {
   public:
     GRUT_API void SetModel(const char* p_path);
     GRUT_API void SetModel(ObjectHandle<BaseModel> p_modelHandle);
-    GRUT_API void SetShader(const char * p_vertexPath, const char * p_fragmentPath);
-    GRUT_API void SetShader(ObjectHandle<Shader> p_shader);
+    GRUT_API void SetShaderType(ShaderTypes p_type);
     GRUT_API ObjectHandle<BaseModel> GetModel();
-    GRUT_API ObjectHandle<Shader> GetShader();
     GRUT_API RenderableComponent();
     GRUT_API void SetShaderBool(const std::string &name, bool value);
     GRUT_API void SetShaderInt(const std::string &name, int value);
@@ -35,6 +35,7 @@ namespace GRUT {
     GRUT_API void SetShaderMat2(const std::string &name, const Math::Matrix<2> &mat);
     GRUT_API void SetShaderMat3(const std::string &name, const Math::Matrix<3> &m3);
     GRUT_API void SetShaderMat4(const std::string &name, const Math::Matrix<4> &m4);
+    void Update(float p_deltaTime) override;
     ~RenderableComponent();
   };
 }

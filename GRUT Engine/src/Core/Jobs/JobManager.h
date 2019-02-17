@@ -10,6 +10,7 @@ namespace GRUT {
   constexpr unsigned FIBER_COUNT_PER_THREAD = 16;
 
   class JobManager {
+    friend class Root;
   private:
     SpinLock m_fetchJobSpinLock;
     SpinLock m_fiberSwitchSpinLock;
@@ -31,7 +32,9 @@ namespace GRUT {
     void UnlockFiberSwitchLock();
     void YieldFiber(const bool p_insertSelfIntoList = true);
     JobManager() = default;
-    GRUT_API ~JobManager();
+
+    bool m_isExiting = false;
+    void Destroy();
   public:
     JobManager(JobManager const &) = delete;
     JobManager& operator=(JobManager const &) = delete;

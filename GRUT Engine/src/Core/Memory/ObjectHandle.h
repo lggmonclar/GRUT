@@ -34,6 +34,7 @@ namespace GRUT {
     T* operator->() const;
     T& operator*();
     T* operator&() const;
+    bool operator==(const ObjectHandle<T>& other) const;
   };
   template<class T>
   inline ObjectHandle<T>::ObjectHandle(std::function<HandleEntry()> p_handleGetter) : m_handleGetter(p_handleGetter) {}
@@ -47,6 +48,11 @@ namespace GRUT {
   template<class T>
   inline T* ObjectHandle<T>::operator&() const {
     return static_cast<T*>(m_handleGetter().m_ptr);
+  }
+
+  template<class T>
+  inline bool ObjectHandle<T>::operator==(const ObjectHandle<T> & other) const {
+    return m_handleGetter().m_ptr == other.m_handleGetter().m_ptr;
   }
 
   template<class T>
