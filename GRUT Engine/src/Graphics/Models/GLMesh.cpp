@@ -5,13 +5,9 @@
 #include "Graphics/RenderManager.h"
 
 namespace GRUT {
-  GLMesh::GLMesh(std::vector<Vertex> p_vertices, std::vector<unsigned int> p_indices) : Mesh(p_vertices, p_indices) {
-    SetupMesh();
-  }
+  GLMesh::GLMesh(std::vector<Vertex> p_vertices, std::vector<unsigned int> p_indices) : Mesh(p_vertices, p_indices) {}
 
   void GLMesh::SetupMesh() {
-    auto window = dynamic_cast<GLWindow*>(RenderManager::Instance().GetWindow().get());
-    window->SetContext();
     // create buffers/arrays
     glGenVertexArrays(1, &m_VAO);
     glGenBuffers(1, &m_VBO);
@@ -46,10 +42,13 @@ namespace GRUT {
     glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, bitangent));
 
     glBindVertexArray(0);
-    window->ClearContext();
+
+    isSetup = true;
   }
 
   void GLMesh::Draw(GLShader* p_shader) {
+    if(!isSetup)
+      SetupMesh();
     // bind appropriate p_textures
     unsigned int diffuseNr = 1;
     unsigned int specularNr = 1;

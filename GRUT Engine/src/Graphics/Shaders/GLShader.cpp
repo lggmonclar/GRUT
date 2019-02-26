@@ -11,28 +11,16 @@ namespace GRUT {
   unsigned int GLShader::s_uboViewProjection = 0;
 
   void GLShader::CompileVertexShader(const char * p_vertexCode) {
-    bool windowHasContext = glfwGetCurrentContext() != NULL;
-    auto window = dynamic_cast<GLWindow*>(RenderManager::Instance().GetWindow().get());
-    if(!windowHasContext)
-      window->SetContext();
     m_vShaderProgram = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(m_vShaderProgram, 1, &p_vertexCode, NULL);
     glCompileShader(m_vShaderProgram);
     CheckCompileErrors(m_vShaderProgram, "VERTEX");
-    if(!windowHasContext)
-      window->ClearContext();
   }
   void GLShader::CompileFragmentShader(const char * p_fragmentCode) {
-    bool windowHasContext = glfwGetCurrentContext() != NULL;
-    auto window = dynamic_cast<GLWindow*>(RenderManager::Instance().GetWindow().get());if(!windowHasContext)
-    if (!windowHasContext)
-      window->SetContext();
     m_fShaderProgram = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(m_fShaderProgram, 1, &p_fragmentCode, NULL);
     glCompileShader(m_fShaderProgram);
     CheckCompileErrors(m_fShaderProgram, "FRAGMENT");
-    if (!windowHasContext)
-      window->ClearContext();
   }
   void GLShader::CheckCompileErrors(unsigned int p_shader, std::string p_type) {
     int success;

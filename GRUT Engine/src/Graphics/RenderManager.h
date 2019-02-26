@@ -33,7 +33,7 @@ namespace GRUT {
     void LoadShaders();
     int m_idx = 0;
   public:
-    inline std::shared_ptr<Window> GetWindow() { return m_window; }
+    //inline std::shared_ptr<Window> GetWindow() { return m_window; }
     GRUT_API static RenderManager& Instance() {
       static RenderManager instance{};
       return instance;

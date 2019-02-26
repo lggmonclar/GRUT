@@ -1,32 +1,37 @@
 #include "grutpch.h"
 #include "Shader.h"
 #include "Core/Jobs/JobManager.h"
+#include "Graphics/RenderManager.h"
 
 namespace GRUT {
   bool Shader::LoadVertexShader(const char * path) {
     std::string contents;
-    //auto jobPtr = JobManager::Instance().KickJob([&]() {
+    auto jobPtr = JobManager::Instance().KickJob([&]() {
       contents = LoadFileContents(path);
-    //});
+    });
 
-    //JobManager::Instance().WaitForJob(jobPtr);
+    JobManager::Instance().WaitForJob(jobPtr);
     if (contents.empty())
       return false;
     
-    CompileVertexShader(contents.c_str());
+    RenderManager::Instance().RegisterRenderCallback([=] {
+      CompileVertexShader(contents.c_str());
+    }, CallbackTime::PRE_RENDER, true);
     return true;
   }
   bool Shader::LoadFragmentShader(const char * path) {
     std::string contents;
-    //auto jobPtr = JobManager::Instance().KickJob([&]() {
+    auto jobPtr = JobManager::Instance().KickJob([&]() {
       contents = LoadFileContents(path);
-    //});
+    });
 
-    //JobManager::Instance().WaitForJob(jobPtr);
+    JobManager::Instance().WaitForJob(jobPtr);
     if (contents.empty())
       return false;
 
-    CompileFragmentShader(contents.c_str());
+    RenderManager::Instance().RegisterRenderCallback([=] {
+      CompileFragmentShader(contents.c_str());
+    }, CallbackTime::PRE_RENDER, true);
     return true;
   }
   std::string Shader::LoadFileContents(const char * path) {

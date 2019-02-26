@@ -16,6 +16,7 @@ namespace GRUT {
 
   class Mesh {
   protected:
+    bool isSetup = false;
     virtual void SetupMesh() = 0;
   public:
     std::vector<Vertex> vertices;
