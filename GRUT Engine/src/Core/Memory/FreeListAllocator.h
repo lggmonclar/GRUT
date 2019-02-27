@@ -5,7 +5,7 @@
 #include "Core/Debugging/Logger.h"
 
 namespace GRUT { 
-  constexpr U16 AVAILABLE_HANDLES = 8192;
+  constexpr U16 AVAILABLE_HANDLES = 16384;
   class FreeListAllocator {
   private:
     SpinLock m_lock;

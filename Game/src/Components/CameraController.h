@@ -14,6 +14,12 @@ private:
   float currYaw = 0.0f;
 public:
   void Update(float p_deltaTime) override {
+    if (Input::GetKeyDown(Keys::KEY_LEFT_SHIFT)) {
+      movementSpeed = 20.0f;
+    }
+    else {
+      movementSpeed = 5.0f;
+    }
     float velocity = movementSpeed * p_deltaTime;
 
     if (Input::GetKeyDown(Keys::KEY_W)) {
@@ -28,6 +34,7 @@ public:
     if (Input::GetKeyDown(Keys::KEY_D)) {
       gameObject->transform->Translate(gameObject->transform->GetRightVector() * velocity);
     }
+
 
     float deltaYaw = static_cast<float>(deg2rad((lastMouseY - Input::mouseY) * mouseSensitivity));
     float deltaPitch = static_cast<float>(deg2rad((Input::mouseX - lastMouseX) * mouseSensitivity));

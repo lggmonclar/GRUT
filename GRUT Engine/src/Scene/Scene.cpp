@@ -20,7 +20,6 @@ namespace GRUT {
   void Scene::Update(FrameParams& p_prevFrame, FrameParams& p_currFrame) {
     for (auto &obj : m_rootObjects) {
       JobManager::Instance().KickJob([&]() {
-        JobManager::Instance().WaitForJob(p_prevFrame.updateJob);
         obj->Update(p_currFrame.deltaTime);
       });
     }

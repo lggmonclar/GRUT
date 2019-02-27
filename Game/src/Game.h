@@ -23,7 +23,7 @@ public:
     auto scene = GRUT::Scene::GetCurrent();
     scene->mainCamera->AddComponent<CameraController>();
 
-    int val = 5;
+    int val = 6;
     for (int i = 0; i < val; i++) {
       for (int j = 0; j < val; j++) {
         for (int k = 0; k < val; k++) {
