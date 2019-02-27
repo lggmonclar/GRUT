@@ -9,7 +9,7 @@
 #include "Graphics/Shaders/GLShader.h"
 #include "Core/Debugging/Logger.h"
 
-namespace GRUT {  
+namespace GRUT {
   template <class MeshType, class TextureType, class ShaderType>
   class Model : public BaseModel {
   private:
@@ -38,6 +38,7 @@ namespace GRUT {
     for (unsigned int i = 0; i < meshes.size(); i++)
       meshes[i].Draw(p_shader);
   }
+
   template <class MeshType, class TextureType, class ShaderType>
   void Model<MeshType, TextureType, ShaderType>::LoadModel(std::string const & p_path) {
     // read file via ASSIMP

@@ -29,8 +29,8 @@ public:
       gameObject->transform->Translate(gameObject->transform->GetRightVector() * velocity);
     }
 
-    float deltaYaw = deg2rad(static_cast<float>((lastMouseY - Input::mouseY) * mouseSensitivity));
-    float deltaPitch = deg2rad(static_cast<float>((Input::mouseX - lastMouseX) * mouseSensitivity));
+    float deltaYaw = static_cast<float>(deg2rad((lastMouseY - Input::mouseY) * mouseSensitivity));
+    float deltaPitch = static_cast<float>(deg2rad((Input::mouseX - lastMouseX) * mouseSensitivity));
 
     currYaw += deltaYaw;
     currPitch += deltaPitch;

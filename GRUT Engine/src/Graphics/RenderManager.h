@@ -8,6 +8,7 @@
 
 namespace GRUT {
   struct FrameParams;
+  
   enum class CallbackTime {
     PRE_RENDER,
     RENDER,

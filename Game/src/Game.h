@@ -11,25 +11,29 @@ public:
   }
 
   void InstanceTest() {
-    auto cubeA = GRUT::GameObject::Instantiate();
-    auto comp = cubeA->AddComponent<GRUT::RenderableComponent>();
-    comp->SetModel("../GRUT Engine/prefabs/models/sphere.obj");
-    comp->SetShaderType(GRUT::ShaderTypes::PHONG);
-    comp->SetShaderVec3("color", Vector<3>(0.0f, 0.0f, 0.4f));
-    cubeA->transform->Translate(Vector<3>(0.0f, 0.0f, 5.0f));
+    //auto cubeA = GRUT::GameObject::Instantiate();
+    //auto comp = cubeA->AddComponent<GRUT::RenderableComponent>();
+    //comp->SetModel("../GRUT Engine/prefabs/models/sphere.obj");
+    //comp->SetShaderType(GRUT::ShaderTypes::PHONG);
+    //comp->SetShaderVec3("color", Vector<3>(0.0f, 0.0f, 0.4f));
+    //cubeA->transform->Translate(Vector<3>(0.0f, 0.0f, 5.0f));
 
-    cubeA->AddComponent<Test>();
+    //cubeA->AddComponent<Test>();
     //
     auto scene = GRUT::Scene::GetCurrent();
     scene->mainCamera->AddComponent<CameraController>();
 
-    CreateLight(Vector<3>(3.0f, 2.0f, 0.0f));
-    CreateLight(Vector<3>(3.0f, 2.0f, 10.0f));
-    CreateLight(Vector<3>(-5.0f, 2.0f, 10.0f));
-    CreateLight(Vector<3>(-5.0f, 2.0f, 0.0f));
+    int val = 5;
+    for (int i = 0; i < val; i++) {
+      for (int j = 0; j < val; j++) {
+        for (int k = 0; k < val; k++) {
+          CreateLight(Vector<3>(i*2.0f, j*2.0f, k*2.0f), Vector<3>(i / static_cast<float>(val), j / static_cast<float>(val), k / static_cast<float>(val)));
+        }
+      }
+    }
   }
 
-  void CreateLight(Vector<3> pos) {
+  void CreateLight(Vector<3> pos, Vector<3> color) {
     auto light = GRUT::GameObject::Instantiate();
     light->transform->SetScale(Vector<3>(0.2f, 0.2f, 0.2f));
     light->transform->Translate(pos);
@@ -37,7 +41,7 @@ public:
     auto renderableComp = light->AddComponent<RenderableComponent>();
     renderableComp->SetModel("../GRUT Engine/prefabs/models/sphere.obj");
     renderableComp->SetShaderType(GRUT::ShaderTypes::DIFFUSE);
-    renderableComp->SetShaderVec3("color", Vector<3>(1.0f, 1.0f, 1.0f));
+    renderableComp->SetShaderVec3("color", color);
   }
 
   ~Game() {

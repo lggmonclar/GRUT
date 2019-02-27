@@ -2,9 +2,10 @@
 #include "Core/GRUTAlias.h"
 #include "ObjectHandle.h"
 #include "Core/Parallelism/SpinLock.h"
+#include "Core/Debugging/Logger.h"
 
 namespace GRUT { 
-  constexpr U16 AVAILABLE_HANDLES = 2048;
+  constexpr U16 AVAILABLE_HANDLES = 8192;
   class FreeListAllocator {
   private:
     SpinLock m_lock;
@@ -55,12 +56,19 @@ namespace GRUT {
     T* newObj = new (reinterpret_cast<U8*>(objHeader) + sizeof(AllocHeader)) T(args...);
     
     U32 i = 0;
+    bool availableHandleFound = false;
     for (; i < AVAILABLE_HANDLES; i++) {
       if (m_handles[i].m_isAvailable) {
+        availableHandleFound = true;
         m_handles[i] = { static_cast<void*>(newObj), false };
         break;
       }
     }
+
+    if (!availableHandleFound) {
+      LOG_ERROR("Too many object handles created. New handle allocation cannot complete.");
+    }
+
     objHeader->size = sizeof(T) + sizeof(AllocHeader);
     objHeader->handleIdx = i;
 
