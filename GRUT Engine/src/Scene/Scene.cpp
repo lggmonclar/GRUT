@@ -3,7 +3,7 @@
 #include "Core/Jobs/JobManager.h"
 #include "Scene/SceneManager.h"
 #include "Core/Parallelism/FrameParams.h"
-#include "Components/Light.h"
+#include "Components/Rendering/Light.h"
 
 namespace GRUT {
   ObjectHandle<Scene> Scene::GetCurrent() {

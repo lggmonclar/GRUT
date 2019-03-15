@@ -4,8 +4,9 @@
 #include "src/Scene/Scene.h"
 #include "src/Scene/GameObjects/GameObject.h"
 #include "src/Scene/Components/Component.h"
-#include "src/Scene/Components/RenderableComponent.h"
-#include "src/Scene/Components/Camera.h"
+#include "src/Scene/Components/Rendering/RenderableComponent.h"
+#include "src/Scene/Components/Rendering/Camera.h"
+#include "src/Scene/Components/Physics/BoxCollider.h"
 #include "src/Input/Input.h"
 
 #ifdef GRUT_PLATFORM_WINDOWS

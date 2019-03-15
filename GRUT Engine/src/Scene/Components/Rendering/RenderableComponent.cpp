@@ -9,9 +9,10 @@
 namespace GRUT {
   std::map<std::string, ObjectHandle<GLModel>> RenderableComponent::s_loadedGLModels;
 
-  RenderableComponent::RenderableComponent() : Component() {
+  void RenderableComponent::Initialize() {
     m_renderCallbackId = RenderManager::Instance().RegisterRenderCallback([&] { Render(); });
   }
+
   RenderableComponent::~RenderableComponent() {
     RenderManager::Instance().RemoveRenderCallback(m_renderCallbackId);
   }

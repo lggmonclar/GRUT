@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include "GameObjects/GameObject.h"
-#include "Components/Light.h"
+#include "Components/Rendering/Light.h"
 
 namespace GRUT {
   class Camera;

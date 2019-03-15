@@ -6,3 +6,5 @@
 #define GRUT_API __declspec(dllimport)
 #define GRUT_API __declspec(dllexport)
 #define GRUT_API __declspec(dllimport)
+#define GRUT_API __declspec(dllexport)
+#define GRUT_API __declspec(dllimport)

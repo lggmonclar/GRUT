@@ -5,7 +5,7 @@
 #include "Core/Debugging/Line.h"
 
 namespace GRUT {
-  Camera::Camera() {
+  void Camera::Initialize() {
     m_isDirty = true;
     UpdateProjectionMatrix();
   }

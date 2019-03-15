@@ -1,6 +1,6 @@
 #include "grutpch.h"
 #include "Scene/GameObjects/GameObject.h"
-#include "Scene/Components/Light.h"
+#include "Scene/Components/Rendering/Light.h"
 #include "GLShader.h"
 #include "Graphics/Windows/GLWindow.h"
 #include "Graphics/RenderManager.h"

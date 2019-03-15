@@ -2,7 +2,7 @@
 #include <glad/glad.h>
 #include <glfw/glfw3.h>
 #include <GRUTMath.h>
-#include "Component.h"
+#include "../Component.h"
 #include "Scene/GameObjects/GameObject.h"
 
 namespace GRUT {
@@ -22,8 +22,7 @@ namespace GRUT {
   public:
     const Math::Vector<3> worldUp{ 0.0f, 1.0f, 0.0f };
 
-    Camera();
-
+    void Initialize() override;
     GRUT_API void SetOrtographic(bool p_val);  
     GRUT_API void SetOrthoLeft(float p_val);
     GRUT_API void SetOrthoRight(float p_val);

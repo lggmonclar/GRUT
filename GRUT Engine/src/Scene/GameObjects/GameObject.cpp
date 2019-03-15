@@ -21,6 +21,13 @@ namespace GRUT {
     for (auto &[t, c] : m_components)
       MemoryManager::Instance().FreeFromFreeList(&(*c));
   }
+  std::vector<ObjectHandle<Component>> GameObject::GetComponents() {
+    std::vector<ObjectHandle<Component>> vector;
+    for (auto &[key, value] : m_components) {
+      vector.push_back(value);
+    }
+    return vector;
+  }
   void GameObject::FixedUpdate(float p_deltaTime) {
     for (auto &[t, c] : m_components)
       c->FixedUpdate(p_deltaTime);

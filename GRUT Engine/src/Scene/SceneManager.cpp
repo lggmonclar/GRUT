@@ -5,7 +5,7 @@
 #include "Core/Memory/ObjectHandle.h"
 #include "SceneManager.h"
 #include "Core/Jobs/JobManager.h"
-#include "Components/Camera.h"
+#include "Components/Rendering/Camera.h"
 
 namespace GRUT {
   void SceneManager::Initialize() {
@@ -22,7 +22,7 @@ namespace GRUT {
 
   void SceneManager::Update(FrameParams& p_prevFrame, FrameParams& p_currFrame) {
     p_currFrame.updateJob = JobManager::Instance().KickJob([&]() {
-      JobManager::Instance().WaitForJob(p_prevFrame.updateJob);
+      JobManager::Instance().WaitForJobs({ p_currFrame.physicsJob, p_prevFrame.updateJob });
       m_currentScene->Update(p_prevFrame, p_currFrame);
     });
   }

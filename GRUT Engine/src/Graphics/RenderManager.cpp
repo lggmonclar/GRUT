@@ -5,7 +5,7 @@
 
 #include "Models/GLModel.h"
 #include "Shaders/GLShader.h"
-#include "Scene/Components/Camera.h"
+#include "Scene/Components/Rendering/Camera.h"
 #include <math.h>
 
 namespace GRUT {

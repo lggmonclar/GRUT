@@ -4,8 +4,10 @@
 
 namespace GRUT {
   class GameObject;
+  class Collider;
+
   class Component {
-  friend class GameObject;
+    friend class GameObject;
   private:
   protected:
     ObjectHandle<Component> m_handle;
@@ -15,8 +17,10 @@ namespace GRUT {
     ~Component() = default;
   public:
     ObjectHandle<GameObject> gameObject;
+    GRUT_API virtual void Initialize() {}; //Called after m_handle is set
     GRUT_API virtual void FixedUpdate(float p_deltaTime) {};
     GRUT_API virtual void Update(float p_deltaTime) {};
+    GRUT_API virtual void OnCollision(ObjectHandle<Collider> &p_other) {};
   };
   template<class C>
   inline void Component::SetHandle(ObjectHandle<C> p_handle) {

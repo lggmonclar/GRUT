@@ -3,6 +3,7 @@
 #include "Core/Parallelism/FrameParams.h"
 #include "Core/Timing/Clock.h"
 #include "Core/Memory/MemoryManager.h"
+#include "Physics/PhysicsManager.h"
 #include "Core/Jobs/JobManager.h"
 #include "Core/Jobs/Job.h"
 #include "Input/InputManager.h"
@@ -14,6 +15,7 @@ namespace GRUT {
   Root::Root() {
     MemoryManager::Initialize();
     Logger::Initialize();
+    PhysicsManager::Initialize();
     JobManager::Initialize();
     SceneManager::Initialize();
     window = InitializeWindow();
@@ -23,6 +25,7 @@ namespace GRUT {
   }
 
   Root::~Root() {
+    JobManager::Instance().Destroy();
   }
 
   void Root::Run() {
@@ -40,6 +43,8 @@ namespace GRUT {
       //Poll inputs in main thread
       InputManager::Instance().PollInputs();
 
+      //Do physics frame
+      PhysicsManager::Instance().Update(frames[prevIndex], frames[currIndex]);
 
       //Update Scene in worker threads
       SceneManager::Instance().Update(frames[prevIndex], frames[currIndex]);
@@ -55,9 +60,6 @@ namespace GRUT {
       prevIndex = (prevIndex + 1) % 16;
       currIndex = (currIndex + 1) % 16;
     }
-
-    //Gather worker threads and exit
-    JobManager::Instance().Destroy();
   }
   const std::shared_ptr<Window> Root::InitializeWindow() {
     return std::shared_ptr<Window>(new GLWindow());

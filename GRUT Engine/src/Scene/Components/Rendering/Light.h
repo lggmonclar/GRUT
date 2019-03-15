@@ -2,7 +2,7 @@
 #include <glad/glad.h>
 #include <glfw/glfw3.h>
 #include <GRUTMath.h>
-#include "Component.h"
+#include "../Component.h"
 #include "Core/Parallelism/SpinLock.h"
 
 namespace GRUT {

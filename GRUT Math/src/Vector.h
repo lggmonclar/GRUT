@@ -5,6 +5,9 @@
 namespace GRUT {
   namespace Math {
     template<short N>
+    class Matrix;
+
+    template<short N>
     class Vector {
     private:
       float m_vals[N];
@@ -64,6 +67,18 @@ namespace GRUT {
         Vector result(*this);
         return result *= scalar;
       }
+      Vector& operator*= (const Matrix<N> & other) {
+        Matrix<N> tOther(other);
+        tOther.Transpose();
+        for (short i = 0; i < N; ++i) {
+          (*this)[i] *= (*this).Dot(tOther[i]);
+        }
+        return *this;
+      }
+      Vector operator* (const Matrix<N> & other) const {
+        Vector result(*this);
+        return result *= other;
+      }
 
       Vector& operator/= (const Vector & other) {
         for (short i = 0; i < N; ++i) {
@@ -116,11 +131,19 @@ namespace GRUT {
 
       
       template<short M = N> typename std::enable_if< (M == 3), Vector >::type Cross(const Vector & other) const {
-        return Vector(
+        auto cross = Vector(
           y() * other.z() - z() * other.y(),
           z() * other.x() - x() * other.z(),
           x() * other.y() - y() * other.x()
         );
+        return cross;
+      }
+
+      template<short M = N> typename std::enable_if< (M == 3), Vector >::type ApplyMatrix4(const Matrix<4> & matrix) const {
+        Vector<4> v(this->x(), this->y(), this->z(), 1.0f);
+        v *= matrix;
+
+        return Vector(v.x(), v.y(), v.z());
       }
 
       float x() const { return m_vals[0]; }

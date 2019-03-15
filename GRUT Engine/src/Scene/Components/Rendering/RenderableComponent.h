@@ -1,5 +1,5 @@
 #pragma once
-#include "Component.h"
+#include "../Component.h"
 #include <list>
 #include <queue>
 #include <functional>
@@ -27,11 +27,11 @@ namespace GRUT {
     ObjectHandle<BaseModel>    m_model;
     void Render();
   public:
+    GRUT_API void Initialize() override;
     GRUT_API void SetModel(const char* p_path);
     GRUT_API void SetModel(ObjectHandle<BaseModel> p_modelHandle);
     GRUT_API void SetShaderType(ShaderTypes p_type);
     GRUT_API ObjectHandle<BaseModel> GetModel();
-    GRUT_API RenderableComponent();
     GRUT_API void SetShaderBool(const std::string &name, bool value, bool p_executeOnce = false);
     GRUT_API void SetShaderInt(const std::string &name, int value, bool p_executeOnce = false);
     GRUT_API void SetShaderFloat(const std::string &name, float value, bool p_executeOnce = false);
@@ -44,7 +44,7 @@ namespace GRUT {
     GRUT_API void SetShaderMat2(const std::string &name, const Math::Matrix<2> &mat, bool p_executeOnce = false);
     GRUT_API void SetShaderMat3(const std::string &name, const Math::Matrix<3> &m3, bool p_executeOnce = false);
     GRUT_API void SetShaderMat4(const std::string &name, const Math::Matrix<4> &m4, bool p_executeOnce = false);
-    void Update(float p_deltaTime) override;
+    GRUT_API void Update(float p_deltaTime) override;
     ~RenderableComponent();
   };
 }

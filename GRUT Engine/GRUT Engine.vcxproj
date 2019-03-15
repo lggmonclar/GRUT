@@ -138,6 +138,8 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="src\core\jobs\JobManager.h" />
     <ClInclude Include="src\core\memory\MemoryManager.h" />
     <ClInclude Include="src\graphics\RenderManager.h" />
+    <ClInclude Include="src\Physics\GJK.h" />
+    <ClInclude Include="src\Physics\PhysicsManager.h" />
     <ClInclude Include="src\resources\ResourceManager.h" />
     <ClInclude Include="src\Root.h" />
     <ClInclude Include="src\core\parallelism\SpinLock.h" />
@@ -145,9 +147,11 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="src\core\time\Timer.h" />
     <ClInclude Include="src\graphics\windows\GLWindow.h" />
     <ClInclude Include="src\graphics\windows\Window.h" />
-    <ClInclude Include="src\Scene\Components\Camera.h" />
+    <ClInclude Include="src\Scene\Components\Physics\BoxCollider.h" />
+    <ClInclude Include="src\Scene\Components\Rendering\Camera.h" />
+    <ClInclude Include="src\Scene\Components\Physics\Collider.h" />
     <ClInclude Include="src\Scene\Components\Component.h" />
-    <ClInclude Include="src\Scene\Components\Light.h" />
+    <ClInclude Include="src\Scene\Components\Rendering\Light.h" />
     <ClInclude Include="src\Scene\GameObjects\GameObject.h" />
     <ClInclude Include="src\Scene\Scene.h" />
     <ClInclude Include="src\Scene\SceneManager.h" />
@@ -174,6 +178,8 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClCompile Include="src\core\jobs\JobManager.cpp" />
     <ClCompile Include="src\core\memory\MemoryManager.cpp" />
     <ClCompile Include="src\graphics\RenderManager.cpp" />
+    <ClCompile Include="src\Physics\GJK.cpp" />
+    <ClCompile Include="src\Physics\PhysicsManager.cpp" />
     <ClCompile Include="src\Root.cpp" />
     <ClCompile Include="src\Core\Debugging\Logger.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -187,13 +193,15 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">grutpch.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">grutpch.h</PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="src\Scene\Components\Camera.cpp" />
-    <ClCompile Include="src\Scene\Components\Light.cpp" />
-    <ClCompile Include="src\Scene\Components\RenderableComponent.cpp">
+    <ClCompile Include="src\Scene\Components\Physics\BoxCollider.cpp" />
+    <ClCompile Include="src\Scene\Components\Physics\Collider.cpp" />
+    <ClCompile Include="src\Scene\Components\Rendering\Camera.cpp" />
+    <ClCompile Include="src\Scene\Components\Rendering\Light.cpp" />
+    <ClCompile Include="src\Scene\Components\Rendering\RenderableComponent.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
     </ClCompile>
-    <ClInclude Include="src\Scene\Components\RenderableComponent.h">
+    <ClInclude Include="src\Scene\Components\Rendering\RenderableComponent.h">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClInclude>

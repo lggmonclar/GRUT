@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Components\CameraController.h" />
+    <ClInclude Include="src\Components\ColliderTest.h" />
     <ClInclude Include="src\Components\Test.h" />
     <ClInclude Include="src\Game.h" />
   </ItemGroup>

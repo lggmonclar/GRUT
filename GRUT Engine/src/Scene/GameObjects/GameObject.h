@@ -29,6 +29,7 @@ namespace GRUT {
     ObjectHandle<C> AddComponent();
     template<class C>
     ObjectHandle<C> GetComponent();
+    std::vector<ObjectHandle<Component>> GetComponents();
   };
 
   template<class C>
@@ -37,6 +38,7 @@ namespace GRUT {
     component->gameObject = m_handle;
     component->SetHandle<C>(component);
     m_components[typeid(C).name()] = component;
+    component->Initialize();
     return component;
   }
   template<class C>
