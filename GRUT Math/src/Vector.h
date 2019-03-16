@@ -71,7 +71,7 @@ namespace GRUT {
         Matrix<N> tOther(other);
         tOther.Transpose();
         for (short i = 0; i < N; ++i) {
-          (*this)[i] *= (*this).Dot(tOther[i]);
+          (*this)[i] = (*this).Dot(tOther[i]);
         }
         return *this;
       }

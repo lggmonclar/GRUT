@@ -2,8 +2,11 @@
 #include "BoxCollider.h"
 #include "Scene/GameObjects/GameObject.h"
 #include "Core/Debugging/Line.h"
+#include "Core/Debugging/Box.h"
 
 namespace GRUT {
+  Vector<3> boxColor = Vector<3>(0.0f, 0.95f, 0.2f);
+
   Vector<3> BoxCollider::Support(const Vector<3>& p_direction) {
     Vector<3> chosenVertex;
     float maxDist = -FLT_MAX;
@@ -24,5 +27,10 @@ namespace GRUT {
   }
 
   void BoxCollider::Update(float p_deltaTime) {
+    DEBUG_DRAW_BOX(gameObject->transform->GetPosition(), Vector<3>(1.0f, 1.0f, 1.0f), Vector<3>(0.0f, 0.0f, 0.0f), boxColor);
+  }
+
+  void BoxCollider::OnCollision(ObjectHandle<Collider> &p_other) {
+    boxColor = Vector<3>(1.0f, 0.0f, 0.2f);
   }
 }

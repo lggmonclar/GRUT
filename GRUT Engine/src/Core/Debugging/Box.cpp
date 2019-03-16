@@ -78,16 +78,10 @@ namespace GRUT {
       s_shader->SetVec3("color", p_color);
       s_shader->SetMat4("model", model);
 
-      GLint prevPolygonMode;
-      glGetIntegerv(GL_POLYGON_MODE, &prevPolygonMode);
-
-      glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
       glBindVertexArray(s_VAO);
       glDrawElements(GL_LINES, 24, GL_UNSIGNED_INT, 0);
       glBindVertexArray(0);
 
-      glPolygonMode(GL_FRONT_AND_BACK, prevPolygonMode);
     }, CallbackTime::RENDER, SceneManager::Instance().frameIndex);
   }
 }

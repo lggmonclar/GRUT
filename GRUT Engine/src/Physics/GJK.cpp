@@ -1,6 +1,7 @@
 #include "grutpch.h"
 #include "Scene/GameObjects/GameObject.h"
 #include "GJK.h"
+#include "Core/Debugging/Line.h"
 
 namespace GRUT {
   bool GJK(const ObjectHandle<Collider>& p_a, const ObjectHandle<Collider>& p_b) {
@@ -27,8 +28,9 @@ namespace GRUT {
 
       simplexPoints[pointCount++] = furthestVertex;
 
-      if (CheckIntersection(simplexPoints, pointCount, direction))
+      if (CheckIntersection(simplexPoints, pointCount, direction)) {
         return true;
+      }
 
       i++;
     }
