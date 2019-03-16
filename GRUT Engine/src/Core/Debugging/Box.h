@@ -7,16 +7,15 @@
 
 using namespace GRUT::Math;
 namespace GRUT {
-  class Line {
+  class Box {
   private:
     static bool s_hasInitialized;
-    static GLShader s_lineShader;
-    static unsigned int s_VBO;
-    static unsigned int s_VAO;
+    static unsigned int s_VBO, s_VAO, s_EBO;
+    static ObjectHandle<GLShader> s_shader;
   public:
     GRUT_API static void Initialize();
-    GRUT_API static void Draw(Vector<3> p_startPos, Vector<3> p_endPos, Vector<3> p_color);
+    GRUT_API static void Draw(Vector<3> p_center, Vector<3> p_scale, Vector<3> p_rotation, Vector<3> p_color);
   };
 }
 
-#define DEBUG_DRAW_LINE(...) ::GRUT::Line::Draw(__VA_ARGS__)
+#define DEBUG_DRAW_BOX(...) ::GRUT::Box::Draw(__VA_ARGS__)

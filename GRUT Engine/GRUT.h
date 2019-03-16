@@ -10,6 +10,7 @@
 #include "src/Input/Input.h"
 
 #include "src/Core/Debugging/Line.h"
+#include "src/Core/Debugging/Box.h"
 
 #ifdef GRUT_PLATFORM_WINDOWS
 
