@@ -47,21 +47,21 @@ namespace GRUT {
   }
 
   void RenderManager::RegisterSingleFrameRenderCallback(std::function<void()> p_callback, CallbackTime p_time, short p_frameIdx) {
-    std::list<RenderCallback> callbackMap;
+    std::list<RenderCallback>* callbackMap = &m_singleFrameRenderCallbacks[p_frameIdx];
     switch (p_time) {
     case CallbackTime::PRE_RENDER:
-      callbackMap = m_singleFramePreRenderCallbacks[p_frameIdx];
+      callbackMap = &m_singleFramePreRenderCallbacks[p_frameIdx];
       break;
     case CallbackTime::RENDER:
-      callbackMap = m_singleFrameRenderCallbacks[p_frameIdx];
+      callbackMap = &m_singleFrameRenderCallbacks[p_frameIdx];
       break;
     case CallbackTime::POST_RENDER:
-      callbackMap = m_singleFramePostRenderCallbacks[p_frameIdx];
+      callbackMap = &m_singleFramePostRenderCallbacks[p_frameIdx];
       break;
     }
 
     m_spinLock.Acquire();
-    callbackMap.insert(callbackMap.end(), { p_callback });
+    callbackMap->insert(callbackMap->end(), { p_callback });
     m_spinLock.Release();
   }
 
