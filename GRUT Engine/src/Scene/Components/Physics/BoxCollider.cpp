@@ -30,7 +30,11 @@ namespace GRUT {
     DEBUG_DRAW_BOX(gameObject->transform->GetPosition(), Vector<3>(1.0f, 1.0f, 1.0f), Vector<3>(0.0f, 0.0f, 0.0f), boxColor);
   }
 
-  void BoxCollider::OnCollision(ObjectHandle<Collider> &p_other) {
+  void BoxCollider::OnCollisionEnter(ObjectHandle<Collider> &p_other) {
     boxColor = Vector<3>(1.0f, 0.0f, 0.2f);
+  }
+
+  void BoxCollider::OnCollisionExit(ObjectHandle<Collider> &p_other) {
+    boxColor = Vector<3>(0.0f, 0.95f, 0.2f);
   }
 }

@@ -9,6 +9,7 @@ namespace GRUT {
 
   class PhysicsManager {
   private:
+    std::map<ObjectHandle<Collider>, std::vector<ObjectHandle<Collider>>> m_activeCollisions;
     std::vector<ObjectHandle<Collider>> m_registeredColliders;
     void CheckCollisions();
   public:

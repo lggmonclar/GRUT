@@ -20,7 +20,8 @@ namespace GRUT {
     GRUT_API virtual void Initialize() {}; //Called after m_handle is set
     GRUT_API virtual void FixedUpdate(float p_deltaTime) {};
     GRUT_API virtual void Update(float p_deltaTime) {};
-    GRUT_API virtual void OnCollision(ObjectHandle<Collider> &p_other) {};
+    GRUT_API virtual void OnCollisionEnter(ObjectHandle<Collider> &p_other) {};
+    GRUT_API virtual void OnCollisionExit(ObjectHandle<Collider> &p_other) {};
   };
   template<class C>
   inline void Component::SetHandle(ObjectHandle<C> p_handle) {
