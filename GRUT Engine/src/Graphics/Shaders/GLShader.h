@@ -12,7 +12,7 @@ namespace GRUT {
   protected:
     GRUT_API bool CompileVertexShader(const char* p_vertexCode) override;
     GRUT_API bool CompileFragmentShader(const char* p_fragmentCode) override;
-    GRUT_API bool CheckCompileErrors(unsigned int shader, std::string type) override;
+    GRUT_API bool CheckCompileErrors(unsigned int shader, const std::string &type) override;
     static unsigned int s_ssboPointLights;
     static unsigned int s_uboViewPos;
     static unsigned int s_uboViewProjection;

@@ -9,7 +9,7 @@ namespace GRUT {
   protected:
     virtual bool CompileVertexShader(const char* p_vertexCode) = 0;
     virtual bool CompileFragmentShader(const char* p_fragmentCode) = 0;
-    virtual bool CheckCompileErrors(unsigned int shader, std::string type) = 0;
+    virtual bool CheckCompileErrors(unsigned int shader, const std::string &type) = 0;
   public:
     Shader() = default;
     GRUT_API void LoadVertexShader(const char* path);

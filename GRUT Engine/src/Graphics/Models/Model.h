@@ -15,7 +15,7 @@ namespace GRUT {
   private:
     void ProcessNode(aiNode *p_node, const aiScene *p_scene);
     MeshType ProcessMesh(aiMesh *p_mesh, const aiScene *p_scene);
-    std::vector<ObjectHandle<TextureType>> LoadMaterialTextures(aiMaterial *p_mat, aiTextureType p_type, std::string p_typeName);
+    std::vector<ObjectHandle<TextureType>> LoadMaterialTextures(aiMaterial *p_mat, aiTextureType p_type, const std::string &p_typeName);
   public:
     void LoadModel(std::string const &p_path);
     std::vector<ObjectHandle<TextureType>> texturesLoaded;
@@ -153,7 +153,7 @@ namespace GRUT {
   }
 
   template <class MeshType, class TextureType, class ShaderType>
-  std::vector<ObjectHandle<TextureType>> Model<MeshType, TextureType, ShaderType>::LoadMaterialTextures(aiMaterial * p_mat, aiTextureType p_type, std::string p_typeName) {
+  std::vector<ObjectHandle<TextureType>> Model<MeshType, TextureType, ShaderType>::LoadMaterialTextures(aiMaterial * p_mat, aiTextureType p_type, const std::string &p_typeName) {
     std::vector<ObjectHandle<TextureType>> textures;
     for (unsigned int i = 0; i < p_mat->GetTextureCount(p_type); i++) {
       aiString str;

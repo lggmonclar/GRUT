@@ -22,7 +22,7 @@ namespace GRUT {
     glCompileShader(m_fShaderProgram);
     return CheckCompileErrors(m_fShaderProgram, "FRAGMENT");
   }
-  bool GLShader::CheckCompileErrors(unsigned int p_shader, std::string p_type) {
+  bool GLShader::CheckCompileErrors(unsigned int p_shader, const std::string &p_type) {
     int success;
     char infoLog[1024];
     if (p_type != "PROGRAM") {
