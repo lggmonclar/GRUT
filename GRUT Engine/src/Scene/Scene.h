@@ -19,7 +19,7 @@ namespace GRUT {
     Scene() = default;
     ~Scene() = default;
     void FixedUpdate(float p_deltaTime);
-    void Update(FrameParams& p_prevFrame, FrameParams& p_currFrame);
+    std::vector<std::weak_ptr<Job>> Update(FrameParams& p_prevFrame, FrameParams& p_currFrame);
     void AddGameObject(ObjectHandle<GameObject> p_gameObject);
     void UpdateLightSourceList(ObjectHandle<Light> p_handle, LightType p_type);
   public:

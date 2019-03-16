@@ -27,10 +27,10 @@ namespace GRUT {
   }
 
   void PhysicsManager::CheckCollisions() {
-    for (auto i = m_registeredColliders.begin(); i < m_registeredColliders.end() - 1; i++) {
+    for (auto i = m_registeredColliders.begin(); i < m_registeredColliders.end(); i++) {
       for (auto j = i + 1; j < m_registeredColliders.end(); j++) {
         if (GJK(*i, *j)) {
-          LOG_DEBUG("Collision detected!");
+          //LOG_DEBUG("Collision detected!");
           for (auto &c : (*i)->gameObject->GetComponents()) {
             c->OnCollision(*j);
           }

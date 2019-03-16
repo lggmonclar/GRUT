@@ -2,7 +2,6 @@
 #include "Camera.h"
 #include "Graphics/RenderManager.h"
 #include "Graphics/Shaders/GLShader.h"
-#include "Core/Debugging/Line.h"
 
 namespace GRUT {
   void Camera::Initialize() {

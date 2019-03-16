@@ -66,21 +66,8 @@ namespace GRUT {
     glfwTerminate();
   }
 
-  void GLWindow::SetContext() {
-    BEGIN_ASSERT_LOCK_NOT_NECESSARY(m_lock);
-    glfwMakeContextCurrent(m_window);
-    END_ASSERT_LOCK_NOT_NECESSARY(m_lock);
-  }
-
-  void GLWindow::ClearContext() {
-    BEGIN_ASSERT_LOCK_NOT_NECESSARY(m_lock);
-    glfwMakeContextCurrent(NULL);
-    END_ASSERT_LOCK_NOT_NECESSARY(m_lock);
-  }
-
   void GLWindow::BeginFrame() {
     glfwMakeContextCurrent(m_window);
-    //glClearColor(0.2f, 0.6f, 0.7f, 1.0f);
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
   }

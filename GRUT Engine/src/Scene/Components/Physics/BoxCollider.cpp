@@ -1,6 +1,7 @@
 #include "grutpch.h"
 #include "BoxCollider.h"
 #include "Scene/GameObjects/GameObject.h"
+#include "Core/Debugging/Line.h"
 
 namespace GRUT {
   Vector<3> BoxCollider::Support(const Vector<3>& p_direction) {
@@ -20,5 +21,8 @@ namespace GRUT {
     }
 
     return chosenVertex;
+  }
+
+  void BoxCollider::Update(float p_deltaTime) {
   }
 }

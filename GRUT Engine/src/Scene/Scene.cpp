@@ -17,12 +17,14 @@ namespace GRUT {
       obj->FixedUpdate(p_deltaTime);
     }
   }
-  void Scene::Update(FrameParams& p_prevFrame, FrameParams& p_currFrame) {
+  std::vector<std::weak_ptr<Job>> Scene::Update(FrameParams& p_prevFrame, FrameParams& p_currFrame) {
+    std::vector<std::weak_ptr<Job>> updateJobs;
     for (auto &obj : m_rootObjects) {
-      JobManager::Instance().KickJob([&]() {
+      updateJobs.push_back(JobManager::Instance().KickJob([&]() {
         obj->Update(p_currFrame.deltaTime);
-      });
+      }));
     }
+    return updateJobs;
   }
   void Scene::UpdateLightSourceList(ObjectHandle<Light> p_handle, LightType p_type) {
     

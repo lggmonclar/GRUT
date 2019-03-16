@@ -23,7 +23,9 @@ namespace GRUT {
   void SceneManager::Update(FrameParams& p_prevFrame, FrameParams& p_currFrame) {
     p_currFrame.updateJob = JobManager::Instance().KickJob([&]() {
       JobManager::Instance().WaitForJobs({ p_currFrame.physicsJob, p_prevFrame.updateJob });
-      m_currentScene->Update(p_prevFrame, p_currFrame);
+      frameIndex = p_currFrame.index;
+      auto jobs = m_currentScene->Update(p_prevFrame, p_currFrame);
+      JobManager::Instance().WaitForJobs(jobs);
     });
   }
 

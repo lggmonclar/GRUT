@@ -7,11 +7,11 @@ namespace GRUT {
   class SceneManager {
     friend class Scene;
   private:
-    int m_idx = 0;
     ObjectHandle<Scene> m_currentScene;
     SceneManager() = default;
     ~SceneManager();
   public:
+    short int frameIndex;
     GRUT_API static SceneManager& Instance() {
       static SceneManager instance{};
       return instance;

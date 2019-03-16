@@ -16,5 +16,6 @@ namespace GRUT {
     };
   public:
     GRUT_API Vector<3> Support(const Vector<3> &p_direction) override;
+    GRUT_API void Update(float p_deltaTime) override;
   };
 }

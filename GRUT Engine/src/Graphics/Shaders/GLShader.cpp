@@ -10,19 +10,19 @@ namespace GRUT {
   unsigned int GLShader::s_uboViewPos = 0;
   unsigned int GLShader::s_uboViewProjection = 0;
 
-  void GLShader::CompileVertexShader(const char * p_vertexCode) {
+  bool GLShader::CompileVertexShader(const char * p_vertexCode) {
     m_vShaderProgram = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(m_vShaderProgram, 1, &p_vertexCode, NULL);
     glCompileShader(m_vShaderProgram);
-    CheckCompileErrors(m_vShaderProgram, "VERTEX");
+    return CheckCompileErrors(m_vShaderProgram, "VERTEX");
   }
-  void GLShader::CompileFragmentShader(const char * p_fragmentCode) {
+  bool GLShader::CompileFragmentShader(const char * p_fragmentCode) {
     m_fShaderProgram = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(m_fShaderProgram, 1, &p_fragmentCode, NULL);
     glCompileShader(m_fShaderProgram);
-    CheckCompileErrors(m_fShaderProgram, "FRAGMENT");
+    return CheckCompileErrors(m_fShaderProgram, "FRAGMENT");
   }
-  void GLShader::CheckCompileErrors(unsigned int p_shader, std::string p_type) {
+  bool GLShader::CheckCompileErrors(unsigned int p_shader, std::string p_type) {
     int success;
     char infoLog[1024];
     if (p_type != "PROGRAM") {
@@ -41,6 +41,8 @@ namespace GRUT {
         LOG_INFO("{0}", infoLog);
       }
     }
+
+    return success;
   }
   void GLShader::Use() {
     if (!ID) {

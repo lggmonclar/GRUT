@@ -4,6 +4,7 @@
 
 namespace GRUT {
   struct FrameParams {
+    short index = 0;
     bool isDone = true;
     float deltaTime;
     std::weak_ptr<Job> physicsJob;

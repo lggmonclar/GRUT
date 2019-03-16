@@ -112,6 +112,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="GRUT.h" />
+    <ClInclude Include="src\Config.h" />
     <ClInclude Include="src\Core\Debugging\Line.h" />
     <ClInclude Include="src\Core\Memory\FreeListAllocator.h" />
     <ClInclude Include="src\Core\Memory\MultiFramePoolAllocator.h" />
@@ -158,6 +159,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="src\Scene\Components\Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Core\Debugging\Line.cpp" />
     <ClCompile Include="src\Core\Memory\FreeListAllocator.cpp" />
     <ClCompile Include="src\Core\Memory\MultiFramePoolAllocator.cpp" />
     <ClCompile Include="src\Core\Timing\Clock.cpp" />

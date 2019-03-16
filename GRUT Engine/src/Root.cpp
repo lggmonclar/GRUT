@@ -37,6 +37,7 @@ namespace GRUT {
         std::this_thread::sleep_for(std::chrono::milliseconds(16));
       }
       GetGameClock().UpdateTime();
+      frames[currIndex].index = currIndex;
       frames[currIndex].isDone = false;
       frames[currIndex].deltaTime = GetGameClock().GetDeltaTime();
 
@@ -56,9 +57,9 @@ namespace GRUT {
       MemoryManager::Instance().Defragment(frames[prevIndex], frames[currIndex]);
 
       //Increment relevant frame indices
-      guardIndex = (guardIndex + 1) % 16;
-      prevIndex = (prevIndex + 1) % 16;
-      currIndex = (currIndex + 1) % 16;
+      guardIndex = (guardIndex + 1) % FRAME_PARAMS_COUNT;
+      prevIndex = (prevIndex + 1) % FRAME_PARAMS_COUNT;
+      currIndex = (currIndex + 1) % FRAME_PARAMS_COUNT;
     }
   }
   const std::shared_ptr<Window> Root::InitializeWindow() {

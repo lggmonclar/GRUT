@@ -4,35 +4,29 @@
 #include "Graphics/RenderManager.h"
 
 namespace GRUT {
-  bool Shader::LoadVertexShader(const char * path) {
-    std::string contents;
-    auto jobPtr = JobManager::Instance().KickJob([&]() {
-      contents = LoadFileContents(path);
-    });
-
-    JobManager::Instance().WaitForJob(jobPtr);
-    if (contents.empty())
-      return false;
-    
+  void Shader::LoadVertexShader(const char * path) {
     RenderManager::Instance().RegisterRenderCallback([=] {
+      std::string contents = LoadFileContents(path);
+
+      if (contents.empty()) {
+        LOG_ERROR("{0} File contents are empty", path);
+        return;
+      }
+    
       CompileVertexShader(contents.c_str());
     }, CallbackTime::PRE_RENDER, true);
-    return true;
   }
-  bool Shader::LoadFragmentShader(const char * path) {
-    std::string contents;
-    auto jobPtr = JobManager::Instance().KickJob([&]() {
-      contents = LoadFileContents(path);
-    });
-
-    JobManager::Instance().WaitForJob(jobPtr);
-    if (contents.empty())
-      return false;
-
+  void Shader::LoadFragmentShader(const char * path) {
     RenderManager::Instance().RegisterRenderCallback([=] {
+      std::string contents = LoadFileContents(path);
+
+      if (contents.empty()) {
+        LOG_ERROR("{0} File contents are empty", path);
+        return;
+      }
+
       CompileFragmentShader(contents.c_str());
     }, CallbackTime::PRE_RENDER, true);
-    return true;
   }
   std::string Shader::LoadFileContents(const char * path) {
     std::ifstream fileStream;

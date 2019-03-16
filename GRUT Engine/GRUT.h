@@ -9,6 +9,8 @@
 #include "src/Scene/Components/Physics/BoxCollider.h"
 #include "src/Input/Input.h"
 
+#include "src/Core/Debugging/Line.h"
+
 #ifdef GRUT_PLATFORM_WINDOWS
 
 extern GRUT::Root* GRUT::CreateApplication();
