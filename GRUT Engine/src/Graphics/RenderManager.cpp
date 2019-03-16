@@ -47,23 +47,22 @@ namespace GRUT {
   }
 
   void RenderManager::RegisterSingleFrameRenderCallback(std::function<void()> p_callback, CallbackTime p_time, short p_frameIdx) {
+    std::list<RenderCallback> callbackMap;
     switch (p_time) {
     case CallbackTime::PRE_RENDER:
-      m_spinLock.Acquire();
-      m_singleFramePreRenderCallbacks[p_frameIdx].insert(m_singleFramePreRenderCallbacks[p_frameIdx].end(), { p_callback });
-      m_spinLock.Release();
+      callbackMap = m_singleFramePreRenderCallbacks[p_frameIdx];
       break;
     case CallbackTime::RENDER:
-      m_spinLock.Acquire();
-      m_singleFrameRenderCallbacks[p_frameIdx].insert(m_singleFrameRenderCallbacks[p_frameIdx].end(), { p_callback });
-      m_spinLock.Release();
+      callbackMap = m_singleFrameRenderCallbacks[p_frameIdx];
       break;
     case CallbackTime::POST_RENDER:
-      m_spinLock.Acquire();
-      m_singleFramePostRenderCallbacks[p_frameIdx].insert(m_singleFramePostRenderCallbacks[p_frameIdx].end(), { p_callback });
-      m_spinLock.Release();
+      callbackMap = m_singleFramePostRenderCallbacks[p_frameIdx];
       break;
     }
+
+    m_spinLock.Acquire();
+    callbackMap.insert(callbackMap.end(), { p_callback });
+    m_spinLock.Release();
   }
 
   void RenderManager::RemoveRenderCallback(std::list<RenderCallback>::iterator p_index, CallbackTime p_time) {
