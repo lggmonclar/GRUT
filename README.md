@@ -1,6 +1,6 @@
 # GRUT Engine
 
-In-development Game engine personal project, currently featuring:
+In-development game engine personal project, currently featuring:
 * A multithreaded job/fiber system inspired by [Naughty Dog's engine](https://www.gdcvault.com/play/1022186/Parallelizing-the-Naughty-Dog-Engine).
 * Object-Component system
 * Renderer written in OpenGL (intend to support other APIs eventually)
