@@ -25,13 +25,13 @@ Engine code included under `GRUT Engine/src/`
   - **Components**: Default components used by GameObjects.
   - **GameObjects**: Default GameObjects. 
 
+## Platforms
+* Windows
+
 ## Cloning
 The GRUT Engine is licensed under the MIT license.
 
 Feel free to clone/fork the repository and [contact the author](https://github.com/lggmonclar).
-
-## Platforms
-* Windows
 
 ## Installation
 `git clone` the repository, then on the project root run `git submodule init` and `git submodule update` to update the submodules. Currently being developed using Visual Studio 2017, so no other platforms/compilers have been used to compile the code as of yet.
