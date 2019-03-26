@@ -12,13 +12,18 @@ In-development game engine personal project, currently featuring:
 Engine code included under `GRUT Engine/src/`
 
 * **Core** under `GRUT Engine/src/Core/`
-  - **Jobs**: job/fiber system.
-  - **Memory**: Custom memory allocation and management.
+  - **Jobs**: job/fiber system managed by `JobManager.h`.
+  - **Memory**: Custom memory allocation and management managed by `MemoryManager.h`.
   - **Debugging**: Debugging tools.
-* **Graphics** under `GRUT Engine/src/Graphics/`
-* **Input** under `GRUT Engine/src/Input/`
-* **Physics** under under `GRUT Engine/src/Physics/`
-* **Scene** under `GRUT Engine/src/Scene/`
+* **Graphics** Managed by `RenderManager.h` under `GRUT Engine/src/Graphics/`. Supports OpenGL but written with API abstraction in mind.
+  - **Models**: model loading
+  - **Shaders**: shader loading and compiling
+  - **Windows**: window creation and loading
+* **Input**: Managed by `InputManager.h` under `GRUT Engine/src/Input/`.
+* **Physics**: Managed by `PhysicsManager.h` under `GRUT Engine/src/Physics/`.
+* **Scene**: Managed by `SceneManager.h` under `GRUT Engine/src/Scene/`.
+  - **Components**: Default components used by GameObjects.
+  - **GameObjects**: Default GameObjects. 
 
 ## Cloning
 The GRUT Engine is licensed under the MIT license.
