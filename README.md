@@ -11,11 +11,11 @@ In-development game engine personal project, currently featuring:
 ## Project organization
 Engine code included under `GRUT Engine/src/`
 
-* **Core** under `GRUT Engine/src/Core/`
+* **Core**: under `GRUT Engine/src/Core/`
   - **Jobs**: job/fiber system managed by `JobManager.h`.
   - **Memory**: Custom memory allocation and management managed by `MemoryManager.h`.
   - **Debugging**: Debugging tools.
-* **Graphics** Managed by `RenderManager.h` under `GRUT Engine/src/Graphics/`. Supports OpenGL but written with API abstraction in mind.
+* **Graphics**: Managed by `RenderManager.h` under `GRUT Engine/src/Graphics/`. Supports OpenGL but written with API abstraction in mind.
   - **Models**: model loading
   - **Shaders**: shader loading and compiling
   - **Windows**: window creation and loading
