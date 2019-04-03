@@ -40,8 +40,14 @@ namespace GRUT {
   Vector<3> Transform::GetRotation() {
     return modelMatrix.GetRotation();
   }
-  void Transform::SetRotation(Vector<3> p_rotation) {
+  void Transform::SetRotation(const Vector<3> &p_rotation) {
     modelMatrix.SetRotation(p_rotation);
+    isDirty = true;
+  }
+
+
+  void Transform::SetPosition(const Vector<3> &p_vec) {
+    modelMatrix.SetPosition(p_vec);
     isDirty = true;
   }
 

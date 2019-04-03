@@ -34,11 +34,20 @@ public:
     //  }
     //}
 
-    auto p_a = CreateCollideable(Vector<3>(5.0f, 0.0f, 0.0f), Vector<3>(1.0f, 1.0f, 0.0f), true);
-    auto p_b = CreateCollideable(Vector<3>(0.0f, 0.0f, 0.0f), Vector<3>(0.0f, 1.0f, 1.0f));
+    //auto p_a = CreateCollideable(Vector<3>(5.0f, 0.0f, 0.0f), Vector<3>(1.0f, 1.0f, 0.0f), true);
+    //auto p_b = CreateCollideable(Vector<3>(0.0f, 0.0f, 0.0f), Vector<3>(0.0f, 1.0f, 1.0f));
 
-    DrawOrigin();
+    int val = 3;
+    for (int i = 0; i < val; i++) {
+      for (int j = 0; j < val; j++) {
+        for (int k = 0; k < val; k++) {
+          CreateCollideable(Vector<3>(i*3.0f, j*3.0f, k*3.0f), Vector<3>(i / static_cast<float>(val), j / static_cast<float>(val), k / static_cast<float>(val)));
+        }
+      }
+    }
+    auto p_a = CreateCollideable(Vector<3>(5.0f, 0.0f, 0.0f), Vector<3>(1.0f, 1.0f, 0.0f), true);
   }
+
 
   void DrawPt(Vector<3> p_pos) {
     auto origin = GRUT::GameObject::Instantiate();

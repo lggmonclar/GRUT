@@ -14,6 +14,7 @@ namespace GRUT {
       Vector<3>(0.0f, 0.0f, 1.0f), //Back bottom left
       Vector<3>(1.0f, 0.0f, 1.0f)  //Back bottom right
     };
+    Vector<3> m_colliderColor = Vector<3>(0.0f, 0.95f, 0.2f);
   public:
     GRUT_API Vector<3> Support(const Vector<3> &p_direction) override;
     GRUT_API void Update(float p_deltaTime) override;

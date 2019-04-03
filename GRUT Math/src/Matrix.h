@@ -205,6 +205,14 @@ namespace GRUT {
         return *this;
       }
 
+      template <short M = N> typename std::enable_if< (M > 3), Matrix & >::type SetPosition(const Vector<3>& p_pos) {
+        (*this)[3][0] = p_pos.x();
+        (*this)[3][1] = p_pos.y();
+        (*this)[3][2] = p_pos.z();
+
+        return *this;
+      }
+
       template<short M = N> typename std::enable_if< (M > 2), Matrix & >::type RotateAbout(const Vector<3>& axis, float deg) {
         float c = cos(deg);
         float s = sin(deg);
