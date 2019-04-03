@@ -6,12 +6,13 @@ namespace GRUT {
   template<class C>
   class ObjectHandle;
   class Collider;
+  struct Job;
 
   class PhysicsManager {
   private:
     std::map<ObjectHandle<Collider>, std::vector<ObjectHandle<Collider>>> m_activeCollisions;
     std::vector<ObjectHandle<Collider>> m_registeredColliders;
-    void CheckCollisions();
+    std::vector<std::weak_ptr<Job>> CheckCollisions();
   public:
     GRUT_API static PhysicsManager& Instance() {
       static PhysicsManager instance{};
