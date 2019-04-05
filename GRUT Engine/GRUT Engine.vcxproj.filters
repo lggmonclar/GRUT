@@ -159,6 +159,15 @@
     <ClInclude Include="src\Core\Debugging\Box.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Physics\AABB.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\BVTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Physics\CollisionUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Root.cpp">
@@ -246,6 +255,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\Debugging\Box.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics\AABB.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Physics\BVTree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

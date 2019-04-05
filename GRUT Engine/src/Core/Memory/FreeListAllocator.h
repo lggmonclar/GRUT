@@ -41,20 +41,28 @@ namespace GRUT {
       prevNode = firstFitNode;
       firstFitNode = firstFitNode->next;
     }
-    Node* shiftedNode = firstFitNode;
-    shiftedNode = reinterpret_cast<Node*>(reinterpret_cast<U8*>(shiftedNode) + allocSize);
-    shiftedNode->size = firstFitNode->size - allocSize;
-    shiftedNode->next = firstFitNode->next;
+
     if (prevNode != nullptr) {
       prevNode->next = firstFitNode;
     }
-    if (m_headNode == firstFitNode) {
-      m_headNode = shiftedNode;
+
+    if (firstFitNode->size - allocSize > 0) {
+      Node* shiftedNode = firstFitNode;
+      shiftedNode = reinterpret_cast<Node*>(reinterpret_cast<U8*>(shiftedNode) + allocSize);
+      shiftedNode->size = firstFitNode->size - allocSize;
+      shiftedNode->next = firstFitNode->next;
+      if (m_headNode == firstFitNode) {
+        m_headNode = shiftedNode;
+      }
+    }
+    else if (m_headNode == firstFitNode) {
+      m_headNode = m_headNode->next;
     }
 
     AllocHeader* objHeader = reinterpret_cast<AllocHeader*>(firstFitNode);
+
     T* newObj = new (reinterpret_cast<U8*>(objHeader) + sizeof(AllocHeader)) T(args...);
-    
+
     U32 i = 0;
     bool availableHandleFound = false;
     for (; i < AVAILABLE_HANDLES; i++) {

@@ -23,7 +23,7 @@ namespace GRUT {
     for (currPrevNode = m_headNode; (currPrevNode->next < newNode && currPrevNode->next != nullptr); currPrevNode = currPrevNode->next);
 
     //Try to coalesce the new node with the next free node
-    if (!Coalesce(newNode, currPrevNode->next))
+    if (!Coalesce(newNode, currPrevNode->next) && currPrevNode->next != nullptr)
       newNode->next = currPrevNode->next;
     //and then the previous node
     if (!Coalesce(currPrevNode, newNode))
@@ -52,7 +52,7 @@ namespace GRUT {
         if (m_headNode == node) {
           m_headNode = reinterpret_cast<Node*>(reinterpret_cast<U8*>(m_headNode) + occupiedBlock->size );
         }
-        node = reinterpret_cast<Node*>(reinterpret_cast<U8*>(node) + occupiedBlock->size );
+        node = reinterpret_cast<Node*>(reinterpret_cast<U8*>(node) + occupiedBlock->size);
         *node = cpy;
 
         blocksShifted++;

@@ -124,6 +124,5 @@ namespace GRUT {
   }
 
   void RenderableComponent::Update(float p_deltaTime) {
-    auto transform = gameObject->transform;
   }
 }

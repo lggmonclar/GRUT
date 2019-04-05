@@ -83,7 +83,7 @@ namespace GRUT {
     p_currFrame.renderJob = JobManager::Instance().KickJob([&, m_window = m_window]() {
       JobManager::Instance().WaitForJobs({ p_currFrame.updateJob, p_prevFrame.renderJob });
 
-      short prevIdx = (FRAME_PARAMS_COUNT + p_currFrame.index - 2) % FRAME_PARAMS_COUNT;
+      short prevIdx = (FRAME_PARAMS_COUNT + p_currFrame.index - 1) % FRAME_PARAMS_COUNT;
       m_singleFramePreRenderCallbacks[prevIdx].clear();
       m_singleFrameRenderCallbacks[prevIdx].clear();
       m_singleFramePostRenderCallbacks[prevIdx].clear();

@@ -16,7 +16,7 @@ namespace GRUT {
       glGenVertexArrays(1, &s_VAO);
     }, CallbackTime::PRE_RENDER, true);
   }
-  void Line::Draw(Vector<3> p_startPos, Vector<3> p_endPos, Vector<3> p_color) {
+  void Line::Draw(Vector<3> p_startPos, Vector<3> p_endPos, Vector<3> p_color, bool p_drawNextFrame) {
     if (!s_hasInitialized) {
       Initialize();
       s_hasInitialized = true;
@@ -41,6 +41,6 @@ namespace GRUT {
       glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0 * sizeof(float), (void*)0);
       glDrawArrays(GL_LINES, 0, 2);
       glBindVertexArray(0);
-    }, CallbackTime::RENDER, SceneManager::Instance().frameIndex);
+    }, CallbackTime::RENDER, SceneManager::Instance().frameIndex + p_drawNextFrame);
   }
 }

@@ -4,9 +4,9 @@
 
 namespace GRUT {
   void Collider::Initialize() {
-    m_registeredIterator = PhysicsManager::Instance().RegisterCollider(m_handle);
+    PhysicsManager::Instance().RegisterCollider(m_handle);
   }
   Collider::~Collider() {
-    PhysicsManager::Instance().RemoveCollider(m_registeredIterator);
+    PhysicsManager::Instance().RemoveCollider(m_handle);
   }
 }

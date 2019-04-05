@@ -40,6 +40,9 @@ namespace GRUT {
   Vector<3> Transform::GetRotation() {
     return modelMatrix.GetRotation();
   }
+  Vector<3> Transform::GetScale() {
+    return m_localScale;
+  }
   void Transform::SetRotation(const Vector<3> &p_rotation) {
     modelMatrix.SetRotation(p_rotation);
     isDirty = true;
@@ -57,6 +60,7 @@ namespace GRUT {
     isDirty = true;
   }
   void Transform::SetScale(const Vector<3>& p_scale) {
+    m_localScale = p_scale;
     modelMatrix.Scale(p_scale);
     isDirty = true;
   }

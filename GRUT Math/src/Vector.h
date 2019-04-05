@@ -67,6 +67,11 @@ namespace GRUT {
         Vector result(*this);
         return result *= scalar;
       }
+
+      friend Vector operator*(const float & scalar, const Vector &v) {
+        return v * scalar;
+      }
+
       Vector& operator*= (const Matrix<N> & other) {
         Matrix<N> tOther(other);
         tOther.Transpose();
@@ -99,6 +104,10 @@ namespace GRUT {
       Vector operator/ (const float & scalar) const  {
         Vector result(*this);
         return result /= scalar;
+      }
+
+      friend Vector operator/(const float & scalar, const Vector &v) {
+        return v / scalar;
       }
 
       float Dot(const Vector & other) const {

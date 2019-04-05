@@ -1,5 +1,6 @@
 #pragma once
 #include "DLLMacros.h"
+#include "BVTree.h"
 
 namespace GRUT {
   struct FrameParams;
@@ -10,9 +11,10 @@ namespace GRUT {
 
   class PhysicsManager {
   private:
-    std::map<ObjectHandle<Collider>, std::vector<ObjectHandle<Collider>>> m_activeCollisions;
+    BVTree m_BVTree;
+    ColliderPairSet m_activeCollisions;
     std::vector<ObjectHandle<Collider>> m_registeredColliders;
-    std::vector<std::weak_ptr<Job>> CheckCollisions();
+    void CheckCollisions();
   public:
     GRUT_API static PhysicsManager& Instance() {
       static PhysicsManager instance{};
@@ -20,7 +22,7 @@ namespace GRUT {
     }
     static void Initialize();
     void Update(FrameParams& p_prevFrame, FrameParams& p_currFrame);
-    GRUT_API std::vector<ObjectHandle<Collider>>::iterator RegisterCollider(const ObjectHandle<Collider> &p_collider);
-    GRUT_API void RemoveCollider(std::vector<ObjectHandle<Collider>>::iterator p_iterator);
+    GRUT_API void RegisterCollider(const ObjectHandle<Collider> &p_collider);
+    GRUT_API void RemoveCollider(const ObjectHandle<Collider>& p_collider);
   };
 }

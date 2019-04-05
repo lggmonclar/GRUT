@@ -54,7 +54,7 @@ namespace GRUT {
       glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     }, CallbackTime::PRE_RENDER, true);
   }
-  void Box::Draw(Vector<3> p_center, Vector<3> p_scale, Vector<3> p_rotation, Vector<3> p_color) {
+  void Box::Draw(Vector<3> p_center, Vector<3> p_scale, Vector<3> p_rotation, Vector<3> p_color, bool p_drawNextFrame) {
     if (!s_hasInitialized) {
       Initialize();
       s_hasInitialized = true;
@@ -82,6 +82,6 @@ namespace GRUT {
       glDrawElements(GL_LINES, 24, GL_UNSIGNED_INT, 0);
       glBindVertexArray(0);
 
-    }, CallbackTime::RENDER, SceneManager::Instance().frameIndex);
+    }, CallbackTime::RENDER, SceneManager::Instance().frameIndex + p_drawNextFrame);
   }
 }

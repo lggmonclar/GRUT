@@ -5,7 +5,7 @@
 namespace GRUT {
   class HandleEntry {
   public:
-    void* m_ptr;
+    void* m_ptr = nullptr;
     bool m_isAvailable{ true };
   };
 
@@ -34,6 +34,7 @@ namespace GRUT {
     T* operator->() const;
     T& operator*();
     T* operator&() const;
+    void Clear();
     bool operator==(const ObjectHandle<T>& other) const;
     bool operator<(const ObjectHandle<T>& other) const;
   };
@@ -42,22 +43,37 @@ namespace GRUT {
 
   template<class T>
   inline T* ObjectHandle<T>::operator->() const {
+    if (!m_handleGetter)
+      return nullptr;
     return static_cast<T*>(m_handleGetter().m_ptr);
   }
 
-
   template<class T>
   inline T* ObjectHandle<T>::operator&() const {
+    if (!m_handleGetter)
+      return nullptr;
     return static_cast<T*>(m_handleGetter().m_ptr);
+  }
+
+  template<class T>
+  inline void ObjectHandle<T>::Clear() {
+    *this = ObjectHandle();
   }
 
   template<class T>
   inline bool ObjectHandle<T>::operator==(const ObjectHandle<T> & other) const {
+    if (!m_handleGetter || !other.m_handleGetter)
+      return false;
     return m_handleGetter().m_ptr == other.m_handleGetter().m_ptr;
   }
 
   template<class T>
   inline bool ObjectHandle<T>::operator<(const ObjectHandle<T>& other) const {
+    if (!m_handleGetter)
+      return true;
+    if (!other.m_handleGetter)
+      return false;
+
     return m_handleGetter().m_ptr < other.m_handleGetter().m_ptr;
   }
 

@@ -140,6 +140,9 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="src\core\jobs\JobManager.h" />
     <ClInclude Include="src\core\memory\MemoryManager.h" />
     <ClInclude Include="src\graphics\RenderManager.h" />
+    <ClInclude Include="src\Physics\AABB.h" />
+    <ClInclude Include="src\Physics\BVTree.h" />
+    <ClInclude Include="src\Physics\CollisionUtil.h" />
     <ClInclude Include="src\Physics\GJK.h" />
     <ClInclude Include="src\Physics\PhysicsManager.h" />
     <ClInclude Include="src\resources\ResourceManager.h" />
@@ -182,6 +185,8 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClCompile Include="src\core\jobs\JobManager.cpp" />
     <ClCompile Include="src\core\memory\MemoryManager.cpp" />
     <ClCompile Include="src\graphics\RenderManager.cpp" />
+    <ClCompile Include="src\Physics\AABB.cpp" />
+    <ClCompile Include="src\Physics\BVTree.cpp" />
     <ClCompile Include="src\Physics\GJK.cpp" />
     <ClCompile Include="src\Physics\PhysicsManager.cpp" />
     <ClCompile Include="src\Root.cpp" />
