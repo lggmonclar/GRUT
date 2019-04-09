@@ -37,7 +37,7 @@ public:
     //auto p_a = CreateCollideable(Vector<3>(5.0f, 0.0f, 0.0f), Vector<3>(1.0f, 1.0f, 0.0f), true);
     //auto p_b = CreateCollideable(Vector<3>(0.0f, 0.0f, 0.0f), Vector<3>(0.0f, 1.0f, 1.0f));
 
-    int val = 4;
+    int val = 9;
     for (int i = 0; i < val; i++) {
       for (int j = 0; j < val; j++) {
         for (int k = 0; k < val; k++) {

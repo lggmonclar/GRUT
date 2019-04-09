@@ -1,7 +1,6 @@
 #include "grutpch.h"
 #include "BVTree.h"
 #include "Core/Memory/MemoryManager.h"
-#include <assert.h>
 #include "Core/Debugging/Box.h"
 
 namespace GRUT {
@@ -72,7 +71,6 @@ namespace GRUT {
       else {
         ObjectHandle<Node> newBranch = MemoryManager::Instance().AllocOnFreeList<Node>(AABB::Encapsulate(curr->m_aabb, p_newNode->m_aabb));
         newBranch->m_handle = newBranch;
-        assert(&curr->m_parent != &newBranch);
         newBranch->m_parent = curr->m_parent;
         curr->m_parent->SwapOutChild(curr, newBranch);
         curr->m_parent = newBranch;
@@ -175,7 +173,7 @@ namespace GRUT {
       AddNode(node);
     }
 
-    DebugDraw();
+    //DebugDraw();
   }
   const ColliderPairSet BVTree::GetCollisionPairs() {
     ColliderPairSet colliderPairSet;
