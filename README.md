@@ -5,7 +5,7 @@ In-development game engine personal project, currently featuring:
 * Object-Component system
 * Renderer written in OpenGL (intend to support other APIs eventually)
 * Custom memory management/allocator
-* Collision detection using GJK
+* Collision detection using GJK for the narrow phase and a Bounding Volume Hierarchy for the broad phase 
 * Math library written from scratch
 
 ## Project organization
