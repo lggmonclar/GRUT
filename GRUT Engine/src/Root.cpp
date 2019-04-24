@@ -57,9 +57,14 @@ namespace GRUT {
       MemoryManager::Instance().Defragment(frames[prevIndex], frames[currIndex]);
 
       //Increment relevant frame indices
-      guardIndex = (guardIndex + 1) % FRAME_PARAMS_COUNT;
-      prevIndex = (prevIndex + 1) % FRAME_PARAMS_COUNT;
-      currIndex = (currIndex + 1) % FRAME_PARAMS_COUNT;
+      guardIndex = (guardIndex + 1) % Config::FRAME_PARAMS_COUNT;
+      prevIndex = (prevIndex + 1) % Config::FRAME_PARAMS_COUNT;
+      currIndex = (currIndex + 1) % Config::FRAME_PARAMS_COUNT;
+
+
+      //auto w = (GLFWwindow*)window->GetNativeWindow();
+
+      //const bool focused = glfwGetWindowAttrib(w, GLFW_FOCUSED) != 0;
     }
   }
   const std::shared_ptr<Window> Root::InitializeWindow() {

@@ -8,6 +8,7 @@ namespace GRUT {
   public:
     GLWindow();
     ~GLWindow();
+    void* GetNativeWindow() override;
     void BeginFrame() override;
     void EndFrame() override;
     void PollEvents() override;

@@ -14,7 +14,7 @@ namespace GRUT {
   private:
     std::shared_ptr<Window> window;
     const std::shared_ptr<Window> InitializeWindow();
-    FrameParams frames[FRAME_PARAMS_COUNT];
+    FrameParams frames[Config::FRAME_PARAMS_COUNT];
   };
 
   Root* CreateApplication();

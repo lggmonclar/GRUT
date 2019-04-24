@@ -1,6 +1,7 @@
 #include "grutpch.h"
 #include "GLWindow.h"
 #include "Input/InputManager.h"
+#include "Graphics/RenderManager.h"
 #include "Input/Input.h"
 
 namespace GRUT {
@@ -15,7 +16,7 @@ namespace GRUT {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_SAMPLES, 4);
 
-    m_window = glfwCreateWindow(800, 600, "GRUT Engine", NULL, NULL);
+    m_window = glfwCreateWindow(Config::SCREEN_WIDTH, Config::SCREEN_HEIGHT, "GRUT Engine", NULL, NULL);
     if (m_window == NULL) {
       std::cout << "Failed to create GLFW window" << std::endl;
       glfwTerminate();
@@ -25,10 +26,12 @@ namespace GRUT {
     glfwMakeContextCurrent(m_window);
 
     //Set default OS cursor to be disabled
-    glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    //glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     //Set callback functions
     glfwSetWindowUserPointer(m_window, this);
     glfwSetFramebufferSizeCallback(m_window, [](GLFWwindow* window, int width, int height) {
+      //Config::SCREEN_WIDTH = width;
+      //Config::SCREEN_HEIGHT = height;
       glViewport(0, 0, width, height);
     });
     glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
@@ -64,6 +67,10 @@ namespace GRUT {
 
   GLWindow::~GLWindow() {
     glfwTerminate();
+  }
+
+  void* GLWindow::GetNativeWindow() {
+    return m_window;
   }
 
   void GLWindow::BeginFrame() {

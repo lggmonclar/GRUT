@@ -15,7 +15,7 @@ namespace GRUT {
     }
     else {
       //TODO: take resolution into account
-      m_projectionMatrix = Math::Matrix<4>::PerspectiveProjection(static_cast<float>(Math::deg2rad(m_fov)), (float)800 / (float)600, m_nearPlane, m_farPlane);
+      m_projectionMatrix = Math::Matrix<4>::PerspectiveProjection(static_cast<float>(Math::deg2rad(m_fov)), (float)Config::SCREEN_WIDTH / (float)Config::SCREEN_HEIGHT, m_nearPlane, m_farPlane);
     }
   }
 

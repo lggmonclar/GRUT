@@ -10,6 +10,9 @@
 #include <math.h>
 
 namespace GRUT {
+  RenderManager::~RenderManager() {
+    m_gui.Destroy();
+  }
   void RenderManager::ExecuteCallbacks(std::list<RenderCallback>& p_callbackList) {
     std::list<RenderCallback>::iterator i = p_callbackList.begin();
     while (i != p_callbackList.end()) {
@@ -27,6 +30,9 @@ namespace GRUT {
     Instance().m_window = p_window;
     if (true) {//TODO: Config for different apis
       Instance().LoadShaders<GLShader>();
+      Instance().RegisterRenderCallback([&gui = Instance().m_gui, p_window] {
+        gui.Initialize(p_window->GetNativeWindow(), Config::GLSL_VERSION);
+      }, CallbackTime::PRE_RENDER, true);
     }
   }
 
@@ -80,10 +86,10 @@ namespace GRUT {
   }
 
   void RenderManager::DrawFrame(FrameParams& p_prevFrame, FrameParams& p_currFrame) {
-    p_currFrame.renderJob = JobManager::Instance().KickJob([&, m_window = m_window]() {
+    p_currFrame.renderJob = JobManager::Instance().KickJob([&, &m_window = m_window]() {
       JobManager::Instance().WaitForJobs({ p_currFrame.updateJob, p_prevFrame.renderJob });
 
-      short prevIdx = (FRAME_PARAMS_COUNT + p_currFrame.index - 1) % FRAME_PARAMS_COUNT;
+      short prevIdx = (Config::FRAME_PARAMS_COUNT + p_currFrame.index - 1) % Config::FRAME_PARAMS_COUNT;
       m_singleFramePreRenderCallbacks[prevIdx].clear();
       m_singleFrameRenderCallbacks[prevIdx].clear();
       m_singleFramePostRenderCallbacks[prevIdx].clear();
@@ -101,6 +107,8 @@ namespace GRUT {
       //Call post-render callbacks
       ExecuteCallbacks(m_postRenderCallbacks);
       ExecuteCallbacks(m_singleFramePostRenderCallbacks[p_currFrame.index]);
+
+      m_gui.Render();
 
       m_window->EndFrame();
     });

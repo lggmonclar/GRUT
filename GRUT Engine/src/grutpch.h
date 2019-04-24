@@ -19,10 +19,19 @@
 
 #include "GRUTMath.h"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+#include <imgui.h>
+#ifndef IMGUI_IMPL_OPENGL_LOADER_GLAD
+  #define IMGUI_IMPL_OPENGL_LOADER_GLAD
+  #include <examples/imgui_impl_opengl3.h>
+  #include <examples/imgui_impl_glfw.h>
+#endif
+
+#ifndef STB_IMAGE_IMPLEMENTATION
+  #define STB_IMAGE_IMPLEMENTATION
+  #include <assimp/Importer.hpp>
+  #include <assimp/scene.h>
+  #include <assimp/postprocess.h>
+#endif
 
 #ifdef GRUT_PLATFORM_WINDOWS
   #ifndef WIN32_LEAN_AND_MEAN
@@ -32,3 +41,5 @@
   #include <glad/glad.h>
   #include <GLFW/glfw3.h>
 #endif
+
+#include "Config.h"

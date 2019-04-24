@@ -4,7 +4,6 @@
 #include "Core/Debugging/Line.h"
 #include "Core/Debugging/Box.h"
 #include "Physics/AABB.h"
-#include "Config.h"
 
 namespace GRUT {
   Vector<3> BoxCollider::Support(const Vector<3>& p_direction) {
@@ -39,7 +38,7 @@ namespace GRUT {
   }
   AABB BoxCollider::GetFatAABB() {
     AABB aabb = GetAABB();
-    aabb.Expand(AABB_FAT_FACTOR);
+    aabb.Expand(Config::AABB_FAT_FACTOR);
     return aabb;
   }
   AABB BoxCollider::GetAABB() {

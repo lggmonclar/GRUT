@@ -11,7 +11,7 @@ namespace GRUT {
     SceneManager() = default;
     ~SceneManager();
   public:
-    short int frameIndex;
+    short int frameIndex = 0;
     GRUT_API static SceneManager& Instance() {
       static SceneManager instance{};
       return instance;

@@ -5,7 +5,7 @@
 #include "Core/Memory/MemoryManager.h"
 #include "Core/Memory/ObjectHandle.h"
 #include "Shaders/Shader.h"
-#include "Config.h"
+#include "GUI/GUI.h"
 
 namespace GRUT {
   struct FrameParams;
@@ -29,13 +29,15 @@ namespace GRUT {
     std::list<RenderCallback> m_renderCallbacks;
     std::list<RenderCallback> m_postRenderCallbacks;
 
-    std::list<RenderCallback> m_singleFramePreRenderCallbacks[FRAME_PARAMS_COUNT];
-    std::list<RenderCallback> m_singleFrameRenderCallbacks[FRAME_PARAMS_COUNT];
-    std::list<RenderCallback> m_singleFramePostRenderCallbacks[FRAME_PARAMS_COUNT];
+    std::list<RenderCallback> m_singleFramePreRenderCallbacks[Config::FRAME_PARAMS_COUNT];
+    std::list<RenderCallback> m_singleFrameRenderCallbacks[Config::FRAME_PARAMS_COUNT];
+    std::list<RenderCallback> m_singleFramePostRenderCallbacks[Config::FRAME_PARAMS_COUNT];
+
+    GUI m_gui;
 
     std::map<ShaderTypes, ObjectHandle<Shader>> m_shaders;
     RenderManager() = default;
-    ~RenderManager() = default;
+    ~RenderManager();
     void ExecuteCallbacks(std::list<RenderCallback> &p_callbackList);
     template <class T>
     void LoadShaders();

@@ -14,19 +14,19 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{51AF823C-FB77-414C-BB04-A8352FDBC22B}</ProjectGuid>
     <RootNamespace>GRUTEngine</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -46,14 +46,14 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <TargetName>GRUT</TargetName>
-    <IncludePath>$(ProjectDir)src;$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(SolutionDir)vendor\assimp\include;$(SolutionDir)vendor\stb;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)submodules\imgui;$(ProjectDir)src;$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(SolutionDir)vendor\assimp\include;$(SolutionDir)vendor\stb;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)vendor\assimp\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <TargetName>GRUT</TargetName>
-    <IncludePath>$(ProjectDir)src;$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(SolutionDir)vendor\assimp\include;$(SolutionDir)vendor\stb;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)submodules\imgui;$(ProjectDir)src;$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(SolutionDir)vendor\assimp\include;$(SolutionDir)vendor\stb;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)vendor\assimp\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -133,6 +133,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="src\Graphics\Shaders\GLShader.h" />
     <ClInclude Include="src\Graphics\Shaders\Shader.h" />
     <ClInclude Include="src\Graphics\Shaders\ShaderTypes.h" />
+    <ClInclude Include="src\Graphics\GUI\GUI.h" />
     <ClInclude Include="src\Input\Input.h" />
     <ClInclude Include="src\input\InputManager.h" />
     <ClInclude Include="src\grutpch.h" />
@@ -172,6 +173,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClCompile Include="src\Graphics\Models\GLTexture.cpp" />
     <ClCompile Include="src\Graphics\Shaders\GLShader.cpp" />
     <ClCompile Include="src\Graphics\Shaders\Shader.cpp" />
+    <ClCompile Include="src\Graphics\GUI\GUI.cpp" />
     <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\input\InputManager.cpp" />
     <ClCompile Include="src\grutpch.cpp">
