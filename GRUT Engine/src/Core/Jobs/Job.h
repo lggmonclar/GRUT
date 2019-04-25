@@ -19,7 +19,7 @@ namespace GRUT {
     template <typename EntryPoint = std::function<void()>>
     Job(EntryPoint p_entryPoint) : m_entryPoint(p_entryPoint) {}
     ~Job() = default;
-    Job(Job &&old) :
+    Job(Job &&old) noexcept :
       m_entryPoint(old.m_entryPoint),
       m_associatedFiber(old.m_associatedFiber)
     { 
@@ -32,7 +32,7 @@ namespace GRUT {
         old.m_counter = 0;
       }
     }
-    Job& operator=(Job &&old) {
+    Job& operator=(Job &&old) noexcept {
       if (this != &old) {
         m_entryPoint = old.m_entryPoint;
         m_isDone.store(old.m_counter);

@@ -12,6 +12,7 @@ namespace GRUT {
     Timer(std::string p_name = "Timer") {
       m_name = p_name;
       p_start = std::chrono::high_resolution_clock::now();
+      p_duration = p_start - p_start;
     }
 
     ~Timer() {

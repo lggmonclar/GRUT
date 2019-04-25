@@ -16,7 +16,7 @@ namespace GRUT {
     };    
     struct AllocHeader {
       Size size;
-      U32  handleIdx;
+      U32  handleIdx = 0;
       AllocHeader(const Size size) : size(size) {}
     };
     void* m_memoryHead;
