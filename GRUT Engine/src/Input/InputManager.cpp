@@ -4,7 +4,7 @@
 #include "Input.h"
 
 namespace GRUT {
-  void InputManager::Initialize(std::shared_ptr<Window> p_window) {
+  void InputManager::Initialize(std::shared_ptr<IWindow> p_window) {
     Instance().m_window = p_window;
   }
   void InputManager::PollInputs() {

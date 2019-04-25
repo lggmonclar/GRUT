@@ -1,8 +1,8 @@
 #pragma once
-#include "Texture.h"
+#include "ITexture.h"
 
 namespace GRUT {
-  class GLTexture : public Texture {
+  class GLTexture : public ITexture {
   protected:
     void InitTexture(unsigned char* p_data) override;
   public:

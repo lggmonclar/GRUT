@@ -1,10 +1,10 @@
 #pragma once
-#include "Windows/Window.h"
+#include "Windows/IWindow.h"
 #include "Core/Parallelism/SpinLock.h"
 #include "Shaders/ShaderTypes.h"
 #include "Core/Memory/MemoryManager.h"
 #include "Core/Memory/ObjectHandle.h"
-#include "Shaders/Shader.h"
+#include "Shaders/IShader.h"
 #include "GUI/GUI.h"
 
 namespace GRUT {
@@ -24,7 +24,7 @@ namespace GRUT {
   class RenderManager {
   private:
     SpinLock m_spinLock;
-    std::shared_ptr<Window> m_window;
+    std::shared_ptr<IWindow> m_window;
     std::list<RenderCallback> m_preRenderCallbacks;
     std::list<RenderCallback> m_renderCallbacks;
     std::list<RenderCallback> m_postRenderCallbacks;
@@ -35,7 +35,7 @@ namespace GRUT {
 
     GUI m_gui;
 
-    std::map<ShaderTypes, ObjectHandle<Shader>> m_shaders;
+    std::map<ShaderTypes, ObjectHandle<IShader>> m_shaders;
     RenderManager() = default;
     ~RenderManager();
     void ExecuteCallbacks(std::list<RenderCallback> &p_callbackList);
@@ -43,17 +43,17 @@ namespace GRUT {
     void LoadShaders();
     int m_idx = 0;
   public:
-    //inline std::shared_ptr<Window> GetWindow() { return m_window; }
+    //inline std::shared_ptr<IWindow> GetWindow() { return m_window; }
     GRUT_API static RenderManager& Instance() {
       static RenderManager instance{};
       return instance;
     }
-    static void Initialize(std::shared_ptr<Window> p_window);
+    static void Initialize(std::shared_ptr<IWindow> p_window);
     GRUT_API std::list<RenderCallback>::iterator RegisterRenderCallback(std::function<void()> p_callback, CallbackTime p_time = CallbackTime::RENDER, bool p_executeOnce = false);
     GRUT_API void RegisterSingleFrameRenderCallback(std::function<void()> p_callback, CallbackTime p_time, short p_frameIdx = -1);
     void RemoveRenderCallback(std::list<RenderCallback>::iterator p_index, CallbackTime p_time = CallbackTime::RENDER);
     void DrawFrame(FrameParams& p_prevFrame, FrameParams& p_currFrame);
-    ObjectHandle<Shader> GetShader(ShaderTypes p_type);
+    ObjectHandle<IShader> GetShader(ShaderTypes p_type);
   };
   template<class T>
   inline void RenderManager::LoadShaders() {

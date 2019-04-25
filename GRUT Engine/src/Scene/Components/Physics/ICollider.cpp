@@ -1,12 +1,12 @@
 #include "grutpch.h"
-#include "Collider.h"
+#include "ICollider.h"
 #include "Physics/PhysicsManager.h"
 
 namespace GRUT {
-  void Collider::Initialize() {
+  void ICollider::Initialize() {
     PhysicsManager::Instance().RegisterCollider(m_handle);
   }
-  Collider::~Collider() {
+  ICollider::~ICollider() {
     PhysicsManager::Instance().RemoveCollider(m_handle);
   }
 }

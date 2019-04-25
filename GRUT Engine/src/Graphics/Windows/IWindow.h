@@ -2,7 +2,7 @@
 #include <functional>
 
 namespace GRUT {
-  class Window {
+  class IWindow {
   private:
   public:
     virtual void* GetNativeWindow() = 0;

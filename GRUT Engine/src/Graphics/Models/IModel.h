@@ -1,5 +1,5 @@
 #pragma once
 
 namespace GRUT {
-  class BaseModel {};
+  class IModel {};
 }

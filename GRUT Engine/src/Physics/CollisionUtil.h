@@ -3,13 +3,13 @@
 #include "Core/Memory/ObjectHandle.h"
 
 namespace GRUT {
-  class Collider;
+  class ICollider;
 
-  using CollisionPair = std::pair<ObjectHandle<Collider>, ObjectHandle<Collider>>;
+  using CollisionPair = std::pair<ObjectHandle<ICollider>, ObjectHandle<ICollider>>;
   struct UnorderedPairHash {
     std::size_t operator()(const CollisionPair& p) const {
-      auto a = std::hash<Collider*>()(&p.first);
-      auto b = std::hash<Collider*>()(&p.second);
+      auto a = std::hash<ICollider*>()(&p.first);
+      auto b = std::hash<ICollider*>()(&p.second);
       return a ^ b;
     }
     bool operator()(const CollisionPair& a, const CollisionPair& b) const {

@@ -4,7 +4,7 @@
 #include "Core/Debugging/Line.h"
 
 namespace GRUT {
-  bool GJK(const ObjectHandle<Collider>& p_a, const ObjectHandle<Collider>& p_b) {
+  bool GJK(const ObjectHandle<ICollider>& p_a, const ObjectHandle<ICollider>& p_b) {
     Vector<3> direction(1.0f, 1.0f, 0.0f);
 
     short pointCount = 0;

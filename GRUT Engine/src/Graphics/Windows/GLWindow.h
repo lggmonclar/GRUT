@@ -1,8 +1,8 @@
 #pragma once
-#include "Window.h"
+#include "IWindow.h"
 
 namespace GRUT {
-  class GLWindow : public Window {
+  class GLWindow : public IWindow {
   private:
     GLFWwindow* m_window;
   public:

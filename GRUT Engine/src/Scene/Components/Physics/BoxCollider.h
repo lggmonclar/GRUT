@@ -1,8 +1,8 @@
 #pragma once
-#include "Collider.h"
+#include "ICollider.h"
 
 namespace GRUT {
-  class BoxCollider : public Collider {
+  class BoxCollider : public ICollider {
   private:
     Vector<3> m_vertices[8]{
       Vector<3>(0.0f, 1.0f, 0.0f), //Front top m_left
@@ -18,8 +18,8 @@ namespace GRUT {
   public:
     GRUT_API Vector<3> Support(const Vector<3> &p_direction) override;
     GRUT_API void Update(float p_deltaTime) override;
-    GRUT_API void OnCollisionEnter(ObjectHandle<Collider> &p_other) override;
-    GRUT_API void OnCollisionExit(ObjectHandle<Collider> &p_other) override;
+    GRUT_API void OnCollisionEnter(ObjectHandle<ICollider> &p_other) override;
+    GRUT_API void OnCollisionExit(ObjectHandle<ICollider> &p_other) override;
     GRUT_API class AABB GetFatAABB() override;
     GRUT_API class AABB GetAABB() override;
   };

@@ -4,7 +4,7 @@
 
 namespace GRUT {
   class GameObject;
-  class Collider;
+  class ICollider;
 
   class Component {
     friend class GameObject;
@@ -20,8 +20,8 @@ namespace GRUT {
     GRUT_API virtual void Initialize() {}; //Called after m_handle is set
     GRUT_API virtual void FixedUpdate(float p_deltaTime) {};
     GRUT_API virtual void Update(float p_deltaTime) {};
-    GRUT_API virtual void OnCollisionEnter(ObjectHandle<Collider> &p_other) {};
-    GRUT_API virtual void OnCollisionExit(ObjectHandle<Collider> &p_other) {};
+    GRUT_API virtual void OnCollisionEnter(ObjectHandle<ICollider> &p_other) {};
+    GRUT_API virtual void OnCollisionExit(ObjectHandle<ICollider> &p_other) {};
   };
   template<class C>
   inline void Component::SetHandle(ObjectHandle<C> p_handle) {

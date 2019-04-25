@@ -17,11 +17,11 @@ namespace GRUT {
     });
   }
 
-  void PhysicsManager::RegisterCollider(const ObjectHandle<Collider>& p_collider) {
+  void PhysicsManager::RegisterCollider(const ObjectHandle<ICollider>& p_collider) {
     m_BVTree.AddCollider(p_collider);
   }
 
-  void PhysicsManager::RemoveCollider(const ObjectHandle<Collider>& p_collider) {
+  void PhysicsManager::RemoveCollider(const ObjectHandle<ICollider>& p_collider) {
     m_BVTree.RemoveCollider(p_collider);
   }
 

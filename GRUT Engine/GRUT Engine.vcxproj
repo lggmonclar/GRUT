@@ -113,8 +113,13 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
   <ItemGroup>
     <ClInclude Include="GRUT.h" />
     <ClInclude Include="src\Config.h" />
+    <ClInclude Include="src\Core\Config\Config.h" />
+    <ClInclude Include="src\Core\Config\CVar.h" />
+    <ClInclude Include="src\Core\Config\CVarRegistry.h" />
+    <ClInclude Include="src\Core\Config\ICVar.h" />
     <ClInclude Include="src\Core\Debugging\Box.h" />
     <ClInclude Include="src\Core\Debugging\Line.h" />
+    <ClInclude Include="src\Core\FileSystem.h" />
     <ClInclude Include="src\Core\Memory\FreeListAllocator.h" />
     <ClInclude Include="src\Core\Memory\MultiFramePoolAllocator.h" />
     <ClInclude Include="src\Core\Memory\ObjectHandle.h" />
@@ -123,15 +128,15 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="src\Core\Timing\Clock.h" />
     <ClInclude Include="src\DLLMacros.h" />
     <ClInclude Include="src\Core\GRUTAlias.h" />
-    <ClInclude Include="src\Graphics\Models\BaseModel.h" />
+    <ClInclude Include="src\Graphics\Models\IModel.h" />
     <ClInclude Include="src\Graphics\Models\GLMesh.h" />
     <ClInclude Include="src\Graphics\Models\GLModel.h" />
     <ClInclude Include="src\Graphics\Models\GLTexture.h" />
-    <ClInclude Include="src\Graphics\Models\Mesh.h" />
+    <ClInclude Include="src\Graphics\Models\IMesh.h" />
     <ClInclude Include="src\Graphics\Models\Model.h" />
-    <ClInclude Include="src\Graphics\Models\Texture.h" />
+    <ClInclude Include="src\Graphics\Models\ITexture.h" />
     <ClInclude Include="src\Graphics\Shaders\GLShader.h" />
-    <ClInclude Include="src\Graphics\Shaders\Shader.h" />
+    <ClInclude Include="src\Graphics\Shaders\IShader.h" />
     <ClInclude Include="src\Graphics\Shaders\ShaderTypes.h" />
     <ClInclude Include="src\Graphics\GUI\GUI.h" />
     <ClInclude Include="src\Input\Input.h" />
@@ -152,10 +157,10 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="src\Core\Debugging\Logger.h" />
     <ClInclude Include="src\core\time\Timer.h" />
     <ClInclude Include="src\graphics\windows\GLWindow.h" />
-    <ClInclude Include="src\graphics\windows\Window.h" />
+    <ClInclude Include="src\graphics\windows\IWindow.h" />
     <ClInclude Include="src\Scene\Components\Physics\BoxCollider.h" />
     <ClInclude Include="src\Scene\Components\Rendering\Camera.h" />
-    <ClInclude Include="src\Scene\Components\Physics\Collider.h" />
+    <ClInclude Include="src\Scene\Components\Physics\ICollider.h" />
     <ClInclude Include="src\Scene\Components\Component.h" />
     <ClInclude Include="src\Scene\Components\Rendering\Light.h" />
     <ClInclude Include="src\Scene\GameObjects\GameObject.h" />
@@ -172,7 +177,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClCompile Include="src\Graphics\Models\GLMesh.cpp" />
     <ClCompile Include="src\Graphics\Models\GLTexture.cpp" />
     <ClCompile Include="src\Graphics\Shaders\GLShader.cpp" />
-    <ClCompile Include="src\Graphics\Shaders\Shader.cpp" />
+    <ClCompile Include="src\Graphics\Shaders\IShader.cpp" />
     <ClCompile Include="src\Graphics\GUI\GUI.cpp" />
     <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\input\InputManager.cpp" />
@@ -205,7 +210,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">grutpch.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="src\Scene\Components\Physics\BoxCollider.cpp" />
-    <ClCompile Include="src\Scene\Components\Physics\Collider.cpp" />
+    <ClCompile Include="src\Scene\Components\Physics\ICollider.cpp" />
     <ClCompile Include="src\Scene\Components\Rendering\Camera.cpp" />
     <ClCompile Include="src\Scene\Components\Rendering\Light.cpp" />
     <ClCompile Include="src\Scene\Components\Rendering\RenderableComponent.cpp">

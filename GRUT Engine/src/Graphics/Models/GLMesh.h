@@ -1,11 +1,11 @@
 #pragma once
-#include "Mesh.h"
+#include "IMesh.h"
 #include <vector>
 
 class GLShader;
 
 namespace GRUT {
-  class GLMesh : public Mesh {
+  class GLMesh : public IMesh {
   private:
     unsigned int m_VBO, m_EBO, m_VAO;
   protected:

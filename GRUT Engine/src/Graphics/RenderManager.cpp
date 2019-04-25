@@ -26,7 +26,7 @@ namespace GRUT {
     }
   }
 
-  void RenderManager::Initialize(std::shared_ptr<Window> p_window) {
+  void RenderManager::Initialize(std::shared_ptr<IWindow> p_window) {
     Instance().m_window = p_window;
     if (true) {//TODO: Config for different apis
       Instance().LoadShaders<GLShader>();
@@ -114,7 +114,7 @@ namespace GRUT {
     });
   }
 
-  ObjectHandle<Shader> RenderManager::GetShader(ShaderTypes p_type) {
+  ObjectHandle<IShader> RenderManager::GetShader(ShaderTypes p_type) {
     return m_shaders[p_type];
   }
 }

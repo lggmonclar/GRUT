@@ -67,8 +67,8 @@ namespace GRUT {
       //const bool focused = glfwGetWindowAttrib(w, GLFW_FOCUSED) != 0;
     }
   }
-  const std::shared_ptr<Window> Root::InitializeWindow() {
-    return std::shared_ptr<Window>(new GLWindow());
+  const std::shared_ptr<IWindow> Root::InitializeWindow() {
+    return std::shared_ptr<IWindow>(new GLWindow());
   }
 
   Clock& Root::GetGameClock() {

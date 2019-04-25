@@ -5,7 +5,7 @@
 #include "Graphics/RenderManager.h"
 
 namespace GRUT {
-  GLMesh::GLMesh(std::vector<Vertex> p_vertices, std::vector<unsigned int> p_indices) : Mesh(p_vertices, p_indices) {}
+  GLMesh::GLMesh(std::vector<Vertex> p_vertices, std::vector<unsigned int> p_indices) : IMesh(p_vertices, p_indices) {}
 
   void GLMesh::SetupMesh() {
     // create buffers/arrays

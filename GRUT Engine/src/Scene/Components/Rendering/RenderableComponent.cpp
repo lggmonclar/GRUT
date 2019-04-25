@@ -55,10 +55,10 @@ namespace GRUT {
   void RenderableComponent::SetShaderType(ShaderTypes p_type) {
     m_shader = RenderManager::Instance().GetShader(p_type);
   }
-  void RenderableComponent::SetModel(ObjectHandle<BaseModel> p_modelHandle) {
+  void RenderableComponent::SetModel(ObjectHandle<IModel> p_modelHandle) {
     m_model = p_modelHandle;
   }
-  ObjectHandle<BaseModel> RenderableComponent::GetModel() {
+  ObjectHandle<IModel> RenderableComponent::GetModel() {
     return m_model;
   }
   

@@ -2,7 +2,7 @@
 #include <string>
 
 namespace GRUT {
-  class Texture {
+  class ITexture {
   protected:
     int width, height, nrComponents;
     virtual void InitTexture(unsigned char* p_data) = 0;

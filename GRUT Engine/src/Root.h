@@ -12,8 +12,8 @@ namespace GRUT {
     GRUT_API void Run();
     GRUT_API static class Clock& GetGameClock();
   private:
-    std::shared_ptr<Window> window;
-    const std::shared_ptr<Window> InitializeWindow();
+    std::shared_ptr<IWindow> window;
+    const std::shared_ptr<IWindow> InitializeWindow();
     FrameParams frames[Config::FRAME_PARAMS_COUNT];
   };
 

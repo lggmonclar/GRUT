@@ -1,7 +1,7 @@
 #pragma once
-#include "BaseModel.h"
+#include "IModel.h"
 #include <GRUTMath.h>
-#include "Mesh.h"
+#include "IMesh.h"
 #include "Core/Memory/MemoryManager.h"
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
@@ -11,7 +11,7 @@
 
 namespace GRUT {
   template <class MeshType, class TextureType, class ShaderType>
-  class Model : public BaseModel {
+  class Model : public IModel {
   private:
     void ProcessNode(aiNode *p_node, const aiScene *p_scene);
     MeshType ProcessMesh(aiMesh *p_mesh, const aiScene *p_scene);

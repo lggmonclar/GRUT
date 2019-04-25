@@ -78,7 +78,7 @@ public:
     light->AddComponent<Test>();
   }
 
-  GRUT::ObjectHandle<GRUT::Collider> CreateCollideable(Vector<3> pos, Vector<3> color, bool p_addMovement = false) {
+  GRUT::ObjectHandle<GRUT::ICollider> CreateCollideable(Vector<3> pos, Vector<3> color, bool p_addMovement = false) {
     auto obj = GRUT::GameObject::Instantiate();
     obj->transform->Translate(pos);
     auto comp = obj->AddComponent<GRUT::BoxCollider>();

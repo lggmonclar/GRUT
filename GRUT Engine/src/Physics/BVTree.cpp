@@ -4,7 +4,7 @@
 #include "Core/Debugging/Box.h"
 
 namespace GRUT {
-  BVTree::Node::Node(ObjectHandle<Collider> const p_collider) :
+  BVTree::Node::Node(ObjectHandle<ICollider> const p_collider) :
     m_collider(p_collider), m_aabb(Vector<3>(0.0f, 0.0f, 0.0f), Vector<3>(1.0f, 1.0f, 1.0f)) {
     JobManager::Instance().KickJob([=, &m_aabb = m_aabb] {
       m_aabb = p_collider->GetFatAABB();
@@ -128,13 +128,13 @@ namespace GRUT {
       MemoryManager::Instance().FreeFromFreeList<Node>(&p_node);
     }
   }
-  void BVTree::AddCollider(ObjectHandle<Collider> p_collider) {
+  void BVTree::AddCollider(ObjectHandle<ICollider> p_collider) {
     ObjectHandle<Node> newNode = MemoryManager::Instance().AllocOnFreeList<Node>(p_collider);
     newNode->m_handle = newNode;
     m_colNodeMap.insert({ p_collider, newNode });
     AddNode(newNode);
   }
-  void BVTree::RemoveCollider(ObjectHandle<Collider> p_collider) {
+  void BVTree::RemoveCollider(ObjectHandle<ICollider> p_collider) {
     auto it = m_colNodeMap.find(p_collider);
     RemoveNode(it->second, true);
     m_colNodeMap.erase(it);

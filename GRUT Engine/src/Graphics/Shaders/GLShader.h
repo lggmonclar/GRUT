@@ -1,11 +1,11 @@
 #pragma once
 #include <GRUTMath.h>
 #include "Core/Memory/ObjectHandle.h"
-#include "Shader.h"
+#include "IShader.h"
 
 namespace GRUT {
   class Light;
-  class GLShader : public Shader {
+  class GLShader : public IShader {
   private:
     unsigned int m_vShaderProgram;
     unsigned int m_fShaderProgram;

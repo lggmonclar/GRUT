@@ -3,7 +3,7 @@
 #include <string>
 
 namespace GRUT {
-  class Shader {
+  class IShader {
   private:
     std::string LoadFileContents(const char* path);
   protected:
@@ -11,7 +11,7 @@ namespace GRUT {
     virtual bool CompileFragmentShader(const char* p_fragmentCode) = 0;
     virtual bool CheckCompileErrors(unsigned int shader, const std::string &type) = 0;
   public:
-    Shader() = default;
+    IShader() = default;
     GRUT_API void LoadVertexShader(const char* path);
     GRUT_API void LoadFragmentShader(const char* path);
 

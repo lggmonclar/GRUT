@@ -1,10 +1,10 @@
 #include "grutpch.h"
-#include "Shader.h"
+#include "IShader.h"
 #include "Core/Jobs/JobManager.h"
 #include "Graphics/RenderManager.h"
 
 namespace GRUT {
-  void Shader::LoadVertexShader(const char * path) {
+  void IShader::LoadVertexShader(const char * path) {
     RenderManager::Instance().RegisterRenderCallback([=] {
       std::string contents = LoadFileContents(path);
 
@@ -16,7 +16,7 @@ namespace GRUT {
       CompileVertexShader(contents.c_str());
     }, CallbackTime::PRE_RENDER, true);
   }
-  void Shader::LoadFragmentShader(const char * path) {
+  void IShader::LoadFragmentShader(const char * path) {
     RenderManager::Instance().RegisterRenderCallback([=] {
       std::string contents = LoadFileContents(path);
 
@@ -28,7 +28,7 @@ namespace GRUT {
       CompileFragmentShader(contents.c_str());
     }, CallbackTime::PRE_RENDER, true);
   }
-  std::string Shader::LoadFileContents(const char * path) {
+  std::string IShader::LoadFileContents(const char * path) {
     std::ifstream fileStream;
     std::stringstream stringStream;
 

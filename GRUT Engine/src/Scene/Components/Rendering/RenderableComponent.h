@@ -3,7 +3,7 @@
 #include <list>
 #include <queue>
 #include <functional>
-#include "Graphics/Shaders/Shader.h"
+#include "Graphics/Shaders/IShader.h"
 #include "Graphics/Models/Model.h"
 #include "Graphics/Shaders/ShaderTypes.h"
 #include "DLLMacros.h"
@@ -23,15 +23,15 @@ namespace GRUT {
     std::map<std::string, ShaderAssignmentCallback> m_shaderAssignmentsCallbacks;
 
     static std::map<std::string, ObjectHandle<GLModel>> s_loadedGLModels;
-    ObjectHandle<Shader>       m_shader;
-    ObjectHandle<BaseModel>    m_model;
+    ObjectHandle<IShader>       m_shader;
+    ObjectHandle<IModel>    m_model;
     void Render();
   public:
     GRUT_API void Initialize() override;
     GRUT_API void SetModel(const char* p_path);
-    GRUT_API void SetModel(ObjectHandle<BaseModel> p_modelHandle);
+    GRUT_API void SetModel(ObjectHandle<IModel> p_modelHandle);
     GRUT_API void SetShaderType(ShaderTypes p_type);
-    GRUT_API ObjectHandle<BaseModel> GetModel();
+    GRUT_API ObjectHandle<IModel> GetModel();
     GRUT_API void SetShaderBool(const std::string &name, bool value, bool p_executeOnce = false);
     GRUT_API void SetShaderInt(const std::string &name, int value, bool p_executeOnce = false);
     GRUT_API void SetShaderFloat(const std::string &name, float value, bool p_executeOnce = false);
