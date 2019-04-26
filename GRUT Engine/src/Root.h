@@ -2,7 +2,6 @@
 #include "DLLMacros.h"
 #include "Input/InputManager.h"
 #include "Core/Parallelism/FrameParams.h"
-#include "Config.h"
 
 namespace GRUT {
   class Root {
@@ -14,7 +13,7 @@ namespace GRUT {
   private:
     std::shared_ptr<IWindow> window;
     const std::shared_ptr<IWindow> InitializeWindow();
-    FrameParams frames[Config::FRAME_PARAMS_COUNT];
+    FrameParams frames[16];
   };
 
   Root* CreateApplication();

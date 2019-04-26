@@ -46,14 +46,14 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <TargetName>GRUT</TargetName>
-    <IncludePath>$(SolutionDir)submodules\imgui;$(ProjectDir)src;$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(SolutionDir)vendor\assimp\include;$(SolutionDir)vendor\stb;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)vendor;$(SolutionDir)submodules\imgui;$(ProjectDir)src;$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(SolutionDir)vendor\assimp\include;$(SolutionDir)vendor\stb;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)vendor\assimp\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <TargetName>GRUT</TargetName>
-    <IncludePath>$(SolutionDir)submodules\imgui;$(ProjectDir)src;$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(SolutionDir)vendor\assimp\include;$(SolutionDir)vendor\stb;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)vendor;$(SolutionDir)submodules\imgui;$(ProjectDir)src;$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(SolutionDir)vendor\assimp\include;$(SolutionDir)vendor\stb;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)vendor\assimp\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -79,6 +79,8 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     </PostBuildEvent>
     <Link>
       <AdditionalDependencies>assimp-vc140-mt.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -101,6 +103,8 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>assimp-vc140-mt.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>if not exist "$(SolutionDir)bin\$(Configuration)-$(Platform)\Game\" mkdir "$(SolutionDir)bin\$(Configuration)-$(Platform)\Game\"
@@ -112,7 +116,6 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="GRUT.h" />
-    <ClInclude Include="src\Config.h" />
     <ClInclude Include="src\Core\Config\Config.h" />
     <ClInclude Include="src\Core\Config\CVar.h" />
     <ClInclude Include="src\Core\Config\CVarRegistry.h" />
@@ -169,8 +172,12 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
     <ClInclude Include="src\Scene\Components\Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Core\Config\Config.cpp" />
+    <ClCompile Include="src\Core\Config\CVar.cpp" />
+    <ClCompile Include="src\Core\Config\ICVar.cpp" />
     <ClCompile Include="src\Core\Debugging\Box.cpp" />
     <ClCompile Include="src\Core\Debugging\Line.cpp" />
+    <ClCompile Include="src\Core\FileSystem.cpp" />
     <ClCompile Include="src\Core\Memory\FreeListAllocator.cpp" />
     <ClCompile Include="src\Core\Memory\MultiFramePoolAllocator.cpp" />
     <ClCompile Include="src\Core\Timing\Clock.cpp" />

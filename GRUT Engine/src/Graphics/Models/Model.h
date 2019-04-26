@@ -21,7 +21,7 @@ namespace GRUT {
     std::vector<ObjectHandle<TextureType>> texturesLoaded;
     std::vector<MeshType> meshes;
     std::string directory;
-    bool gammaCorrection;
+    bool gammaCorrection = false;
 
     Model() = default;
     Model(std::string const &p_path, bool p_gamma = false);

@@ -29,9 +29,9 @@ namespace GRUT {
     std::list<RenderCallback> m_renderCallbacks;
     std::list<RenderCallback> m_postRenderCallbacks;
 
-    std::list<RenderCallback> m_singleFramePreRenderCallbacks[Config::FRAME_PARAMS_COUNT];
-    std::list<RenderCallback> m_singleFrameRenderCallbacks[Config::FRAME_PARAMS_COUNT];
-    std::list<RenderCallback> m_singleFramePostRenderCallbacks[Config::FRAME_PARAMS_COUNT];
+    std::list<RenderCallback> m_singleFramePreRenderCallbacks[16];
+    std::list<RenderCallback> m_singleFrameRenderCallbacks[16];
+    std::list<RenderCallback> m_singleFramePostRenderCallbacks[16];
 
     GUI m_gui;
 

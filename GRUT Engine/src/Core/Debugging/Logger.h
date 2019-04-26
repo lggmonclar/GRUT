@@ -1,7 +1,7 @@
 #pragma once
 
 #include "DLLMacros.h"
-#include "spdlog/spdlog.h"
+#include <spdlog/spdlog.h>
 #include <memory>
 
 namespace GRUT {

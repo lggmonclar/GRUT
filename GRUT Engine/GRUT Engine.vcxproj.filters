@@ -135,9 +135,6 @@
     <ClInclude Include="src\Scene\Components\Rendering\RenderableComponent.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Config.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\Core\Debugging\Box.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -282,6 +279,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Scene\Components\Physics\ICollider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Config\Config.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Config\ICVar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\FileSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Config\CVar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -16,7 +16,7 @@ namespace GRUT {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_SAMPLES, 4);
 
-    m_window = glfwCreateWindow(Config::SCREEN_WIDTH, Config::SCREEN_HEIGHT, "GRUT Engine", NULL, NULL);
+    m_window = glfwCreateWindow(1366, 768, "GRUT Engine", NULL, NULL);
     if (m_window == NULL) {
       std::cout << "Failed to create GLFW window" << std::endl;
       glfwTerminate();

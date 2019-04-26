@@ -5,7 +5,6 @@
 namespace GRUT {
   class IShader {
   private:
-    std::string LoadFileContents(const char* path);
   protected:
     virtual bool CompileVertexShader(const char* p_vertexCode) = 0;
     virtual bool CompileFragmentShader(const char* p_fragmentCode) = 0;

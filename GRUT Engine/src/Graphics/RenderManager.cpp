@@ -31,7 +31,7 @@ namespace GRUT {
     if (true) {//TODO: Config for different apis
       Instance().LoadShaders<GLShader>();
       Instance().RegisterRenderCallback([&gui = Instance().m_gui, p_window] {
-        gui.Initialize(p_window->GetNativeWindow(), Config::GLSL_VERSION);
+        gui.Initialize(p_window->GetNativeWindow(), "#version 430 core");
       }, CallbackTime::PRE_RENDER, true);
     }
   }
@@ -89,7 +89,7 @@ namespace GRUT {
     p_currFrame.renderJob = JobManager::Instance().KickJob([&, &m_window = m_window]() {
       JobManager::Instance().WaitForJobs({ p_currFrame.updateJob, p_prevFrame.renderJob });
 
-      short prevIdx = (Config::FRAME_PARAMS_COUNT + p_currFrame.index - 1) % Config::FRAME_PARAMS_COUNT;
+      short prevIdx = (16 + p_currFrame.index - 1) % 16;
       m_singleFramePreRenderCallbacks[prevIdx].clear();
       m_singleFrameRenderCallbacks[prevIdx].clear();
       m_singleFramePostRenderCallbacks[prevIdx].clear();

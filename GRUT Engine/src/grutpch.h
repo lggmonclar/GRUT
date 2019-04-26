@@ -11,11 +11,14 @@
 
 #include <vector>
 #include <queue>
+#include <unordered_map>
 #include <map>
 
 #include <fstream>
 #include <sstream>
 #include <iostream>
+
+#include <sid/sid.h>
 
 #include "GRUTMath.h"
 
@@ -41,5 +44,3 @@
   #include <glad/glad.h>
   #include <GLFW/glfw3.h>
 #endif
-
-#include "Config.h"

@@ -8,3 +8,6 @@
 	path = submodules/imgui
 	url = https://github.com/ocornut/imgui
 	branch = docking
+[submodule "submodules/string-id"]
+	path = submodules/string-id
+	url = https://github.com/TheAllenChou/string-id

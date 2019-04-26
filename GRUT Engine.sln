@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2000
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj", "{860DB6A4-84C7-431F-925D-C168730A73CF}"
 EndProject
@@ -12,6 +12,18 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLAD", "vendor\GLAD\GLAD.vcxproj", "{226DABCD-5B28-4AB3-BA86-C8EDDC91517E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GRUT Math", "GRUT Math\GRUT Math.vcxproj", "{0B01FF7F-25B3-4A7D-B143-463C256F7E51}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vendor", "vendor", "{F34BBF56-D821-4755-9865-3279BC97AEEF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "string-id", "string-id", "{3A968B97-6B3A-4600-BF15-E998E0A73BF9}"
+	ProjectSection(SolutionItems) = preProject
+		vendor\string-id\sid.h = vendor\string-id\sid.h
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "stb", "stb", "{B487BFB4-680C-4D9C-B343-506BBE7B2102}"
+	ProjectSection(SolutionItems) = preProject
+		vendor\stb\stb_image.h = vendor\stb\stb_image.h
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +76,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3A968B97-6B3A-4600-BF15-E998E0A73BF9} = {F34BBF56-D821-4755-9865-3279BC97AEEF}
+		{B487BFB4-680C-4D9C-B343-506BBE7B2102} = {F34BBF56-D821-4755-9865-3279BC97AEEF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6C153CD2-D4E8-4754-A4A6-FCC33B27F289}
