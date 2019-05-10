@@ -7,10 +7,14 @@
 #include "Shaders/GLShader.h"
 #include "Scene/Components/Rendering/Camera.h"
 #include "Root.h"
+#include "Core/Config/Config.h"
 #include <math.h>
 
 namespace GRUT {
   RenderManager::~RenderManager() {
+    delete[] m_singleFramePreRenderCallbacks;
+    delete[] m_singleFrameRenderCallbacks;
+    delete[] m_singleFramePostRenderCallbacks;
     m_gui.Destroy();
   }
   void RenderManager::ExecuteCallbacks(std::list<RenderCallback>& p_callbackList) {
@@ -28,10 +32,17 @@ namespace GRUT {
 
   void RenderManager::Initialize(std::shared_ptr<IWindow> p_window) {
     Instance().m_window = p_window;
+
+    auto paramsCount = GET_CVAR(CVarInt, "frame_params_count");
+    Instance().m_frameParamsCount = paramsCount;
+    Instance().m_singleFramePreRenderCallbacks = new std::list<RenderCallback>[paramsCount];
+    Instance().m_singleFrameRenderCallbacks = new std::list<RenderCallback>[paramsCount];
+    Instance().m_singleFramePostRenderCallbacks = new std::list<RenderCallback>[paramsCount];
+
     if (true) {//TODO: Config for different apis
       Instance().LoadShaders<GLShader>();
       Instance().RegisterRenderCallback([&gui = Instance().m_gui, p_window] {
-        gui.Initialize(p_window->GetNativeWindow(), "#version 430 core");
+        gui.Initialize(p_window->GetNativeWindow(), GET_CVAR(CVarString, "glsl_version").c_str());
       }, CallbackTime::PRE_RENDER, true);
     }
   }
@@ -89,7 +100,7 @@ namespace GRUT {
     p_currFrame.renderJob = JobManager::Instance().KickJob([&, &m_window = m_window]() {
       JobManager::Instance().WaitForJobs({ p_currFrame.updateJob, p_prevFrame.renderJob });
 
-      short prevIdx = (16 + p_currFrame.index - 1) % 16;
+      short prevIdx = (m_frameParamsCount + p_currFrame.index - 1) % m_frameParamsCount;
       m_singleFramePreRenderCallbacks[prevIdx].clear();
       m_singleFrameRenderCallbacks[prevIdx].clear();
       m_singleFramePostRenderCallbacks[prevIdx].clear();

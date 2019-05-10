@@ -38,7 +38,7 @@ namespace GRUT {
   }
   AABB BoxCollider::GetFatAABB() {
     AABB aabb = GetAABB();
-    aabb.Expand(0.2f);
+    aabb.Expand(s_fatFactor);
     return aabb;
   }
   AABB BoxCollider::GetAABB() {

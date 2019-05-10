@@ -6,7 +6,8 @@
 namespace GRUT {
   using namespace GRUT::Math;
   class ICollider : public Component {
-  private:
+  protected:
+    static float s_fatFactor;
   public:
     GRUT_API void Initialize() override;
     virtual Vector<3> Support(const Vector<3> &p_direction) = 0;

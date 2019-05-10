@@ -10,9 +10,13 @@
 #include "Graphics/Windows/GLWindow.h"
 #include "Graphics/RenderManager.h"
 #include "Scene/SceneManager.h"
+#include "Core/Config/Config.h"
+#include "Core/Config/CVar.h"
 
 namespace GRUT {
   Root::Root() {
+    GRUT::Config::Instance().Read("config.cfg");
+
     MemoryManager::Initialize();
     Logger::Initialize();
     PhysicsManager::Initialize();
@@ -26,9 +30,14 @@ namespace GRUT {
 
   Root::~Root() {
     JobManager::Instance().Destroy();
+    CVarRegistry::Destroy();
   }
 
   void Root::Run() {
+    int frameParamsCount = GET_CVAR(CVarInt, "frame_params_count");
+
+    FrameParams *frames = new FrameParams[frameParamsCount];
+
     int guardIndex = 0;
     int prevIndex = 2;
     int currIndex = 3;
@@ -57,15 +66,12 @@ namespace GRUT {
       MemoryManager::Instance().Defragment(frames[prevIndex], frames[currIndex]);
 
       //Increment relevant frame indices
-      guardIndex = (guardIndex + 1) % 16;
-      prevIndex = (prevIndex + 1) % 16;
-      currIndex = (currIndex + 1) % 16;
-
-
-      //auto w = (GLFWwindow*)window->GetNativeWindow();
-
-      //const bool focused = glfwGetWindowAttrib(w, GLFW_FOCUSED) != 0;
+      guardIndex = (guardIndex + 1) % frameParamsCount;
+      prevIndex = (prevIndex + 1) % frameParamsCount;
+      currIndex = (currIndex + 1) % frameParamsCount;
     }
+
+    delete[] frames;
   }
   const std::shared_ptr<IWindow> Root::InitializeWindow() {
     return std::shared_ptr<IWindow>(new GLWindow());

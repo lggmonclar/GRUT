@@ -3,6 +3,9 @@
 
 namespace GRUT {
   std::string FileSystem::LoadFileContents(const char* path) {
+    TCHAR szEXEPath[2048];
+    DWORD nChars = GetModuleFileName(NULL, szEXEPath, 2048);
+
     std::ifstream fileStream;
     std::stringstream stringStream;
 

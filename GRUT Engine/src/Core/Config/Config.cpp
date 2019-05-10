@@ -74,10 +74,15 @@ namespace GRUT {
   }
 
   void Config::SetVal(const std::string& p_key, const std::string_view& p_value) {
-    //StringId keySid = SID(p_key.c_str());
-    //ICVar* cvar = m_registry.Find(keySid);
-    //if (cvar != nullptr) {
-    //  cvar->SetVal(p_value.data());
-    //}
+    StringId keySid = SID(p_key.c_str());
+    ICVar* cvar = registry.Find(keySid);
+
+    if (cvar == nullptr) {
+      CVarString* tmp = new CVarString(p_key, p_value);
+      cvar = registry.Find(keySid);
+    }
+    else {
+      cvar->SetVal(p_value.data());
+    }
   }
 }

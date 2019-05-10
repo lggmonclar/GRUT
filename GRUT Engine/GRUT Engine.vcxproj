@@ -173,7 +173,7 @@ copy /y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)bin\$(Configuration)-$(Pl
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\Config\Config.cpp" />
-    <ClCompile Include="src\Core\Config\CVar.cpp" />
+    <ClCompile Include="src\Core\Config\CVarRegistry.cpp" />
     <ClCompile Include="src\Core\Config\ICVar.cpp" />
     <ClCompile Include="src\Core\Debugging\Box.cpp" />
     <ClCompile Include="src\Core\Debugging\Line.cpp" />
