@@ -1,6 +1,7 @@
 [submodule "submodules/GLFW"]
 	path = submodules/GLFW
-	url = https://github.com/glfw/glfw
+	url = https://github.com/lggmonclar/glfw
+	branch = multithread-focus
 [submodule "submodules/spdlog"]
 	path = submodules/spdlog
 	url = https://github.com/gabime/spdlog.git
