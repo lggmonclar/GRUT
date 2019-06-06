@@ -11,7 +11,6 @@
 #include "Graphics/RenderManager.h"
 #include "Scene/SceneManager.h"
 #include "Core/Config/Config.h"
-#include "Core/Config/CVar.h"
 
 namespace GRUT {
   Root::Root() {

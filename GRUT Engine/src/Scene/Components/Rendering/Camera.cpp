@@ -2,6 +2,7 @@
 #include "Camera.h"
 #include "Graphics/RenderManager.h"
 #include "Graphics/Shaders/GLShader.h"
+#include "Core/Config/Config.h"
 
 namespace GRUT {
   void Camera::Initialize() {
@@ -15,7 +16,9 @@ namespace GRUT {
     }
     else {
       //TODO: take resolution into account
-      m_projectionMatrix = Math::Matrix<4>::PerspectiveProjection(static_cast<float>(Math::deg2rad(m_fov)), (float)1366 / (float)768, m_nearPlane, m_farPlane);
+      auto width = GET_CVAR(CVarInt, "window_width");
+      auto height = GET_CVAR(CVarInt, "window_height");
+      m_projectionMatrix = Math::Matrix<4>::PerspectiveProjection(static_cast<float>(Math::deg2rad(m_fov)), (float)width / (float)height, m_nearPlane, m_farPlane);
     }
   }
 

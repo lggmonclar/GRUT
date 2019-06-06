@@ -8,7 +8,7 @@
 
 namespace GRUT {
   #define GET_CVAR(type, key) CVarRegistry::GetCVar<type>(SID(key))->GetVal()
-  #define SET_CVAR(key, val) CvarRegistry::Find(SID(key))->SetVal(val)
+  #define SET_CVAR(key, val) CVarRegistry::Find(SID(key))->SetVal(val)
 
   class Config {
   private:

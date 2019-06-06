@@ -3,6 +3,7 @@
 #include "Input/InputManager.h"
 #include "Graphics/RenderManager.h"
 #include "Input/Input.h"
+#include "Core/Config/Config.h"
 
 namespace GRUT {
   Keys TranslateKey(int p_key);
@@ -16,7 +17,7 @@ namespace GRUT {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_SAMPLES, 4);
 
-    m_window = glfwCreateWindow(1366, 768, "GRUT Engine", NULL, NULL);
+    m_window = glfwCreateWindow(GET_CVAR(CVarInt, "window_width"), GET_CVAR(CVarInt, "window_height"), "GRUT Engine", NULL, NULL);
     if (m_window == NULL) {
       std::cout << "Failed to create GLFW window" << std::endl;
       glfwTerminate();
@@ -30,8 +31,8 @@ namespace GRUT {
     //Set callback functions
     glfwSetWindowUserPointer(m_window, this);
     glfwSetFramebufferSizeCallback(m_window, [](GLFWwindow* window, int width, int height) {
-      //Config::SCREEN_WIDTH = width;
-      //Config::SCREEN_HEIGHT = height;
+      SET_CVAR("window_width", std::to_string(width));
+      SET_CVAR("window_height", std::to_string(height));
       glViewport(0, 0, width, height);
     });
     glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
