@@ -54,7 +54,7 @@ namespace GRUT {
       glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     }, CallbackTime::PRE_RENDER, true);
   }
-  void Box::Draw(Vector<3> p_center, Vector<3> p_scale, Vector<3> p_rotation, Vector<3> p_color, bool p_drawNextFrame) {
+  void Box::Draw(Vector3 p_center, Vector3 p_scale, Vector3 p_rotation, Vector3 p_color, bool p_drawNextFrame) {
     if (!s_hasInitialized) {
       Initialize();
       s_hasInitialized = true;
@@ -63,12 +63,12 @@ namespace GRUT {
     RenderManager::Instance().RegisterSingleFrameRenderCallback([=] {
       if (!s_VAO || !s_VBO || !s_EBO) return;
 
-      Matrix<4> model;
-      Vector<3> translation(p_center - p_scale / 2.0f);
+      Matrix4 model;
+      Vector3 translation(p_center - p_scale / 2.0f);
       model.Translate(-p_scale / 2.0f);
-      model.RotateX(p_rotation.x());
-      model.RotateY(p_rotation.y());
-      model.RotateZ(p_rotation.z());
+      model.RotateX(p_rotation.x);
+      model.RotateY(p_rotation.y);
+      model.RotateZ(p_rotation.z);
       model.Translate(p_scale / 2.0f);
 
       model.Translate(translation);

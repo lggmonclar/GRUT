@@ -16,15 +16,15 @@ namespace GRUT {
       glGenVertexArrays(1, &s_VAO);
     }, CallbackTime::PRE_RENDER, true);
   }
-  void Line::Draw(Vector<3> p_startPos, Vector<3> p_endPos, Vector<3> p_color, bool p_drawNextFrame) {
+  void Line::Draw(Vector3 p_startPos, Vector3 p_endPos, Vector3 p_color, bool p_drawNextFrame) {
     if (!s_hasInitialized) {
       Initialize();
       s_hasInitialized = true;
     }
 
     float vertices[] = {
-      p_startPos.x(), p_startPos.y(), p_startPos.z(),
-      p_endPos.x(), p_endPos.y(), p_endPos.z()
+      p_startPos.x, p_startPos.y, p_startPos.z,
+      p_endPos.x, p_endPos.y, p_endPos.z
     };
 
     RenderManager::Instance().RegisterSingleFrameRenderCallback([=] {

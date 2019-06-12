@@ -7,11 +7,11 @@ class IShader;
 
 namespace GRUT {
   struct Vertex {
-    Math::Vector<3> position;
-    Math::Vector<3> normal;
-    Math::Vector<2> texCoords;
-    Math::Vector<3> tangent;
-    Math::Vector<3> bitangent;
+    Math::Vector3 position;
+    Math::Vector3 normal;
+    Math::Vector2 texCoords;
+    Math::Vector3 tangent;
+    Math::Vector3 bitangent;
   };
 
   class IMesh {

@@ -10,7 +10,7 @@ namespace GRUT {
     static float s_fatFactor;
   public:
     GRUT_API void Initialize() override;
-    virtual Vector<3> Support(const Vector<3> &p_direction) = 0;
+    virtual Vector3 Support(const Vector3 &p_direction) = 0;
     virtual class AABB GetFatAABB() = 0;
     virtual class AABB GetAABB() = 0;
     GRUT_API ~ICollider();

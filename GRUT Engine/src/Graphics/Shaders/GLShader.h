@@ -24,17 +24,15 @@ namespace GRUT {
     GRUT_API void SetBool(const std::string &name, bool value) const override;
     GRUT_API void SetInt(const std::string &name, int value) const override;
     GRUT_API void SetFloat(const std::string &name, float value) const override;
-    GRUT_API void SetVec2(const std::string &name, const Math::Vector<2> &v2) const override;
+    GRUT_API void SetVec2(const std::string &name, const Math::Vector2 &v2) const override;
     GRUT_API void SetVec2(const std::string &name, float x, float y) const override;
-    GRUT_API void SetVec3(const std::string &name, const Math::Vector<3> &v3) const override;
+    GRUT_API void SetVec3(const std::string &name, const Math::Vector3 &v3) const override;
     GRUT_API void SetVec3(const std::string &name, float x, float y, float z) const override;
-    GRUT_API void SetVec4(const std::string &name, const Math::Vector<4> &v4) const override;
+    GRUT_API void SetVec4(const std::string &name, const Math::Vector4 &v4) const override;
     GRUT_API void SetVec4(const std::string &name, float x, float y, float z, float w) const override;
-    GRUT_API void SetMat2(const std::string &name, const Math::Matrix<2> &mat) const override;
-    GRUT_API void SetMat3(const std::string &name, const Math::Matrix<3> &m3) const override;
-    GRUT_API void SetMat4(const std::string &name, const Math::Matrix<4> &m4) const override;
-    GRUT_API static void UpdateViewProjectionBuffer(const Math::Matrix<4> &p_view, const Math::Matrix<4> &p_projection);
-    GRUT_API static void UpdateViewPosBuffer(const Math::Vector<3> &p_viewPos);
+    GRUT_API void SetMat4(const std::string &name, const Math::Matrix4 &m4) const override;
+    GRUT_API static void UpdateViewProjectionBuffer(const Math::Matrix4 &p_view, const Math::Matrix4 &p_projection);
+    GRUT_API static void UpdateViewPosBuffer(const Math::Vector3 &p_viewPos);
     GRUT_API static void UpdatePointLightsBuffer(const std::vector<ObjectHandle<Light>> &p_pointLights);
   };
 }

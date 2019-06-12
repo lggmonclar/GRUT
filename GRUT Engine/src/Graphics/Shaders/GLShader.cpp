@@ -67,68 +67,62 @@ namespace GRUT {
   void GLShader::SetFloat(const std::string & name, float value) const {
     glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
   }
-  void GLShader::SetVec2(const std::string & name, const Math::Vector<2>& v2) const {
+  void GLShader::SetVec2(const std::string & name, const Math::Vector2& v2) const {
     glUniform2fv(glGetUniformLocation(ID, name.c_str()), 1, v2);
   }
   void GLShader::SetVec2(const std::string & name, float x, float y) const {
     glUniform2f(glGetUniformLocation(ID, name.c_str()), x, y);
   }
-  void GLShader::SetVec3(const std::string & name, const Math::Vector<3>& v3) const {
+  void GLShader::SetVec3(const std::string & name, const Math::Vector3& v3) const {
     glUniform3fv(glGetUniformLocation(ID, name.c_str()), 1, v3);
   }
   void GLShader::SetVec3(const std::string & name, float x, float y, float z) const {
     glUniform3f(glGetUniformLocation(ID, name.c_str()), x, y, z);
   }
-  void GLShader::SetVec4(const std::string & name, const Math::Vector<4>& v4) const {
+  void GLShader::SetVec4(const std::string & name, const Math::Vector4& v4) const {
     glUniform4fv(glGetUniformLocation(ID, name.c_str()), 1, v4);
   }
   void GLShader::SetVec4(const std::string & name, float x, float y, float z, float w) const {
     glUniform4f(glGetUniformLocation(ID, name.c_str()), x, y, z, w);
   }
-  void GLShader::SetMat2(const std::string & name, const Math::Matrix<2>& m2) const {
-    glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, m2);
-  }
-  void GLShader::SetMat3(const std::string & name, const Math::Matrix<3>& m3) const {
-    glUniformMatrix3fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, m3);
-  }
-  void GLShader::SetMat4(const std::string & name, const Math::Matrix<4>& m4) const {
+  void GLShader::SetMat4(const std::string & name, const Math::Matrix4& m4) const {
     glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, m4);
   }
-  void GLShader::UpdateViewProjectionBuffer(const Math::Matrix<4> &p_view, const Math::Matrix<4> &p_projection) {
+  void GLShader::UpdateViewProjectionBuffer(const Math::Matrix4 &p_view, const Math::Matrix4 &p_projection) {
     if (!s_uboViewProjection) {
       glGenBuffers(1, &s_uboViewProjection);
       glBindBuffer(GL_UNIFORM_BUFFER, s_uboViewProjection);
-      glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(Math::Matrix<4>), NULL, GL_STATIC_DRAW);
+      glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(Math::Matrix4), NULL, GL_STATIC_DRAW);
       glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
-      glBindBufferRange(GL_UNIFORM_BUFFER, 0, s_uboViewProjection, 0, 2 * sizeof(Math::Matrix<4>));
+      glBindBufferRange(GL_UNIFORM_BUFFER, 0, s_uboViewProjection, 0, 2 * sizeof(Math::Matrix4));
       glBindBuffer(GL_UNIFORM_BUFFER, 0);
     }
     glBindBuffer(GL_UNIFORM_BUFFER, s_uboViewProjection);
-    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(Math::Matrix<4>), p_view);
-    glBufferSubData(GL_UNIFORM_BUFFER, sizeof(Math::Matrix<4>), sizeof(Math::Matrix<4>), p_projection);
+    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(Math::Matrix4), p_view);
+    glBufferSubData(GL_UNIFORM_BUFFER, sizeof(Math::Matrix4), sizeof(Math::Matrix4), p_projection);
   }
 
 
-  void GLShader::UpdateViewPosBuffer(const Math::Vector<3> &p_viewPos) {
+  void GLShader::UpdateViewPosBuffer(const Math::Vector3 &p_viewPos) {
     if (!s_uboViewPos) {
       glGenBuffers(1, &s_uboViewPos);
       glBindBuffer(GL_UNIFORM_BUFFER, s_uboViewPos);
-      glBufferData(GL_UNIFORM_BUFFER, sizeof(Math::Vector<3>), NULL, GL_STATIC_DRAW);
+      glBufferData(GL_UNIFORM_BUFFER, sizeof(Math::Vector3), NULL, GL_STATIC_DRAW);
       glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
-      glBindBufferRange(GL_UNIFORM_BUFFER, 1, s_uboViewPos, 0, sizeof(Math::Vector<3>));
+      glBindBufferRange(GL_UNIFORM_BUFFER, 1, s_uboViewPos, 0, sizeof(Math::Vector3));
       glBindBuffer(GL_UNIFORM_BUFFER, 0);
     }
     glBindBuffer(GL_UNIFORM_BUFFER, s_uboViewPos);
-    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(Math::Vector<3>), p_viewPos);
+    glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(Math::Vector3), p_viewPos);
   }
 
   void GLShader::UpdatePointLightsBuffer(const std::vector<ObjectHandle<Light>> &p_pointLights) {
     if (!s_ssboPointLights) {
       glGenBuffers(1, &s_ssboPointLights);
       glBindBuffer(GL_SHADER_STORAGE_BUFFER, s_ssboPointLights);
-      glBufferData(GL_SHADER_STORAGE_BUFFER, p_pointLights.size() * 2 * sizeof(Math::Vector<4>), NULL, GL_STATIC_DRAW);
+      glBufferData(GL_SHADER_STORAGE_BUFFER, p_pointLights.size() * 2 * sizeof(Math::Vector4), NULL, GL_STATIC_DRAW);
       glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
       glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, s_ssboPointLights);
@@ -136,8 +130,8 @@ namespace GRUT {
     }
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, s_ssboPointLights);
     for (int i = 0; i < p_pointLights.size(); i++) {
-      glBufferSubData(GL_SHADER_STORAGE_BUFFER, (i * 2) * sizeof(Math::Vector<4>), sizeof(Math::Vector<4>), p_pointLights[i]->gameObject->transform->GetPosition());
-      glBufferSubData(GL_SHADER_STORAGE_BUFFER, (i * 2 + 1) * sizeof(Math::Vector<4>), sizeof(Math::Vector<4>), p_pointLights[i]->color);
+      glBufferSubData(GL_SHADER_STORAGE_BUFFER, (i * 2) * sizeof(Math::Vector4), sizeof(Math::Vector4), p_pointLights[i]->gameObject->transform->GetPosition());
+      glBufferSubData(GL_SHADER_STORAGE_BUFFER, (i * 2 + 1) * sizeof(Math::Vector4), sizeof(Math::Vector4), p_pointLights[i]->color);
     }
   }
 }

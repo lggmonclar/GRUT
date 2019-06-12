@@ -2,64 +2,63 @@
 #include "Transform.h"
 
 namespace GRUT {
-  Vector<3> Transform::GetPosition() {
+  Vector3 Transform::GetPosition() {
     auto &tRow = modelMatrix[3];
-    return Vector<3>(tRow.x(), tRow.y(), tRow.z());
+    return Vector3(tRow.x, tRow.y, tRow.z);
   }
-  Vector<3> Transform::GetRightVector() {
+  Vector3 Transform::GetRightVector() {
     auto &xRow = modelMatrix[0];
-    return -Vector<3>(xRow.x(), xRow.y(), xRow.z()).Normalized();
+    return -Vector3(xRow.x, xRow.y, xRow.z).Normalized();
   }
-  Vector<3> Transform::GetUpVector() {
+  Vector3 Transform::GetUpVector() {
     auto &yRow = modelMatrix[1];
-    return Vector<3>(yRow.x(), yRow.y(), yRow.z()).Normalized();
+    return Vector3(yRow.x, yRow.y, yRow.z).Normalized();
   }
-  Vector<3> Transform::GetFrontVector() {
+  Vector3 Transform::GetFrontVector() {
     auto &zRow = modelMatrix[2];
-    return Vector<3>(zRow.x(), zRow.y(), zRow.z()).Normalized();
+    return Vector3(zRow.x, zRow.y, zRow.z).Normalized();
   }
-  void Transform::Translate(const Vector<3>& p_vec) {
+  void Transform::Translate(const Vector3& p_vec) {
     modelMatrix.Translate(p_vec);
     isDirty = true;
   }
-  void Transform::Rotate(const Vector<3>& p_rotations, const Space p_space) {
+  void Transform::Rotate(const Vector3& p_rotations, const Space p_space) {
     auto pos = GetPosition();
     if(p_space == Space::SELF)
       Translate(-pos);
-    modelMatrix.RotateZ(p_rotations.z());
-    modelMatrix.RotateX(p_rotations.x());
-    modelMatrix.RotateY(p_rotations.y());
+    modelMatrix.RotateZ(p_rotations.z);
+    modelMatrix.RotateX(p_rotations.x);
+    modelMatrix.RotateY(p_rotations.y);
     if (p_space == Space::SELF)
       Translate(pos);
     isDirty = true;
   }
-  void Transform::RotateAbout(const Vector<3>& p_axis, const float p_val) {
+  void Transform::RotateAbout(const Vector3& p_axis, const float p_val) {
     modelMatrix.RotateAbout(p_axis, p_val);
     isDirty = true;
   }
-  Vector<3> Transform::GetRotation() {
+  Vector3 Transform::GetRotation() {
     return modelMatrix.GetRotation();
   }
-  Vector<3> Transform::GetScale() {
+  Vector3 Transform::GetScale() {
     return m_localScale;
   }
-  void Transform::SetRotation(const Vector<3> &p_rotation) {
+  void Transform::SetRotation(const Vector3 &p_rotation) {
     modelMatrix.SetRotation(p_rotation);
     isDirty = true;
   }
 
-
-  void Transform::SetPosition(const Vector<3> &p_vec) {
+  void Transform::SetPosition(const Vector3 &p_vec) {
     modelMatrix.SetPosition(p_vec);
     isDirty = true;
   }
 
-  void Transform::LookAt(const Vector<3>& p_target) {
+  void Transform::LookAt(const Vector3& p_target) {
     auto pos = GetPosition();
-    modelMatrix.LookAt(pos, pos + p_target, Vector<3>(0.0f, 1.0f, 0.0f));
+    modelMatrix.LookAt(pos, pos + p_target, Vector3(0.0f, 1.0f, 0.0f));
     isDirty = true;
   }
-  void Transform::SetScale(const Vector<3>& p_scale) {
+  void Transform::SetScale(const Vector3& p_scale) {
     m_localScale = p_scale;
     modelMatrix.Scale(p_scale);
     isDirty = true;

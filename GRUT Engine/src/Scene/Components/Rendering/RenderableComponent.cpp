@@ -77,7 +77,7 @@ namespace GRUT {
       m_shader->SetFloat(name, value);
     }), p_executeOnce };
   }
-  void RenderableComponent::SetShaderVec2(const std::string & name, const Math::Vector<2>& v2, bool p_executeOnce) {
+  void RenderableComponent::SetShaderVec2(const std::string & name, const Math::Vector2& v2, bool p_executeOnce) {
     m_shaderAssignmentsCallbacks[name] = { ([=, &m_shader = m_shader] {
       m_shader->SetVec2(name, v2);
     }), p_executeOnce };
@@ -87,7 +87,7 @@ namespace GRUT {
       m_shader->SetVec2(name, x, y);
     }), p_executeOnce };
   }
-  void RenderableComponent::SetShaderVec3(const std::string & name, const Math::Vector<3>& v3, bool p_executeOnce) {
+  void RenderableComponent::SetShaderVec3(const std::string & name, const Math::Vector3& v3, bool p_executeOnce) {
     m_shaderAssignmentsCallbacks[name] = { ([=, &m_shader = m_shader] {
       m_shader->SetVec3(name, v3);
     }), p_executeOnce };
@@ -97,7 +97,7 @@ namespace GRUT {
       m_shader->SetVec3(name, x, y, z);
     }), p_executeOnce };
   }
-  void RenderableComponent::SetShaderVec4(const std::string & name, const Math::Vector<4>& v4, bool p_executeOnce) {
+  void RenderableComponent::SetShaderVec4(const std::string & name, const Math::Vector4& v4, bool p_executeOnce) {
     m_shaderAssignmentsCallbacks[name] = { ([=, &m_shader = m_shader] {
       m_shader->SetVec4(name, v4);
     }), p_executeOnce };
@@ -107,17 +107,7 @@ namespace GRUT {
       m_shader->SetVec4(name, x, y, z, w);
     }), p_executeOnce };
   }
-  void RenderableComponent::SetShaderMat2(const std::string & name, const Math::Matrix<2>& m2, bool p_executeOnce) {
-    m_shaderAssignmentsCallbacks[name] = { ([=, &m_shader = m_shader] {
-      m_shader->SetMat2(name, m2);
-    }), p_executeOnce };
-  }
-  void RenderableComponent::SetShaderMat3(const std::string & name, const Math::Matrix<3>& m3, bool p_executeOnce) {
-    m_shaderAssignmentsCallbacks[name] = { ([=, &m_shader = m_shader] {
-      m_shader->SetMat3(name, m3);
-    }), p_executeOnce };
-  }
-  void RenderableComponent::SetShaderMat4(const std::string & name, const Math::Matrix<4>& m4, bool p_executeOnce) {
+  void RenderableComponent::SetShaderMat4(const std::string & name, const Math::Matrix4& m4, bool p_executeOnce) {
     m_shaderAssignmentsCallbacks[name] = { ([=, &m_shader = m_shader] {
       m_shader->SetMat4(name, m4);
     }), p_executeOnce };

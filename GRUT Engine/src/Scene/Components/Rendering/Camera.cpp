@@ -12,13 +12,12 @@ namespace GRUT {
 
   void Camera::UpdateProjectionMatrix() {
     if (m_isOrthographic) {
-      m_projectionMatrix = Math::Matrix<4>::OrthographicProjection(m_orthoLeft, m_orthoRight, m_orthoBottom, m_orthoTop, m_nearPlane, m_farPlane);
+      m_projectionMatrix = Math::Matrix4::OrthographicProjection(m_orthoLeft, m_orthoRight, m_orthoBottom, m_orthoTop, m_nearPlane, m_farPlane);
     }
     else {
-      //TODO: take resolution into account
       auto width = GET_CVAR(CVarInt, "window_width");
       auto height = GET_CVAR(CVarInt, "window_height");
-      m_projectionMatrix = Math::Matrix<4>::PerspectiveProjection(static_cast<float>(Math::deg2rad(m_fov)), (float)width / (float)height, m_nearPlane, m_farPlane);
+      m_projectionMatrix = Math::Matrix4::PerspectiveProjection(static_cast<float>(Math::deg2rad(m_fov)), (float)width / (float)height, m_nearPlane, m_farPlane);
     }
   }
 
@@ -75,15 +74,15 @@ namespace GRUT {
     }
   }
 
-  Math::Matrix<4> Camera::GetViewMatrix() {
+  Math::Matrix4 Camera::GetViewMatrix() {
     auto transform = gameObject->transform;
     auto front = transform->GetFrontVector();
     auto pos = transform->GetPosition() + front;
     auto up = transform->GetUpVector();
-    return Matrix<4>::LookAt(pos, pos + front, up);
+    return Matrix4::LookAt(pos, pos + front, up);
   }
 
-  Math::Matrix<4>& Camera::GetProjectionMatrix() {
+  Math::Matrix4& Camera::GetProjectionMatrix() {
     return m_projectionMatrix;
   }
 

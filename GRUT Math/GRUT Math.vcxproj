@@ -77,10 +77,14 @@
   <ItemGroup>
     <ClInclude Include="GRUTMath.h" />
     <ClInclude Include="src\Helpers.h" />
-    <ClInclude Include="src\Matrix.h" />
-    <ClInclude Include="src\Vector.h" />
+    <ClInclude Include="src\Matrix4.h" />
+    <ClInclude Include="src\Vector2.h" />
+    <ClInclude Include="src\Vector3.h" />
+    <ClInclude Include="src\Vector4.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Vector3.cpp" />
+    <ClCompile Include="src\Vector4.cpp" />
     <ClCompile Include="test\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

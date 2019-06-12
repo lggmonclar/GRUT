@@ -47,7 +47,7 @@ public:
     if (currPitch < -89.0f)
       currPitch = -89.0f;
 
-    gameObject->transform->SetRotation(Vector<3>(currYaw, currPitch, 0.0f));
+    gameObject->transform->SetRotation(Vector3(currYaw, currPitch, 0.0f));
 
     lastMouseX = static_cast<float>(Input::mouseX);
     lastMouseY = static_cast<float>(Input::mouseY);

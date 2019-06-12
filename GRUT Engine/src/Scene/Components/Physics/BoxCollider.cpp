@@ -6,8 +6,8 @@
 #include "Physics/AABB.h"
 
 namespace GRUT {
-  Vector<3> BoxCollider::Support(const Vector<3>& p_direction) {
-    Vector<3> chosenVertex;
+  Vector3 BoxCollider::Support(const Vector3& p_direction) {
+    Vector3 chosenVertex;
     float maxDist = -FLT_MAX;
 
     auto model = gameObject->transform->modelMatrix;
@@ -26,15 +26,15 @@ namespace GRUT {
   }
 
   void BoxCollider::Update(float p_deltaTime) {
-    DEBUG_DRAW_BOX(gameObject->transform->GetPosition(), Vector<3>(1.0f, 1.0f, 1.0f), Vector<3>(0.0f, 0.0f, 0.0f), m_colliderColor);
+    DEBUG_DRAW_BOX(gameObject->transform->GetPosition(), Vector3(1.0f, 1.0f, 1.0f), Vector3(0.0f, 0.0f, 0.0f), m_colliderColor);
   }
 
   void BoxCollider::OnCollisionEnter(ObjectHandle<ICollider> &p_other) {
-    m_colliderColor = Vector<3>(1.0f, 0.0f, 0.2f);
+    m_colliderColor = Vector3(1.0f, 0.0f, 0.2f);
   }
 
   void BoxCollider::OnCollisionExit(ObjectHandle<ICollider> &p_other) {
-    m_colliderColor = Vector<3>(0.0f, 0.95f, 0.2f);
+    m_colliderColor = Vector3(0.0f, 0.95f, 0.2f);
   }
   AABB BoxCollider::GetFatAABB() {
     AABB aabb = GetAABB();
@@ -43,14 +43,14 @@ namespace GRUT {
   }
   AABB BoxCollider::GetAABB() {
     auto transform = gameObject->transform;
-    Vector<3> size = transform->GetScale();
-    Vector<3> aabbSize;
+    Vector3 size = transform->GetScale();
+    Vector3 aabbSize;
     auto right = transform->GetRightVector();
     auto up = transform->GetUpVector();
     auto front = transform->GetFrontVector();
 
     for (int i = 0; i < 3; ++i) {
-      aabbSize[i] = abs(right[i]) * size.x() + abs(up[i]) * size.y() + abs(front[i]) * size.z();
+      aabbSize[i] = abs(right[i]) * size.x + abs(up[i]) * size.y + abs(front[i]) * size.z;
     }
 
     auto pos = transform->GetPosition();

@@ -17,8 +17,8 @@ namespace GRUT {
     LightType m_type;
     SpinLock  m_spinlock;
   public:
-    Vector<3> direction{ 0.0f, 0.0f, 1.0f };
-    Vector<3> color{ 1.0f, 1.0f, 1.0f };
+    Vector3 direction{ 0.0f, 0.0f, 1.0f };
+    Vector3 color{ 1.0f, 1.0f, 1.0f };
     GRUT_API void SetType(LightType p_type);
   };
 }

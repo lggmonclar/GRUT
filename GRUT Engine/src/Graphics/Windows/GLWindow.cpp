@@ -27,7 +27,7 @@ namespace GRUT {
     glfwMakeContextCurrent(m_window);
 
     //Set default OS cursor to be disabled
-    //glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     //Set callback functions
     glfwSetWindowUserPointer(m_window, this);
     glfwSetFramebufferSizeCallback(m_window, [](GLFWwindow* window, int width, int height) {

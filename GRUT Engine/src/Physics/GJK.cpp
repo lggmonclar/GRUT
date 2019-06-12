@@ -5,10 +5,10 @@
 
 namespace GRUT {
   bool GJK(const ObjectHandle<ICollider>& p_a, const ObjectHandle<ICollider>& p_b) {
-    Vector<3> direction(1.0f, 1.0f, 0.0f);
+    Vector3 direction(1.0f, 1.0f, 0.0f);
 
     short pointCount = 0;
-    Vector<3> simplexPoints[4];
+    Vector3 simplexPoints[4];
 
     //Init simplex
     simplexPoints[pointCount++] = p_a->Support(direction) - p_b->Support(-direction);
@@ -16,10 +16,10 @@ namespace GRUT {
 
     int i = 0;
     while (i < MAX_ITERATIONS) {
-      Vector<3> supportA = p_a->Support(direction);
-      Vector<3> supportB = p_b->Support(-direction);
+      Vector3 supportA = p_a->Support(direction);
+      Vector3 supportB = p_b->Support(-direction);
 
-      Vector<3> furthestVertex = supportA - supportB;
+      Vector3 furthestVertex = supportA - supportB;
 
       if (furthestVertex.Dot(direction) < 0) {
         //No intersection;
@@ -38,7 +38,7 @@ namespace GRUT {
     return false;
   }
 
-  bool CheckIntersection(Vector<3> p_simplexPoints[4], short & p_pointCount, Vector<3>& p_direction) {
+  bool CheckIntersection(Vector3 p_simplexPoints[4], short & p_pointCount, Vector3& p_direction) {
     if (p_pointCount == 2) {
       auto AB = p_simplexPoints[0] - p_simplexPoints[1];
       auto BO = -p_simplexPoints[1];

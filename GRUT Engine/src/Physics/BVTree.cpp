@@ -5,7 +5,7 @@
 
 namespace GRUT {
   BVTree::Node::Node(ObjectHandle<ICollider> const p_collider) :
-    m_collider(p_collider), m_aabb(Vector<3>(0.0f, 0.0f, 0.0f), Vector<3>(1.0f, 1.0f, 1.0f)) {
+    m_collider(p_collider), m_aabb(Vector3(0.0f, 0.0f, 0.0f), Vector3(1.0f, 1.0f, 1.0f)) {
     JobManager::Instance().KickJob([=, &m_aabb = m_aabb] {
       m_aabb = p_collider->GetFatAABB();
     });
@@ -222,7 +222,7 @@ namespace GRUT {
 
       if (curr->IsLeaf()) {
         auto aabb = curr->m_aabb;
-        DEBUG_DRAW_BOX(curr->m_aabb.GetCenter(), curr->m_aabb.GetSize(), Vector<3>(0.0f, 0.0f, 0.0f), Vector<3>(0.0f, 0.95f, 1.0f), true);
+        DEBUG_DRAW_BOX(curr->m_aabb.GetCenter(), curr->m_aabb.GetSize(), Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 0.95f, 1.0f), true);
       }
       else {
         int depth = 0;
@@ -232,7 +232,7 @@ namespace GRUT {
           parent = parent->m_parent;
         }
 
-        DEBUG_DRAW_BOX(curr->m_aabb.GetCenter(), curr->m_aabb.GetSize(), Vector<3>(0.0f, 0.0f, 0.0f), Vector<3>(1.0f, 0.95f, 0.2f), true);
+        DEBUG_DRAW_BOX(curr->m_aabb.GetCenter(), curr->m_aabb.GetSize(), Vector3(0.0f, 0.0f, 0.0f), Vector3(1.0f, 0.95f, 0.2f), true);
       }
 
       q.pop();
