@@ -43,6 +43,6 @@ namespace GRUT {
     GRUT_API void SetShaderVec4(const std::string &name, float x, float y, float z, float w, bool p_executeOnce = false);
     GRUT_API void SetShaderMat4(const std::string &name, const Math::Matrix4 &m4, bool p_executeOnce = false);
     GRUT_API void Update(float p_deltaTime) override;
-    ~RenderableComponent();
+    GRUT_API ~RenderableComponent();
   };
 }

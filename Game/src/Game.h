@@ -46,6 +46,10 @@ public:
       }
     }
     auto p_a = CreateCollideable(Vector3(5.0f, 0.0f, 0.0f), Vector3(1.0f, 1.0f, 0.0f), true);
+
+    auto coll = CreateCollideable(Vector3(10.0f, 10.0f, 10.0f), Vector3(1.0f, 1.0f, 1.0f));
+
+    coll->gameObject->Destroy();
   }
 
 
@@ -91,6 +95,17 @@ public:
       obj->AddComponent<ColliderTest>();
 
     return comp;
+  }
+
+  GRUT::ObjectHandle<GameObject> CreateRenderable(Vector3 pos, Vector3 color) {
+    auto obj = GRUT::GameObject::Instantiate();
+    obj->transform->Translate(pos);
+    auto renderableComp = obj->AddComponent<RenderableComponent>();
+    renderableComp->SetModel("../GRUT Engine/prefabs/models/sphere.obj");
+    renderableComp->SetShaderType(GRUT::ShaderTypes::DIFFUSE);
+    renderableComp->SetShaderVec3("color", color);
+
+    return obj;
   }
 
   ~Game() {

@@ -14,7 +14,7 @@ namespace GRUT {
     template <class C>
     void SetHandle(ObjectHandle<C> p_handle);
     Component() = default;
-    ~Component() = default;
+    virtual ~Component() = default;
   public:
     ObjectHandle<GameObject> gameObject;
     GRUT_API virtual void Initialize() {}; //Called after m_handle is set

@@ -18,8 +18,10 @@ namespace GRUT {
     if (!m_isAlive) return;
     LOG_INFO("DESTROYED GAMEOBJECT");
     SceneManager::Instance().DestroyGameObject(this);
-    for (auto &[t, c] : m_components)
+    for (auto& [t, c] : m_components) {
+      c->~Component();
       MemoryManager::Instance().FreeFromFreeList(&(*c));
+    }
   }
   std::vector<ObjectHandle<Component>> GameObject::GetComponents() {
     std::vector<ObjectHandle<Component>> vector;
