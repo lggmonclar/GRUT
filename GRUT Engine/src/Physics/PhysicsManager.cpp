@@ -61,11 +61,16 @@ namespace GRUT {
       auto first = pair.first;
       auto second = pair.second;
 
-      for (auto &c : first->gameObject->GetComponents()) {
-        c->OnCollisionExit(second);
+      if (&first != nullptr) {
+        for (auto &c : first->gameObject->GetComponents()) {
+          c->OnCollisionExit(second);
+        }
       }
-      for (auto &c : second->gameObject->GetComponents()) {
-        c->OnCollisionExit(first);
+
+      if (&second != nullptr) {
+        for (auto &c : second->gameObject->GetComponents()) {
+          c->OnCollisionExit(first);
+        }
       }
     }
   }

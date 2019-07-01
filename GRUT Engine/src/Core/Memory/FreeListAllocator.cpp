@@ -10,6 +10,7 @@ namespace GRUT {
     m_lock.Acquire();
 
     AllocHeader* occupiedBlock = reinterpret_cast<AllocHeader*>(reinterpret_cast<U8*>(p_obj) - sizeof(AllocHeader));
+    m_handles[occupiedBlock->handleIdx].m_ptr = nullptr;
     m_handles[occupiedBlock->handleIdx].m_isAvailable = true;
 
     Node* newNode = reinterpret_cast<Node*>(occupiedBlock);

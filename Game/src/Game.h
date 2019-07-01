@@ -47,16 +47,16 @@ public:
     }
     auto p_a = CreateCollideable(Vector3(5.0f, 0.0f, 0.0f), Vector3(1.0f, 1.0f, 0.0f), true);
 
-    p_a->gameObject->Destroy();
+    //p_a->gameObject->Destroy();
 
     auto coll = CreateCollideable(Vector3(10.0f, 10.0f, 10.0f), Vector3(1.0f, 1.0f, 1.0f));
 
-    coll->gameObject->Destroy();
+    coll->gameObject->ScheduleDestruction();
   }
 
 
   void DrawPt(Vector3 p_pos) {
-    auto origin = GRUT::GameObject::Instantiate();
+    auto origin = Scene::GetCurrent()->CreateGameObject();
     origin->transform->SetScale(Vector3(0.02f, 0.02f, 0.02f));
     origin->transform->Translate(p_pos);
     auto renderableComp = origin->AddComponent<RenderableComponent>();
@@ -66,7 +66,7 @@ public:
   }
 
   void DrawOrigin() {
-    auto origin = GRUT::GameObject::Instantiate();
+    auto origin = Scene::GetCurrent()->CreateGameObject();
     auto renderableComp = origin->AddComponent<RenderableComponent>();
     renderableComp->SetModel("../GRUT Engine/prefabs/models/sphere.obj");
     renderableComp->SetShaderType(GRUT::ShaderTypes::DIFFUSE);
@@ -74,7 +74,7 @@ public:
   }
 
   void CreateLight(Vector3 pos, Vector3 color) {
-    auto light = GRUT::GameObject::Instantiate();
+    auto light = Scene::GetCurrent()->CreateGameObject();
     light->transform->Translate(pos);
     light->AddComponent<GRUT::Light>()->SetType(GRUT::LightType::POINT);
     auto renderableComp = light->AddComponent<RenderableComponent>();
@@ -85,22 +85,26 @@ public:
   }
 
   GRUT::ObjectHandle<GRUT::ICollider> CreateCollideable(Vector3 pos, Vector3 color, bool p_addMovement = false) {
-    auto obj = GRUT::GameObject::Instantiate();
+    auto obj = Scene::GetCurrent()->CreateGameObject();
     obj->transform->Translate(pos);
-    auto comp = obj->AddComponent<GRUT::BoxCollider>();
     auto renderableComp = obj->AddComponent<RenderableComponent>();
     renderableComp->SetModel("../GRUT Engine/prefabs/models/sphere.obj");
     renderableComp->SetShaderType(GRUT::ShaderTypes::DIFFUSE);
     renderableComp->SetShaderVec3("color", color);
-    
-    if(p_addMovement)
+     
+    GRUT::ObjectHandle<GRUT::ICollider> comp;
+    if (p_addMovement) {
       obj->AddComponent<ColliderTest>();
+    }
+    //else {
+    comp = obj->AddComponent<GRUT::BoxCollider>();
+    //}
 
     return comp;
   }
 
   GRUT::ObjectHandle<GameObject> CreateRenderable(Vector3 pos, Vector3 color) {
-    auto obj = GRUT::GameObject::Instantiate();
+    auto obj = Scene::GetCurrent()->CreateGameObject();
     obj->transform->Translate(pos);
     auto renderableComp = obj->AddComponent<RenderableComponent>();
     renderableComp->SetModel("../GRUT Engine/prefabs/models/sphere.obj");

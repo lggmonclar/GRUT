@@ -9,9 +9,27 @@ namespace GRUT {
   ObjectHandle<Scene> Scene::GetCurrent() {
     return SceneManager::Instance().m_currentScene;
   }
-  void Scene::AddGameObject(ObjectHandle<GameObject> p_gameObject) {
-    m_rootObjects.push_back(p_gameObject);
+  ObjectHandle<GameObject> Scene::CreateGameObject() {
+    auto gameObject = SceneManager::Instance().AllocateGameObject();
+    gameObject->Initialize(gameObject);
+    gameObject->scene = m_handle;
+    m_rootObjects.push_back(gameObject);
+
+    return gameObject;
   }
+  void Scene::ScheduleGameObjectDestruction(ObjectHandle<GameObject> p_gameObject) {
+    m_objectsScheduledForDeletion.push_back(p_gameObject);
+  }
+
+  void Scene::DestroyScheduledGameObjects() {
+    for (auto& obj : m_objectsScheduledForDeletion) {
+      m_rootObjects.erase(std::remove(m_rootObjects.begin(), m_rootObjects.end(), obj));
+      obj->DestroyComponents();
+      SceneManager::Instance().FreeGameObject(&(*obj));
+    }
+    m_objectsScheduledForDeletion.clear();
+  }
+
   void Scene::FixedUpdate(float p_deltaTime) {
     for (auto &obj : m_rootObjects) {
       obj->FixedUpdate(p_deltaTime);
@@ -29,8 +47,4 @@ namespace GRUT {
   void Scene::UpdateLightSourceList(ObjectHandle<Light> p_handle, LightType p_type) {
     
   }
-  //Scene::~Scene() {
-    //for (auto &obj : m_rootObjects)
-    //  delete obj;
-  //}
 }

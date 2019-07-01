@@ -10,11 +10,14 @@ namespace GRUT {
   class Scene;
   class GameObject {
     friend class FreeListAllocator;
+    friend class Scene;
   private:
     bool m_isAlive = true;
     ObjectHandle<GameObject> m_handle;
     std::vector<ObjectHandle<GameObject>> m_children;
     std::map<std::string, ObjectHandle<Component>> m_components;
+    void Initialize(ObjectHandle<GameObject> p_handle);
+    void DestroyComponents();
     GameObject() = default;
     ~GameObject() = default;
   public:
@@ -23,8 +26,7 @@ namespace GRUT {
     ObjectHandle<Scene> scene;
     void FixedUpdate(float p_deltaTime);
     void Update(float p_deltaTime);
-    GRUT_API static ObjectHandle<GameObject> Instantiate();
-    GRUT_API void Destroy();
+    GRUT_API void ScheduleDestruction();
     template<class C>
     ObjectHandle<C> AddComponent();
     template<class C>

@@ -45,14 +45,20 @@ namespace GRUT {
   inline T* ObjectHandle<T>::operator->() const {
     if (!m_handleGetter)
       return nullptr;
-    return static_cast<T*>(m_handleGetter().m_ptr);
+    auto ptr = m_handleGetter().m_ptr;
+    if (!ptr)
+      return nullptr;
+    return static_cast<T*>(ptr);
   }
 
   template<class T>
   inline T* ObjectHandle<T>::operator&() const {
     if (!m_handleGetter)
       return nullptr;
-    return static_cast<T*>(m_handleGetter().m_ptr);
+    auto ptr = m_handleGetter().m_ptr;
+    if (!ptr)
+      return nullptr;
+    return static_cast<T*>(ptr);
   }
 
   template<class T>

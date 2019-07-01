@@ -19,7 +19,7 @@ public:
       gameObject->transform->SetPosition(startPos + Vector3(sin(totalDelta) * 5.0f, 0.0f, 0.0f));
     }
     if (Input::GetKeyDown(Keys::KEY_P)) {
-      gameObject->Destroy();
+      gameObject->ScheduleDestruction();
     }
   }
 };

@@ -9,11 +9,12 @@
 
 namespace GRUT {
   void SceneManager::Initialize() {
-    SceneManager::Instance().m_currentScene = MemoryManager::Instance().AllocOnFreeList<Scene>();
-    auto obj = GameObject::Instantiate();
+    auto currScene = SceneManager::Instance().m_currentScene = MemoryManager::Instance().AllocOnFreeList<Scene>();
+    auto obj = SceneManager::Instance().m_currentScene->CreateGameObject();
     obj->name = "Main Camera";
     obj->AddComponent<Camera>();
-    SceneManager::Instance().m_currentScene->mainCamera = obj;
+    currScene->mainCamera = obj;
+    currScene->m_handle = currScene;
   }
 
   void SceneManager::FixedUpdate(float p_deltaTime) {
@@ -26,17 +27,17 @@ namespace GRUT {
       frameIndex = p_currFrame.index;
       auto jobs = m_currentScene->Update(p_prevFrame, p_currFrame);
       JobManager::Instance().WaitForJobs(jobs);
+
+      //Handle deferred object destructions
+      Scene::GetCurrent()->DestroyScheduledGameObjects();
     });
   }
 
-  ObjectHandle<GameObject> SceneManager::CreateGameObject() {
-    auto gameObject = MemoryManager::Instance().AllocOnFreeList<GameObject>();
-    m_currentScene->AddGameObject(gameObject);
-    gameObject->scene = m_currentScene;
-    return gameObject;
+  ObjectHandle<GameObject> SceneManager::AllocateGameObject() {
+    return MemoryManager::Instance().AllocOnFreeList<GameObject>();
   }
 
-  void SceneManager::DestroyGameObject(GameObject* obj) {
+  void SceneManager::FreeGameObject(GameObject* obj) {
     MemoryManager::Instance().FreeFromFreeList(obj);
   }
 

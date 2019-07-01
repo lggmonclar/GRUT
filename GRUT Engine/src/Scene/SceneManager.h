@@ -19,7 +19,7 @@ namespace GRUT {
     static void Initialize();
     void FixedUpdate(float p_deltaTime);
     void Update(FrameParams& p_prevFrame, FrameParams& p_currFrame);
-    ObjectHandle<GameObject> CreateGameObject();
-    void DestroyGameObject(GameObject* obj);
+    ObjectHandle<GameObject> AllocateGameObject();
+    void FreeGameObject(GameObject* obj);
   };
 }

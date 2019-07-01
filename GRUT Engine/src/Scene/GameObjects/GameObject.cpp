@@ -1,28 +1,30 @@
 #include "grutpch.h"
 #include "DLLMacros.h"
+#include "Scene/Scene.h"
 #include "Scene/Components/Component.h"
-#include "Scene/SceneManager.h"
 #include "Core/Memory/MemoryManager.h"
 #include "Core/Memory/ObjectHandle.h"
 #include "GameObject.h"
 
 namespace GRUT {
-  ObjectHandle<GameObject> GameObject::Instantiate() {
+  void GameObject::Initialize(ObjectHandle<GameObject> p_handle) {
     LOG_INFO("INSTANTIATED GAMEOBJECT");
-    auto obj = SceneManager::Instance().CreateGameObject();
-    obj->m_handle = obj;
-    obj->transform = obj->AddComponent<Transform>();
-    return obj;
+    p_handle->m_handle = p_handle;
+    p_handle->transform = p_handle->AddComponent<Transform>();
   }
-  void GameObject::Destroy() {
+  void GameObject::ScheduleDestruction() {
     if (!m_isAlive) return;
-    LOG_INFO("DESTROYED GAMEOBJECT");
+    m_isAlive = false;
+    LOG_INFO("SCHEDULED GAMEOBJECT FOR DELETION");
+    scene->ScheduleGameObjectDestruction(m_handle);
+  }
+  void GameObject::DestroyComponents() {
     for (auto& [t, c] : m_components) {
       c->~Component();
       MemoryManager::Instance().FreeFromFreeList(&(*c));
     }
-    SceneManager::Instance().DestroyGameObject(this);
   }
+
   std::vector<ObjectHandle<Component>> GameObject::GetComponents() {
     std::vector<ObjectHandle<Component>> vector;
     for (auto &[key, value] : m_components) {
