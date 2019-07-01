@@ -17,11 +17,11 @@ namespace GRUT {
   void GameObject::Destroy() {
     if (!m_isAlive) return;
     LOG_INFO("DESTROYED GAMEOBJECT");
-    SceneManager::Instance().DestroyGameObject(this);
     for (auto& [t, c] : m_components) {
       c->~Component();
       MemoryManager::Instance().FreeFromFreeList(&(*c));
     }
+    SceneManager::Instance().DestroyGameObject(this);
   }
   std::vector<ObjectHandle<Component>> GameObject::GetComponents() {
     std::vector<ObjectHandle<Component>> vector;

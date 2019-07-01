@@ -47,6 +47,8 @@ public:
     }
     auto p_a = CreateCollideable(Vector3(5.0f, 0.0f, 0.0f), Vector3(1.0f, 1.0f, 0.0f), true);
 
+    p_a->gameObject->Destroy();
+
     auto coll = CreateCollideable(Vector3(10.0f, 10.0f, 10.0f), Vector3(1.0f, 1.0f, 1.0f));
 
     coll->gameObject->Destroy();
