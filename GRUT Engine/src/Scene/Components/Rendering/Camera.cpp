@@ -97,7 +97,5 @@ namespace GRUT {
       }
       m_isDirty = false;
     }
-
-    auto transform = gameObject->transform;
   }
 }

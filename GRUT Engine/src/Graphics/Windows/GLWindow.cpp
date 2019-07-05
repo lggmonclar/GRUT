@@ -33,7 +33,10 @@ namespace GRUT {
     glfwSetFramebufferSizeCallback(m_window, [](GLFWwindow* window, int width, int height) {
       SET_CVAR("window_width", std::to_string(width));
       SET_CVAR("window_height", std::to_string(height));
-      glViewport(0, 0, width, height);
+
+      RenderManager::Instance().RegisterRenderCallback([=] {
+        glViewport(0, 0, width, height);
+      }, CallbackTime::PRE_RENDER, true);
     });
     glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
       InputManager::Instance().ProcessKeyboardEvent(TranslateKey(key), TranslateAction(action));

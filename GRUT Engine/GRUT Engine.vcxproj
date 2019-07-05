@@ -69,7 +69,7 @@
       <PrecompiledHeaderFile>grutpch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
-      <AdditionalOptions>/experimental:external /external:anglebrackets /external:W0 /wd26451 /wd26495 /wd6385 /wd6386 /wd6387 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/experimental:external /external:anglebrackets /external:W0 /wd26451 /wd26495 /wd26498 /wd6385 /wd6386 /wd6387 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <PostBuildEvent>
       <Command>
@@ -110,7 +110,7 @@
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
-      <AdditionalOptions>/experimental:external /external:anglebrackets /external:W0 /wd26451 /wd26495 /wd6385 /wd6386 /wd6387 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/experimental:external /external:anglebrackets /external:W0 /wd26451 /wd26495 /wd26498 /wd6385 /wd6386 /wd6387 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
