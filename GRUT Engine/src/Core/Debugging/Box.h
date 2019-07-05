@@ -13,8 +13,8 @@ namespace GRUT {
     static unsigned int s_VBO, s_VAO, s_EBO;
     static ObjectHandle<GLShader> s_shader;
   public:
-    GRUT_API static void Initialize();
-    GRUT_API static void Draw(Vector3 p_center, Vector3 p_scale, Vector3 p_rotation, Vector3 p_color, bool p_drawThisFrame = false);
+    static void Initialize();
+    static void Draw(Vector3 p_center, Vector3 p_scale, Vector3 p_rotation, Vector3 p_color, bool p_drawThisFrame = false);
   };
 }
 

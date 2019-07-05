@@ -31,9 +31,6 @@
 
 #ifndef STB_IMAGE_IMPLEMENTATION
   #define STB_IMAGE_IMPLEMENTATION
-  #include <assimp/Importer.hpp>
-  #include <assimp/scene.h>
-  #include <assimp/postprocess.h>
 #endif
 
 #ifdef GRUT_PLATFORM_WINDOWS

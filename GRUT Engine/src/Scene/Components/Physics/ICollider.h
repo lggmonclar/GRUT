@@ -9,10 +9,10 @@ namespace GRUT {
   protected:
     static float s_fatFactor;
   public:
-    GRUT_API void Initialize() override;
+    void Initialize() override;
     virtual Vector3 Support(const Vector3 &p_direction) = 0;
     virtual class AABB GetFatAABB() = 0;
     virtual class AABB GetAABB() = 0;
-    GRUT_API ~ICollider();
+    ~ICollider();
   };
 }

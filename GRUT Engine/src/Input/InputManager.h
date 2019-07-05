@@ -12,7 +12,7 @@ namespace GRUT {
     InputManager() = default;
     ~InputManager() = default;
   public:
-    GRUT_API static InputManager& Instance() {
+    static InputManager& Instance() {
       static InputManager instance{};
       return instance;
     }

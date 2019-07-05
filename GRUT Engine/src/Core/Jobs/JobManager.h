@@ -38,16 +38,16 @@ namespace GRUT {
   public:
     JobManager(JobManager const &) = delete;
     JobManager& operator=(JobManager const &) = delete;
-    GRUT_API static JobManager& Instance() {
+    static JobManager& Instance() {
       static JobManager instance{};
       return instance;
     }
-    GRUT_API static void Initialize();
-    GRUT_API static void ClearDoneJobs(std::vector<std::weak_ptr<Job>> &p_jobList);
-    GRUT_API std::shared_ptr<Job> FetchJob(JobPriority p_priority = JobPriority::CRITICAL);
-    GRUT_API std::weak_ptr<Job> KickJob(Job &&p_jobDecl, JobPriority p_priority = JobPriority::NORMAL);
-    GRUT_API void WaitForJob(const std::weak_ptr<Job> &p_jobToWaitOnWeakPtr);
-    GRUT_API void WaitForJobs(const std::vector<std::weak_ptr<Job>> &p_jobsToWaitOnWeakPtrs);
-    GRUT_API void AwakenWaitingFibers(Job * const p_job);
+    static void Initialize();
+    static void ClearDoneJobs(std::vector<std::weak_ptr<Job>> &p_jobList);
+    std::shared_ptr<Job> FetchJob(JobPriority p_priority = JobPriority::CRITICAL);
+    std::weak_ptr<Job> KickJob(Job &&p_jobDecl, JobPriority p_priority = JobPriority::NORMAL);
+    void WaitForJob(const std::weak_ptr<Job> &p_jobToWaitOnWeakPtr);
+    void WaitForJobs(const std::vector<std::weak_ptr<Job>> &p_jobsToWaitOnWeakPtrs);
+    void AwakenWaitingFibers(Job * const p_job);
   };
 };

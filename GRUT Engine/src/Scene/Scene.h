@@ -26,7 +26,7 @@ namespace GRUT {
     void UpdateLightSourceList(ObjectHandle<Light> p_handle, LightType p_type);
   public:
     ObjectHandle<GameObject> mainCamera;
-    GRUT_API static ObjectHandle<Scene> GetCurrent();
-    GRUT_API ObjectHandle<GameObject> CreateGameObject();
+    static ObjectHandle<Scene> GetCurrent();
+    ObjectHandle<GameObject> CreateGameObject();
   };
 }

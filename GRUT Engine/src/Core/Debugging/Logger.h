@@ -11,7 +11,7 @@ namespace GRUT {
     static std::shared_ptr<spdlog::logger> s_logger;
     static void Initialize();
   public:
-    static GRUT_API std::shared_ptr<spdlog::logger>& Instance() { return s_logger; }
+    static std::shared_ptr<spdlog::logger>& Instance() { return s_logger; }
   };
 }
 

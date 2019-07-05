@@ -14,8 +14,8 @@ namespace GRUT {
     static unsigned int s_VBO;
     static unsigned int s_VAO;
   public:
-    GRUT_API static void Initialize();
-    GRUT_API static void Draw(Vector3 p_startPos, Vector3 p_endPos, Vector3 p_color, bool p_drawNextFrame = false);
+    static void Initialize();
+    static void Draw(Vector3 p_startPos, Vector3 p_endPos, Vector3 p_color, bool p_drawNextFrame = false);
   };
 }
 

@@ -8,19 +8,19 @@
 namespace GRUT {
   class CVarRegistry {
   private:
-    GRUT_API static std::unordered_map<StringId, ICVar*> s_registry;
-    GRUT_API static std::vector<std::string_view> s_keys;
+    static std::unordered_map<StringId, ICVar*> s_registry;
+    static std::vector<std::string_view> s_keys;
   public:
-    GRUT_API static inline void RegisterVariable(ICVar* cvar) {
+    static inline void RegisterVariable(ICVar* cvar) {
       s_registry.erase(cvar->nameID);
       s_registry.emplace(cvar->nameID, cvar);
       s_keys.push_back(cvar->name);
     }
-    GRUT_API static inline bool UnregisterVariable(const std::string p_name) {
+    static inline bool UnregisterVariable(const std::string p_name) {
       s_keys.erase(std::remove(s_keys.begin(), s_keys.end(), p_name), s_keys.end());
       return s_registry.erase(SID(p_name.c_str()));
     }
-    GRUT_API static inline ICVar* Find(const StringId sid) {
+    static inline ICVar* Find(const StringId sid) {
       auto it = s_registry.find(sid);
       if (it == s_registry.end()) {
         return nullptr;
@@ -28,7 +28,7 @@ namespace GRUT {
       return it->second;
     }
 
-    GRUT_API static inline void Destroy() {
+    static inline void Destroy() {
       for (auto &i : s_registry) {
         delete i.second;
       }
@@ -36,7 +36,7 @@ namespace GRUT {
       s_keys.clear();
     }
 
-    GRUT_API static inline std::vector<std::string_view> GetKeys() { return s_keys; }
+    static inline std::vector<std::string_view> GetKeys() { return s_keys; }
 
     template<class T>
     static inline T* GetCVar(StringId sid) {

@@ -13,7 +13,7 @@ namespace GRUT {
     MemoryManager() = default;
     ~MemoryManager() = default;
   public:
-    GRUT_API static MemoryManager& Instance() {
+    static MemoryManager& Instance() {
       static MemoryManager instance{};
       return instance;
     }

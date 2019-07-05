@@ -16,11 +16,11 @@ namespace GRUT {
     };
     Vector3 m_colliderColor = Vector3(0.0f, 0.95f, 0.2f);
   public:
-    GRUT_API Vector3 Support(const Vector3 &p_direction) override;
-    GRUT_API void Update(float p_deltaTime) override;
-    GRUT_API void OnCollisionEnter(ObjectHandle<ICollider> &p_other) override;
-    GRUT_API void OnCollisionExit(ObjectHandle<ICollider> &p_other) override;
-    GRUT_API class AABB GetFatAABB() override;
-    GRUT_API class AABB GetAABB() override;
+    Vector3 Support(const Vector3 &p_direction) override;
+    void Update(float p_deltaTime) override;
+    void OnCollisionEnter(ObjectHandle<ICollider> &p_other) override;
+    void OnCollisionExit(ObjectHandle<ICollider> &p_other) override;
+    class AABB GetFatAABB() override;
+    class AABB GetAABB() override;
   };
 }

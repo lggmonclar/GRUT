@@ -11,8 +11,8 @@ namespace GRUT {
     virtual bool CheckCompileErrors(unsigned int shader, const std::string &type) = 0;
   public:
     IShader() = default;
-    GRUT_API void LoadVertexShader(const char* path);
-    GRUT_API void LoadFragmentShader(const char* path);
+    void LoadVertexShader(const char* path);
+    void LoadFragmentShader(const char* path);
 
     virtual void SetBool(const std::string &name, bool value) const = 0;
     virtual void SetInt(const std::string &name, int value) const = 0;

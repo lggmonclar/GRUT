@@ -153,11 +153,11 @@ namespace GRUT {
     static void SetMouseState(MouseButtons p_button, States p_state);
     static void SetMousePosition(const double &p_xPos, const double &p_yPos);
   public:
-    GRUT_API static bool GetKeyDown(Keys p_key);
-    GRUT_API static bool GetKeyUp(Keys p_key);
-    GRUT_API static bool GetMouseButtonDown(MouseButtons p_button);
-    GRUT_API static bool GetMouseButtonUp(MouseButtons p_button);
-    GRUT_API static double mouseX;
-    GRUT_API static double mouseY;
+    static bool GetKeyDown(Keys p_key);
+    static bool GetKeyUp(Keys p_key);
+    static bool GetMouseButtonDown(MouseButtons p_button);
+    static bool GetMouseButtonUp(MouseButtons p_button);
+    static double mouseX;
+    static double mouseY;
   };
 }

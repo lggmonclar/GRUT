@@ -26,7 +26,7 @@ namespace GRUT {
     ObjectHandle<Scene> scene;
     void FixedUpdate(float p_deltaTime);
     void Update(float p_deltaTime);
-    GRUT_API void ScheduleDestruction();
+    void ScheduleDestruction();
     template<class C>
     ObjectHandle<C> AddComponent();
     template<class C>

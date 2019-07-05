@@ -14,11 +14,11 @@ namespace GRUT {
   };
   class Light : public Component {
   private:
-    LightType m_type;
+    LightType m_type = LightType::POINT;
     SpinLock  m_spinlock;
   public:
     Vector3 direction{ 0.0f, 0.0f, 1.0f };
     Vector3 color{ 1.0f, 1.0f, 1.0f };
-    GRUT_API void SetType(LightType p_type);
+    void SetType(LightType p_type);
   };
 }

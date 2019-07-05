@@ -23,16 +23,16 @@ namespace GRUT {
     const Math::Vector3 worldUp{ 0.0f, 1.0f, 0.0f };
 
     void Initialize() override;
-    GRUT_API void SetOrtographic(bool p_val);  
-    GRUT_API void SetOrthoLeft(float p_val);
-    GRUT_API void SetOrthoRight(float p_val);
-    GRUT_API void SetOrthoTop(float p_val);
-    GRUT_API void SetOrthoBottom(float p_val);
-    GRUT_API void SetNearPlane(float p_val);
-    GRUT_API void SetFarPlane(float p_val);
-    GRUT_API void SetFieldOfView(float p_val);
-    GRUT_API Math::Matrix4 GetViewMatrix();
-    GRUT_API Math::Matrix4& GetProjectionMatrix();
+    void SetOrtographic(bool p_val);  
+    void SetOrthoLeft(float p_val);
+    void SetOrthoRight(float p_val);
+    void SetOrthoTop(float p_val);
+    void SetOrthoBottom(float p_val);
+    void SetNearPlane(float p_val);
+    void SetFarPlane(float p_val);
+    void SetFieldOfView(float p_val);
+    Math::Matrix4 GetViewMatrix();
+    Math::Matrix4& GetProjectionMatrix();
 
     void Update(float p_deltaTime) override;
   };

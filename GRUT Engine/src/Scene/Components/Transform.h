@@ -14,19 +14,19 @@ namespace GRUT {
   public:
     bool isDirty = false;
     Matrix4 modelMatrix;
-    GRUT_API Vector3 GetPosition();
-    GRUT_API Vector3 GetRotation();
-    GRUT_API Vector3 GetScale();
-    GRUT_API Vector3 GetRightVector();
-    GRUT_API Vector3 GetUpVector();
-    GRUT_API Vector3 GetFrontVector();
-    GRUT_API void SetPosition(const Vector3& p_vec);
-    GRUT_API void Translate(const Vector3& p_vec);
-    GRUT_API void Rotate(const Vector3& p_rotations, const Space p_space = Space::SELF);
-    GRUT_API void RotateAbout(const Vector3& p_axis, const float p_val);
-    GRUT_API void SetRotation(const Vector3 &p_rotation);
-    GRUT_API void LookAt(const Vector3& p_target);
-    GRUT_API void SetScale(const Vector3& p_scale);
+    Vector3 GetPosition();
+    Vector3 GetRotation();
+    Vector3 GetScale();
+    Vector3 GetRightVector();
+    Vector3 GetUpVector();
+    Vector3 GetFrontVector();
+    void SetPosition(const Vector3& p_vec);
+    void Translate(const Vector3& p_vec);
+    void Rotate(const Vector3& p_rotations, const Space p_space = Space::SELF);
+    void RotateAbout(const Vector3& p_axis, const float p_val);
+    void SetRotation(const Vector3 &p_rotation);
+    void LookAt(const Vector3& p_target);
+    void SetScale(const Vector3& p_scale);
     void Update(float p_deltaTime) override;
   };
 }

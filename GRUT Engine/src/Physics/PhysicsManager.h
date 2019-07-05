@@ -16,13 +16,13 @@ namespace GRUT {
     std::vector<ObjectHandle<ICollider>> m_registeredColliders;
     void CheckCollisions();
   public:
-    GRUT_API static PhysicsManager& Instance() {
+    static PhysicsManager& Instance() {
       static PhysicsManager instance{};
       return instance;
     }
     static void Initialize();
     void Update(FrameParams& p_prevFrame, FrameParams& p_currFrame);
-    GRUT_API void RegisterCollider(const ObjectHandle<ICollider> &p_collider);
-    GRUT_API void RemoveCollider(const ObjectHandle<ICollider>& p_collider);
+    void RegisterCollider(const ObjectHandle<ICollider> &p_collider);
+    void RemoveCollider(const ObjectHandle<ICollider>& p_collider);
   };
 }
