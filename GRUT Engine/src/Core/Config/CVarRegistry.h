@@ -62,7 +62,7 @@ namespace GRUT {
       return cvar;
     }
     template <> static inline ICVar* ConvertCVar<CVarFloat*>(CVarString* p_cvar) {
-      CVarFloat* cvar = new CVarFloat(p_cvar->name, atof(p_cvar->m_value.c_str()));
+      CVarFloat* cvar = new CVarFloat(p_cvar->name, strtof(p_cvar->m_value.c_str(), nullptr));
       return cvar;
     }
   };

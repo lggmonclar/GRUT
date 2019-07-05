@@ -23,16 +23,16 @@ namespace GRUT {
 
   class RenderManager {
   private:
-    U8 m_frameParamsCount;
+    U8 m_frameParamsCount = 0;
     SpinLock m_spinLock;
     std::shared_ptr<IWindow> m_window;
     std::list<RenderCallback> m_preRenderCallbacks;
     std::list<RenderCallback> m_renderCallbacks;
     std::list<RenderCallback> m_postRenderCallbacks;
 
-    std::list<RenderCallback> *m_singleFramePreRenderCallbacks;
-    std::list<RenderCallback> *m_singleFrameRenderCallbacks;
-    std::list<RenderCallback> *m_singleFramePostRenderCallbacks;
+    std::list<RenderCallback> *m_singleFramePreRenderCallbacks = nullptr;
+    std::list<RenderCallback> *m_singleFrameRenderCallbacks = nullptr;
+    std::list<RenderCallback> *m_singleFramePostRenderCallbacks = nullptr;
 
     GUI m_gui;
 
