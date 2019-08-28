@@ -26,10 +26,21 @@ namespace GRUT {
   void JobManager::Destroy() {
     m_isExiting = true;
     m_threadsSpinLock.Acquire();
+    ClearJobs();
     for (auto &t : m_threads) {
       t.join();
     }
     m_threadsSpinLock.Release();
+  }
+
+  void JobManager::ClearJobs() {
+    m_fetchJobSpinLock.Acquire();
+    std::queue<std::shared_ptr<Job>> empty;
+    std::swap(m_criticalPJobs, empty);
+    std::swap(m_highPJobs, empty);
+    std::swap(m_normalPJobs, empty);
+    std::swap(m_lowPJobs, empty);
+    m_fetchJobSpinLock.Release();
   }
 
   void JobManager::LockFiberSwitchLock() {

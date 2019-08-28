@@ -43,6 +43,7 @@ namespace GRUT {
       return instance;
     }
     static void Initialize();
+    void ClearJobs();
     static void ClearDoneJobs(std::vector<std::weak_ptr<Job>> &p_jobList);
     std::shared_ptr<Job> FetchJob(JobPriority p_priority = JobPriority::CRITICAL);
     std::weak_ptr<Job> KickJob(Job &&p_jobDecl, JobPriority p_priority = JobPriority::NORMAL);

@@ -21,56 +21,54 @@ namespace GRUT {
     PhysicsManager::Initialize();
     JobManager::Initialize();
     SceneManager::Initialize();
-    window = InitializeWindow();
-    RenderManager::Initialize(window);
-    InputManager::Initialize(window);
+    m_window = InitializeWindow();
+    RenderManager::Initialize(m_window);
+    InputManager::Initialize(m_window);
     GetGameClock();
   }
 
   Root::~Root() {
     JobManager::Instance().Destroy();
     CVarRegistry::Destroy();
+    delete[] m_frames;
   }
 
   void Root::Run() {
     int frameParamsCount = GET_CVAR(CVarInt, "frame_params_count");
-
-    FrameParams *frames = new FrameParams[frameParamsCount];
+    m_frames = new FrameParams[frameParamsCount];
 
     int guardIndex = 0;
     int prevIndex = 2;
     int currIndex = 3;
-    while(!window->ShouldClose()) {
-      while (!frames[guardIndex].isDone) {
+    while(!m_window->ShouldClose()) {
+      while (!m_frames[guardIndex].isDone) {
         std::this_thread::sleep_for(std::chrono::milliseconds(16));
       }
       GetGameClock().UpdateTime();
-      frames[currIndex].index = currIndex;
-      frames[currIndex].isDone = false;
-      frames[currIndex].deltaTime = GetGameClock().GetDeltaTime();
+      m_frames[currIndex].index = currIndex;
+      m_frames[currIndex].isDone = false;
+      m_frames[currIndex].deltaTime = GetGameClock().GetDeltaTime();
 
       //Poll inputs in main thread
       InputManager::Instance().PollInputs();
 
       //Do physics frame
-      PhysicsManager::Instance().Update(frames[prevIndex], frames[currIndex]);
+      PhysicsManager::Instance().Update(m_frames[prevIndex], m_frames[currIndex]);
 
       //Update Scene in worker threads
-      SceneManager::Instance().Update(frames[prevIndex], frames[currIndex]);
+      SceneManager::Instance().Update(m_frames[prevIndex], m_frames[currIndex]);
 
       //Render in worker threads
-      RenderManager::Instance().DrawFrame(frames[prevIndex], frames[currIndex]);
+      RenderManager::Instance().DrawFrame(m_frames[prevIndex], m_frames[currIndex]);
 
       //Defragment up to n blocks of memory in worker threads
-      MemoryManager::Instance().Defragment(frames[prevIndex], frames[currIndex]);
+      MemoryManager::Instance().Defragment(m_frames[prevIndex], m_frames[currIndex]);
 
       //Increment relevant frame indices
       guardIndex = (guardIndex + 1) % frameParamsCount;
       prevIndex = (prevIndex + 1) % frameParamsCount;
       currIndex = (currIndex + 1) % frameParamsCount;
     }
-
-    delete[] frames;
   }
   const std::shared_ptr<IWindow> Root::InitializeWindow() {
     return std::shared_ptr<IWindow>(new GLWindow());
