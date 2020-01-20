@@ -10,7 +10,7 @@ namespace GRUT {
   constexpr unsigned FIBER_COUNT_PER_THREAD = 16;
 
   class JobManager {
-    friend class Root;
+    friend class Engine;
   private:
     SpinLock m_fetchJobSpinLock;
     SpinLock m_fiberSwitchSpinLock;

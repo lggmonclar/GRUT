@@ -6,7 +6,7 @@
 
 namespace GRUT {
   class Logger {
-    friend class Root;
+    friend class Engine;
   private:
     static std::shared_ptr<spdlog::logger> s_logger;
     static void Initialize();

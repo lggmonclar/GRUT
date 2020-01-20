@@ -6,7 +6,6 @@
 #include "Models/GLModel.h"
 #include "Shaders/GLShader.h"
 #include "Scene/Components/Rendering/Camera.h"
-#include "Root.h"
 #include "Core/Config/Config.h"
 #include <math.h>
 
@@ -15,7 +14,6 @@ namespace GRUT {
     delete[] m_singleFramePreRenderCallbacks;
     delete[] m_singleFrameRenderCallbacks;
     delete[] m_singleFramePostRenderCallbacks;
-    m_gui.Destroy();
   }
   void RenderManager::ExecuteCallbacks(std::list<RenderCallback>& p_callbackList) {
     std::list<RenderCallback>::iterator i = p_callbackList.begin();
@@ -31,7 +29,7 @@ namespace GRUT {
   }
 
   void RenderManager::Initialize(std::shared_ptr<IWindow> p_window) {
-    Instance().m_window = p_window;
+    Instance().window = p_window;
 
     auto paramsCount = GET_CVAR(CVarInt, "frame_params_count");
     Instance().m_frameParamsCount = paramsCount;
@@ -41,9 +39,6 @@ namespace GRUT {
 
     if (true) {//TODO: Config for different apis
       Instance().LoadShaders<GLShader>();
-      Instance().RegisterRenderCallback([&gui = Instance().m_gui, p_window] {
-        gui.Initialize(p_window->GetNativeWindow(), GET_CVAR(CVarString, "glsl_version").c_str());
-      }, CallbackTime::PRE_RENDER, true);
     }
   }
 
@@ -97,7 +92,7 @@ namespace GRUT {
   }
 
   void RenderManager::DrawFrame(FrameParams& p_prevFrame, FrameParams& p_currFrame) {
-    p_currFrame.renderJob = JobManager::Instance().KickJob([&, &m_window = m_window]() {
+    p_currFrame.renderJob = JobManager::Instance().KickJob([&, &window = window]() {
       JobManager::Instance().WaitForJobs({ p_currFrame.updateJob, p_prevFrame.renderJob });
 
       short prevIdx = (m_frameParamsCount + p_currFrame.index - 1) % m_frameParamsCount;
@@ -105,7 +100,7 @@ namespace GRUT {
       m_singleFrameRenderCallbacks[prevIdx].clear();
       m_singleFramePostRenderCallbacks[prevIdx].clear();
 
-      m_window->BeginFrame();
+      window->BeginFrame();
 
       //Call pre-render callbacks
       ExecuteCallbacks(m_preRenderCallbacks);
@@ -119,9 +114,7 @@ namespace GRUT {
       ExecuteCallbacks(m_postRenderCallbacks);
       ExecuteCallbacks(m_singleFramePostRenderCallbacks[p_currFrame.index]);
 
-      m_gui.Render();
-
-      m_window->EndFrame();
+      window->EndFrame();
     });
   }
 

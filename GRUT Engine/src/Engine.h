@@ -5,10 +5,10 @@
 #include "Core/Config/CVar.h"
 
 namespace GRUT {
-  class Root {
+  class Engine {
   public:
-    Root();
-    virtual ~Root();
+    Engine();
+    virtual ~Engine();
     void Run();
     static class Clock& GetGameClock();
   private:
@@ -16,6 +16,4 @@ namespace GRUT {
     FrameParams* m_frames;
     const std::shared_ptr<IWindow> InitializeWindow();
   };
-
-  Root* CreateApplication();
 }

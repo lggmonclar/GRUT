@@ -3,39 +3,21 @@
 #include "Components/Test.h"
 #include "Components/ColliderTest.h"
 #include "Components/CameraController.h"
+#include "GUI/GUI.h"
 
-class Game : public GRUT::Root
-{
+class Editor {
+private:
+  GRUT::Engine *m_engine;
+  GUI m_gui;
+  std::list<RenderCallback>::iterator m_renderCallbackId;
 public:
-  Game() {
-    InstanceTest();
-  }
+  Editor() = default;
+  void Run();
 
   void InstanceTest() {
-    //auto cubeA = GRUT::GameObject::Instantiate();
-    //auto comp = cubeA->AddComponent<GRUT::RenderableComponent>();
-    //comp->SetModel("../GRUT Engine/prefabs/models/sphere.obj");
-    //comp->SetShaderType(GRUT::ShaderTypes::PHONG);
-    //comp->SetShaderVec3("color", Vector3(0.0f, 0.0f, 0.4f));
-    //cubeA->transform->Translate(Vector3(0.0f, 0.0f, 5.0f));
-
-    //cubeA->AddComponent<Test>();
-    //
     auto scene = GRUT::Scene::GetCurrent();
     scene->mainCamera->AddComponent<CameraController>();
     scene->mainCamera->transform->Translate(Vector3(0.0f, 0.0f, -5.0f));
-
-    //int val = 6;
-    //for (int i = 0; i < val; i++) {
-    //  for (int j = 0; j < val; j++) {
-    //    for (int k = 0; k < val; k++) {
-    //      CreateLight(Vector3(i*2.0f, j*2.0f, k*2.0f), Vector3(i / static_cast<float>(val), j / static_cast<float>(val), k / static_cast<float>(val)));
-    //    }
-    //  }
-    //}
-
-    //auto p_a = CreateCollideable(Vector3(5.0f, 0.0f, 0.0f), Vector3(1.0f, 1.0f, 0.0f), true);
-    //auto p_b = CreateCollideable(Vector3(0.0f, 0.0f, 0.0f), Vector3(0.0f, 1.0f, 1.0f));
 
     int val = 3;
     for (int i = 0; i < val; i++) {
@@ -46,8 +28,6 @@ public:
       }
     }
     auto p_a = CreateCollideable(Vector3(5.0f, 0.0f, 0.0f), Vector3(1.0f, 1.0f, 0.0f), true);
-
-    //p_a->gameObject->Destroy();
 
     auto coll = CreateCollideable(Vector3(10.0f, 10.0f, 10.0f), Vector3(1.0f, 1.0f, 1.0f));
 
@@ -114,7 +94,7 @@ public:
     return obj;
   }
 
-  ~Game() {
+  ~Editor() {
 
   }
 };

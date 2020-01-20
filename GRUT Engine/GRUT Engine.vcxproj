@@ -46,7 +46,7 @@
     <OutDir>$(SolutionDir)bin\$(Configuration)-$(Platform)\$(ProjectName)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Configuration)-$(Platform)\$(ProjectName)\</IntDir>
     <TargetName>GRUT</TargetName>
-    <IncludePath>$(SolutionDir)vendor;$(SolutionDir)submodules\imgui;$(ProjectDir)src;$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(SolutionDir)vendor\assimp\include;$(SolutionDir)vendor\stb;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)vendor;$(ProjectDir)src;$(SolutionDir)submodules\GLFW\include;$(SolutionDir)vendor\GLAD\include;$(SolutionDir)GRUT Math;$(SolutionDir)submodules\spdlog\include;$(SolutionDir)vendor\assimp\include;$(SolutionDir)vendor\stb;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)vendor\assimp\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -165,7 +165,6 @@
     <ClInclude Include="src\Graphics\Shaders\GLShader.h" />
     <ClInclude Include="src\Graphics\Shaders\IShader.h" />
     <ClInclude Include="src\Graphics\Shaders\ShaderTypes.h" />
-    <ClInclude Include="src\Graphics\GUI\GUI.h" />
     <ClInclude Include="src\Input\Input.h" />
     <ClInclude Include="src\input\InputManager.h" />
     <ClInclude Include="src\grutpch.h" />
@@ -179,7 +178,7 @@
     <ClInclude Include="src\Physics\GJK.h" />
     <ClInclude Include="src\Physics\PhysicsManager.h" />
     <ClInclude Include="src\resources\ResourceManager.h" />
-    <ClInclude Include="src\Root.h" />
+    <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\core\parallelism\SpinLock.h" />
     <ClInclude Include="src\Core\Debugging\Logger.h" />
     <ClInclude Include="src\core\time\Timer.h" />
@@ -209,7 +208,6 @@
     <ClCompile Include="src\Graphics\Models\GLTexture.cpp" />
     <ClCompile Include="src\Graphics\Shaders\GLShader.cpp" />
     <ClCompile Include="src\Graphics\Shaders\IShader.cpp" />
-    <ClCompile Include="src\Graphics\GUI\GUI.cpp" />
     <ClCompile Include="src\Input\Input.cpp" />
     <ClCompile Include="src\input\InputManager.cpp" />
     <ClCompile Include="src\grutpch.cpp">
@@ -227,7 +225,7 @@
     <ClCompile Include="src\Physics\BVTree.cpp" />
     <ClCompile Include="src\Physics\GJK.cpp" />
     <ClCompile Include="src\Physics\PhysicsManager.cpp" />
-    <ClCompile Include="src\Root.cpp" />
+    <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\Core\Debugging\Logger.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </PrecompiledHeaderFile>

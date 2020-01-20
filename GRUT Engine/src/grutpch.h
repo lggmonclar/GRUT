@@ -22,13 +22,6 @@
 
 #include "GRUTMath.h"
 
-#include <imgui.h>
-#ifndef IMGUI_IMPL_OPENGL_LOADER_GLAD
-  #define IMGUI_IMPL_OPENGL_LOADER_GLAD
-  #include <examples/imgui_impl_opengl3.h>
-  #include <examples/imgui_impl_glfw.h>
-#endif
-
 #ifndef STB_IMAGE_IMPLEMENTATION
   #define STB_IMAGE_IMPLEMENTATION
 #endif

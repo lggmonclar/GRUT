@@ -14,7 +14,7 @@ namespace GRUT {
     static ObjectHandle<GLShader> s_shader;
   public:
     static void Initialize();
-    static void Draw(Vector3 p_center, Vector3 p_scale, Vector3 p_rotation, Vector3 p_color, bool p_drawThisFrame = false);
+    static void Draw(Vector3 p_center, Vector3 p_scale, Vector3 p_rotation, Vector3 p_color, bool p_drawNextFrame = false);
   };
 }
 

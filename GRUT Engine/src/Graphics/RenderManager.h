@@ -5,7 +5,6 @@
 #include "Core/Memory/MemoryManager.h"
 #include "Core/Memory/ObjectHandle.h"
 #include "Shaders/IShader.h"
-#include "GUI/GUI.h"
 
 namespace GRUT {
   struct FrameParams;
@@ -25,16 +24,13 @@ namespace GRUT {
   private:
     U8 m_frameParamsCount = 0;
     SpinLock m_spinLock;
-    std::shared_ptr<IWindow> m_window;
     std::list<RenderCallback> m_preRenderCallbacks;
     std::list<RenderCallback> m_renderCallbacks;
     std::list<RenderCallback> m_postRenderCallbacks;
 
     std::list<RenderCallback> *m_singleFramePreRenderCallbacks = nullptr;
     std::list<RenderCallback> *m_singleFrameRenderCallbacks = nullptr;
-    std::list<RenderCallback> *m_singleFramePostRenderCallbacks = nullptr;
-
-    GUI m_gui;
+    std::list<RenderCallback>* m_singleFramePostRenderCallbacks = nullptr;
 
     std::map<ShaderTypes, ObjectHandle<IShader>> m_shaders;
     RenderManager() = default;
@@ -44,11 +40,11 @@ namespace GRUT {
     void LoadShaders();
     int m_idx = 0;
   public:
-    //inline std::shared_ptr<IWindow> GetWindow() { return m_window; }
     static RenderManager& Instance() {
       static RenderManager instance{};
       return instance;
     }
+    std::shared_ptr<IWindow> window;
     static void Initialize(std::shared_ptr<IWindow> p_window);
     std::list<RenderCallback>::iterator RegisterRenderCallback(std::function<void()> p_callback, CallbackTime p_time = CallbackTime::RENDER, bool p_executeOnce = false);
     void RegisterSingleFrameRenderCallback(std::function<void()> p_callback, CallbackTime p_time, short p_frameIdx = -1);

@@ -4,7 +4,6 @@
 #include "Core/GRUTAlias.h"
 #include "CVarRegistry.h"
 #include <sid/sid.h>
-#include "Root.h"
 
 namespace GRUT {
   #define GET_CVAR(type, key) CVarRegistry::GetCVar<type>(SID(key))->GetVal()

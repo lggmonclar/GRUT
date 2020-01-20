@@ -6,11 +6,14 @@
 #include "CVar.h"
 
 namespace GRUT {
+  class Config;
+
   class CVarRegistry {
   private:
     static std::unordered_map<StringId, ICVar*> s_registry;
     static std::vector<std::string_view> s_keys;
   public:
+
     static inline void RegisterVariable(ICVar* cvar) {
       s_registry.erase(cvar->nameID);
       s_registry.emplace(cvar->nameID, cvar);

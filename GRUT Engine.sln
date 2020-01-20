@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj", "{860DB6A4-84C7-431F-925D-C168730A73CF}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GRUT Engine", "GRUT Engine\GRUT Engine.vcxproj", "{51AF823C-FB77-414C-BB04-A8352FDBC22B}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLFW", "vendor\GLFW\GLFW.vcxproj", "{29320DAB-3086-453E-BC72-3664625A1A9A}"
@@ -25,6 +23,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "stb", "stb", "{B487BFB4-680
 		vendor\stb\stb_image.h = vendor\stb\stb_image.h
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GRUT Editor", "GRUT Editor\GRUT Editor.vcxproj", "{860DB6A4-84C7-431F-925D-C168730A73CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -33,14 +33,6 @@ Global
 		RelWithDebInfo|x64 = RelWithDebInfo|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{860DB6A4-84C7-431F-925D-C168730A73CF}.Debug|x64.ActiveCfg = Debug|x64
-		{860DB6A4-84C7-431F-925D-C168730A73CF}.Debug|x64.Build.0 = Debug|x64
-		{860DB6A4-84C7-431F-925D-C168730A73CF}.MinSizeRel|x64.ActiveCfg = Release|x64
-		{860DB6A4-84C7-431F-925D-C168730A73CF}.MinSizeRel|x64.Build.0 = Release|x64
-		{860DB6A4-84C7-431F-925D-C168730A73CF}.Release|x64.ActiveCfg = Release|x64
-		{860DB6A4-84C7-431F-925D-C168730A73CF}.Release|x64.Build.0 = Release|x64
-		{860DB6A4-84C7-431F-925D-C168730A73CF}.RelWithDebInfo|x64.ActiveCfg = Release|x64
-		{860DB6A4-84C7-431F-925D-C168730A73CF}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{51AF823C-FB77-414C-BB04-A8352FDBC22B}.Debug|x64.ActiveCfg = Debug|x64
 		{51AF823C-FB77-414C-BB04-A8352FDBC22B}.Debug|x64.Build.0 = Debug|x64
 		{51AF823C-FB77-414C-BB04-A8352FDBC22B}.MinSizeRel|x64.ActiveCfg = Release|x64
@@ -73,6 +65,14 @@ Global
 		{0B01FF7F-25B3-4A7D-B143-463C256F7E51}.Release|x64.Build.0 = Release|x64
 		{0B01FF7F-25B3-4A7D-B143-463C256F7E51}.RelWithDebInfo|x64.ActiveCfg = Release|x64
 		{0B01FF7F-25B3-4A7D-B143-463C256F7E51}.RelWithDebInfo|x64.Build.0 = Release|x64
+		{860DB6A4-84C7-431F-925D-C168730A73CF}.Debug|x64.ActiveCfg = Debug|x64
+		{860DB6A4-84C7-431F-925D-C168730A73CF}.Debug|x64.Build.0 = Debug|x64
+		{860DB6A4-84C7-431F-925D-C168730A73CF}.MinSizeRel|x64.ActiveCfg = Release|x64
+		{860DB6A4-84C7-431F-925D-C168730A73CF}.MinSizeRel|x64.Build.0 = Release|x64
+		{860DB6A4-84C7-431F-925D-C168730A73CF}.Release|x64.ActiveCfg = Release|x64
+		{860DB6A4-84C7-431F-925D-C168730A73CF}.Release|x64.Build.0 = Release|x64
+		{860DB6A4-84C7-431F-925D-C168730A73CF}.RelWithDebInfo|x64.ActiveCfg = Release|x64
+		{860DB6A4-84C7-431F-925D-C168730A73CF}.RelWithDebInfo|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

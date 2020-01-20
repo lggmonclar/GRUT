@@ -1,5 +1,5 @@
 #include "grutpch.h"
-#include "Root.h"
+#include "Engine.h"
 #include "Core/Parallelism/FrameParams.h"
 #include "Core/Timing/Clock.h"
 #include "Core/Memory/MemoryManager.h"
@@ -13,7 +13,7 @@
 #include "Core/Config/Config.h"
 
 namespace GRUT {
-  Root::Root() {
+  Engine::Engine() {
     GRUT::Config::Instance().Read("config.cfg");
 
     MemoryManager::Initialize();
@@ -27,13 +27,13 @@ namespace GRUT {
     GetGameClock();
   }
 
-  Root::~Root() {
+  Engine::~Engine() {
     JobManager::Instance().Destroy();
     CVarRegistry::Destroy();
     delete[] m_frames;
   }
 
-  void Root::Run() {
+  void Engine::Run() {
     int frameParamsCount = GET_CVAR(CVarInt, "frame_params_count");
     m_frames = new FrameParams[frameParamsCount];
 
@@ -70,11 +70,11 @@ namespace GRUT {
       currIndex = (currIndex + 1) % frameParamsCount;
     }
   }
-  const std::shared_ptr<IWindow> Root::InitializeWindow() {
+  const std::shared_ptr<IWindow> Engine::InitializeWindow() {
     return std::shared_ptr<IWindow>(new GLWindow());
   }
 
-  Clock& Root::GetGameClock() {
+  Clock& Engine::GetGameClock() {
     static Clock clock{};
     return clock;
   }

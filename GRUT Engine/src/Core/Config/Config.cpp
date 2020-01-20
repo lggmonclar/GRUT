@@ -2,6 +2,7 @@
 #include "Config.h"
 #include "ICVar.h"
 #include "Core/FileSystem.h"
+#include "CVarRegistry.h"
 
 namespace GRUT {
   void Config::Read(const char* p_filePath) {

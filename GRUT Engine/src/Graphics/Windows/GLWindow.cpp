@@ -27,7 +27,7 @@ namespace GRUT {
     glfwMakeContextCurrent(m_window);
 
     //Set default OS cursor to be disabled
-    glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    //glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     //Set callback functions
     glfwSetWindowUserPointer(m_window, this);
     glfwSetFramebufferSizeCallback(m_window, [](GLFWwindow* window, int width, int height) {
@@ -64,6 +64,11 @@ namespace GRUT {
 
     //Enable depth testing
     glEnable(GL_DEPTH_TEST);
+
+    //Maximize window based on settings
+    if (GET_CVAR(CVarInt, "window_start_maximized")) {
+      glfwMaximizeWindow(m_window);
+    }
 
     //Set current context to NULL as the window context will be used by another thread after initialization
     glfwMakeContextCurrent(NULL);
