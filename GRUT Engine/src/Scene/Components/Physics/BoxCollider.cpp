@@ -6,54 +6,54 @@
 #include "Physics/AABB.h"
 
 namespace GRUT {
-  Vector3 BoxCollider::Support(const Vector3& p_direction) {
-    Vector3 chosenVertex;
-    float maxDist = -FLT_MAX;
+    Vector3 BoxCollider::Support(const Vector3& p_direction) {
+        Vector3 chosenVertex;
+        float maxDist = -FLT_MAX;
 
-    auto model = gameObject->transform->modelMatrix;
+        auto model = gameObject->transform->modelMatrix;
 
-    for (int i = 0; i < 8; i++) {
-      auto vert = m_vertices[i].ApplyMatrix4(gameObject->transform->modelMatrix);
+        for (int i = 0; i < 8; i++) {
+            auto vert = m_vertices[i].ApplyMatrix4(gameObject->transform->modelMatrix);
 
-      auto dist = vert.Dot(p_direction);
-      if (dist > maxDist) {
-        maxDist = dist;
-        chosenVertex = vert;
-      }
+            auto dist = vert.Dot(p_direction);
+            if (dist > maxDist) {
+                maxDist = dist;
+                chosenVertex = vert;
+            }
+        }
+
+        return chosenVertex;
     }
 
-    return chosenVertex;
-  }
-
-  void BoxCollider::Update(float p_deltaTime) {
-    DEBUG_DRAW_BOX(gameObject->transform->GetPosition(), Vector3(1.0f, 1.0f, 1.0f), Vector3(0.0f, 0.0f, 0.0f), m_colliderColor);
-  }
-
-  void BoxCollider::OnCollisionEnter(ObjectHandle<ICollider> &p_other) {
-    m_colliderColor = Vector3(1.0f, 0.0f, 0.2f);
-  }
-
-  void BoxCollider::OnCollisionExit(ObjectHandle<ICollider> &p_other) {
-    m_colliderColor = Vector3(0.0f, 0.95f, 0.2f);
-  }
-  AABB BoxCollider::GetFatAABB() {
-    AABB aabb = GetAABB();
-    aabb.Expand(s_fatFactor);
-    return aabb;
-  }
-  AABB BoxCollider::GetAABB() {
-    auto transform = gameObject->transform;
-    Vector3 size = transform->GetScale();
-    Vector3 aabbSize;
-    auto right = transform->GetRightVector();
-    auto up = transform->GetUpVector();
-    auto front = transform->GetFrontVector();
-
-    for (int i = 0; i < 3; ++i) {
-      aabbSize[i] = abs(right[i]) * size.x + abs(up[i]) * size.y + abs(front[i]) * size.z;
+    void BoxCollider::Update(float p_deltaTime) {
+        DEBUG_DRAW_BOX(gameObject->transform->GetPosition(), Vector3(1.0f, 1.0f, 1.0f), Vector3(0.0f, 0.0f, 0.0f), m_colliderColor);
     }
 
-    auto pos = transform->GetPosition();
-    return AABB(pos, aabbSize);
-  }
+    void BoxCollider::OnCollisionEnter(ObjectHandle<ICollider>& p_other) {
+        m_colliderColor = Vector3(1.0f, 0.0f, 0.2f);
+    }
+
+    void BoxCollider::OnCollisionExit(ObjectHandle<ICollider>& p_other) {
+        m_colliderColor = Vector3(0.0f, 0.95f, 0.2f);
+    }
+    AABB BoxCollider::GetFatAABB() {
+        AABB aabb = GetAABB();
+        aabb.Expand(s_fatFactor);
+        return aabb;
+    }
+    AABB BoxCollider::GetAABB() {
+        auto transform = gameObject->transform;
+        Vector3 size = transform->GetScale();
+        Vector3 aabbSize;
+        auto right = transform->GetRightVector();
+        auto up = transform->GetUpVector();
+        auto front = transform->GetFrontVector();
+
+        for (int i = 0; i < 3; ++i) {
+            aabbSize[i] = abs(right[i]) * size.x + abs(up[i]) * size.y + abs(front[i]) * size.z;
+        }
+
+        auto pos = transform->GetPosition();
+        return AABB(pos, aabbSize);
+    }
 }

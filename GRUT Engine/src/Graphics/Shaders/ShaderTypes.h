@@ -2,8 +2,8 @@
 #include "DLLMacros.h"
 
 namespace GRUT {
-  enum class ShaderTypes {
-    DIFFUSE,
-    PHONG
-  };
+    enum class ShaderTypes {
+        DIFFUSE,
+        PHONG
+    };
 }

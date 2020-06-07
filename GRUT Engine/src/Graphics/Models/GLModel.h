@@ -5,5 +5,5 @@
 #include "Graphics/Shaders/GLShader.h"
 
 namespace GRUT {
-  class GLModel : public Model<GLMesh, GLTexture, GLShader> {};
+    class GLModel : public Model<GLMesh, GLTexture, GLShader> {};
 }

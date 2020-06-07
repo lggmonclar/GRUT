@@ -5,14 +5,16 @@
 #include <memory>
 
 namespace GRUT {
-  class Logger {
-    friend class Engine;
-  private:
-    static std::shared_ptr<spdlog::logger> s_logger;
-    static void Initialize();
-  public:
-    static std::shared_ptr<spdlog::logger>& Instance() { return s_logger; }
-  };
+    class Logger {
+        friend class Engine;
+
+        private:
+            static std::shared_ptr<spdlog::logger> s_logger;
+            static void Initialize();
+
+        public:
+            static std::shared_ptr<spdlog::logger>& Instance() { return s_logger; }
+    };
 }
 
 // Log macros
